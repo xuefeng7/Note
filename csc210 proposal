@@ -1,2 +1,21 @@
 csc210 proposal 
-Yiping
+
+Name of our Web: X-Note
+
+Target audience: 
+1.Students who wants to share their high quality notes for reputation (and extra benefit?)
+2.Students who wants to get access to notes and Ace the courses. 
+
+The Web offers:
+Our web application is a platform for students to share notes for specific courses. The users need to sign up with email and courses he or she is taking for the current semester. After signing in, user can access to the courses pages and read the preview version of notes uploaded by other users. To view the full version of the notes, the users need to buy the privilege with virtual coins. Also, registered users can upload notes to the courses they are taking and earn virtual coins after the notes get approved. I
+
+How it meet the minimum requirements:
+1.allow users to create accounts and add new persistent data
+2.read data from the server and present it on a webpage
+3.allow users to update their existing data
+4.allow users to delete their own data and accounts	
+5.do all of the above without reloading the webpage (Ajax)
+	
+Each users will be required to sign in and update personal information like profile name,email address, password and currently taking courses. Also, the data can be change and reload anytime. After the user log in, the main page will display navigation of each selected courses and relative notes. Also,there will be a comment section under every notes, where users who purchase the notes can rate and comment it. 
+
+Why our web is unique and creative beyond simply meeting the minimum requirement:
