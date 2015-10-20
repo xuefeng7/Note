@@ -48,3 +48,11 @@ Allow users to create account and manipulate their profile is just a small corne
 ![image of diagram]
 (https://raw.githubusercontent.com/xuefeng7/Xnote/master/diagram.png)
 
+After the user log in, the main page will display navigation of each selected courses and relative notes. Also,there will be a comment section under every notes, where users who purchase the notes can rate and make comments.  
+For users who want to sell their notes, they first upload their note for review. Once their notes get approved, the money will be issued to their account. Also each user will have a selling repository which holds users' selling history. 
+
+For web3.0 featured design, we have a thought to have a instantly changing best-sell note highlight for each course section. Since comments function has been designed for each note sold, we can combine the selling amount with the comments to evaluate each note’s value and popularity, to rank all the available notes of each course. The top three notes for each course will be elected to the frontpage for each course, represented in a rolling highlights or in some other ways.
+Such highlight part could be refreshed by the server side automatically for every 3 minutes. The update will be handled by python code(or other program language) without getting any manipulations from browsers or users. The server side do all the calculations and evaluation of the records in our database for each note rank them for potential highlight.
+The continuous changing highlight notes in the frontpage for each section may offer a more interactive element to the website we design.
+
+
