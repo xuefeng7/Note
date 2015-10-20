@@ -45,7 +45,6 @@ All users, regardless using Xnote for the purpose of selling or buying notes, ha
 
 Allow users to create account and manipulate their profile is just a small corner of our web application. The main part that involves high frequency and huge amount of data creating, updating and deleting. The experiences of using our web application can be mirrored as follow: 
 
-![alt text][logo]
-
-[logo]:
+![image of diagram]
+(https://raw.githubusercontent.com/xuefeng7/Xnote/master/diagram.png)
 
