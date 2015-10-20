@@ -42,5 +42,10 @@ All users, regardless using Xnote for the purpose of selling or buying notes, ha
   * Each step that involves the interaction with the server will update the information in a particular web page that a user is facing by JavaScript code. And the asynchronous process of talking with server will be invoked at the same time; thereby, even if the user does not reload anything, he/she will see the latest information he/she just has manipulated. 
 
 **Why Xnote is unique and creative beyond simply meeting the minimum requirements**
+
 Allow users to create account and manipulate their profile is just a small corner of our web application. The main part that involves high frequency and huge amount of data creating, updating and deleting. The experiences of using our web application can be mirrored as follow: 
+
+![alt text][logo]
+
+[logo]:
 
