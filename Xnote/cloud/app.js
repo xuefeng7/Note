@@ -25,6 +25,7 @@ app.get('/hello', function(req, res) {
 //   // POST http://example.parseapp.com/test (with request body "message=hello")
 //   res.send(req.body.message);
 // });
-
+//User endpoints
+app.use('/', require('cloud/user'));
 // Attach the Express app to Cloud Code.
 app.listen();
