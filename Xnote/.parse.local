@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Xnote": {
+      "applicationId": "k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU"
+    },
+    "_default": {
+      "link": "Xnote"
+    }
+  }
+}
