@@ -13,13 +13,15 @@ module.exports = function (){
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     //profile image
-    var profile_pic = req.body.profile_pic;
+    //var profile_pic = req.body.profile_pic;
 
     var user = new Parse.User();
     user.set('username', username);
     user.set('password', password);
     user.set('email', username); //username = email
-    user.set('profile',profile_pic);
+    user.set('first_name',first_name);
+    user.set('last_name', last_name);
+    //user.set('profile',profile_pic);
     
     user.signUp().then(function(user) {
       res.redirect('/');
