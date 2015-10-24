@@ -5,3 +5,9 @@
 .panel-default > .panel-body {
   background-color: #CAE1FF;
 }
+
+.signup-form {
+	width: 70%;
+	margin-left: auto;
+    margin-right: auto;
+}

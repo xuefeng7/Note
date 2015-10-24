@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Stylish Portfolio - Start Bootstrap Theme</title>
+    <title>Xnote</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" href="css/override.css">
+    <link rel="stylesheet" href="css/override.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,87 +30,122 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+    <!-- ******************************* 暴力尝试 *********************************-->
+    <script>
+      window.MP_REGISTER_DATA = {};
+    </script>
+  
+
+  
+  <script>
+    window.utag_data = {
+      eventType: 'signup',
+      eventName: 'candy.view',
+      lite: true,
+      promocode: 'None'
+    };
+  </script>
+
+
+  
+    <!-- Override this block in any templates that do not need vendor.js loaded in head. -->
+    <script type="text/javascript" src="https://d1a3f4spazzrp4.cloudfront.net/free-candy/scripts/vendor.ea48b497315881a66eaf092423dbe1a9.js" ></script>
+  
+
+  
+    <script>
+         window.leaveText = "您还没有完成创建帐号。";
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://d1a3f4spazzrp4.cloudfront.net/free-candy/stylesheets/base_signup_lite.8bbeb997ba202f8a51139c82c7667948.css">
+    <link rel="stylesheet" type="text/css" href="https://d1a3f4spazzrp4.cloudfront.net/free-candy/stylesheets/base_signup_creditcardicon.105317a798313d007bc0810fa413fc36.css">
+  
+    <link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/free-candy/external/stylesheets/uber-fonts/3.0.0/superfine.239ba149d8e233e0c2017ed772bc8973.css"/>
+
 </head>
 
 <body>
 
     <!-- Navigation -->
-    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-    <nav id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-            <li class="sidebar-brand">
-                <a href="#top"  onclick = $("#menu-close").click(); >Xnote</a>
-            </li>
-            <li>
-                <a href="#top" onclick = $("#menu-close").click(); >Home</a>
-            </li>
-            <li>
-                <a href="#about" onclick = $("#menu-close").click(); >Log in</a>
-            </li>
-            <li>
-                <a href="#services" onclick = $("#menu-close").click(); >Abount Us</a>
-            </li>
-            <!-- 登陆后应该有不同的menu -->
 
-            <!-- add navigation bar   
-            http://bootsnipp.com/snippets/featured/fancy-navbar-login-sign-in-form  -->
+    <!-- ********************************* Sign up Form ***************************** -->
 
-
-        </ul>
-    </nav>
-
-    <!-- Header -->
     <header id="top" class="header">
-        <div class="text-vertical-center">
-            <div class="container">
-        <div class="row centered-form">
-        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                        <h3 class="panel-title">JOIN NOW</h3>
-                        </div>
-                        <div class="panel-body">
-                        <form role="form">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                            <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
-                                    </div>
-                                </div>
-                            </div>
+        <section class="signup-form">
+    <article class="form-container">
+      <form class="form-vertical" action="/signup_submit/" method="POST" autocomplete="on">
 
-                            <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-                            </div>
+    <!-- ***************************** Section 1 ************************* -->
 
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <input type="submit" value="Register" class="btn btn-info btn-block">
-                        
-                        </form>
-                    </div>
-                </div>
+        <div class="signup-form-section account">
+          <div class="signup-form-section-title"><p>帐户</p></div>
+          <div class="signup-form-section-required">必填项</div>
+          <div class="signup-form-section-number blue">1</div>
+          <div class="signup-form-section-line"></div> 
+  
+        <div class="form-group required ">
+      
+            <label for="email">电子邮箱</label>   
+  
+            <input type="email" value="" name="email" id="email"  placeholder="邮件"    >
+  
+            <div class="error-notice"></div>
+        </div>
+          
+        <div class="form-group required ">
+
+            <label for="password">密码</label>
+
+            <input type="password" value="" name="password" id="password"  placeholder="最少五个字符"   >
+  
+            <div class="error-notice"></div>
+        </div>
+        </div>
+
+ <!-- ***************************** Section 2 ************************* -->
+
+    <div class="signup-form-section profile">
+          <div class="signup-form-section-title"><p>个人资料</p></div>
+          <div class="signup-form-section-number">2</div>
+          <div class="signup-form-section-line"></div>
+           
+        <div class="form-group required ">
+            <label for="name">名称</label>
+            <div class="row form-row">
+            <div class="col-md-6 col-xs-6 md-push-right-half sm-push-right-half xs-push-right-half">
+
+            <input type="text" value="" name="first_name" id="first_name"  placeholder="名" >
+  
+            <div class="error-notice"></div>
+            </div>
+
+            <div class="col-md-6 col-xs-6 md-push-left-half xs-push-left-half">
+ 
+                <input type="text" value="" name="last_name" id="last_name"  placeholder="姓" >
+  
+                <div class="error-notice"></div>
+            </div>
             </div>
         </div>
-    </div> 
+    </div>
+
+ <!-- ***************************** Section 3 ************************* -->
+
+        <div class="signup-form-section submit">
+            <div class="signup-form-section-title"><p>Finish</p></div>
+            <div class="signup-form-section-number">3</div>
+            <div class="signup-form-section-line"></div>
+            <div class="col-md-12">
+    
+                <div class="form-group">
+                      <button type="submit" class="btn btn-primary js-submit disabled" >创建帐户</button>
+                </div>
+                <div class="signup-form-section-notice">请填写所有必填 (<span class="star">*</span>) 信息。</div>
+            </div>
+
+          <div class="signup-form-section-number"></div>
         </div>
+    
     </header>
     
     <!--login modal
