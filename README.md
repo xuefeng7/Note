@@ -1,2 +1,2 @@
 # Xnote
-#This is the project for CSC210
+This is the project for CSC210
