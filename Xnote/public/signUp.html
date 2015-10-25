@@ -65,6 +65,46 @@
 </head>
 
 <body>
+    <script type = "text/javascript">
+
+    $(document).ready(function() {
+
+      // define a generic Ajax error handler:
+      // http://api.jquery.com/ajaxerror/
+      $(document).ajaxError(function() {
+         alert("Sorry, there was a problem!");
+        });
+
+      //sign up user handler
+      $("#signUpUser").click(function() {
+        $.ajax({
+
+            url: "/signup_submit/",
+            type: "POST",
+            dataType: "text",
+            //encapuslate user sign up information
+            data : {
+                email: $("#email").val(),
+                password: $("#password").val(),
+                first_name: $("#first_name").val(),
+                last_name: $("#last_name").val()
+            },
+
+            success: function(data) {
+                
+                if (data == 'succeed') {
+                    console.log('succeed');
+                }else{
+                    alert(data);
+                    console.log(data);
+                }
+            },
+        });
+
+      });
+
+    });
+    </script>
 
     <!-- Navigation -->
 
@@ -73,7 +113,7 @@
     <header id="top" class="header">
         <section class="signup-form">
     <article class="form-container">
-      <form class="form-vertical" action="/signup_submit/" method="POST" autocomplete="on">
+      <!--<form class="form-vertical" action="/signup_submit/" method="POST" autocomplete="on"> -->
 
     <!-- ***************************** Section 1 ************************* -->
 
@@ -138,7 +178,7 @@
             <div class="col-md-12">
     
                 <div class="form-group">
-                      <button type="submit" class="btn btn-primary js-submit">创建帐户</button>
+                      <button type="submit" class="btn btn-primary js-submit" id="signUpUser">创建帐户</button>
                        <!-- //class="btn btn-primary js-submit disabled" -->
                 </div>
                 <div class="signup-form-section-notice">请填写所有必填 (<span class="star">*</span>) 信息。</div>

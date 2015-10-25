@@ -24,10 +24,12 @@ module.exports = function (){
     //user.set('profile',profile_pic);
     
     user.signUp().then(function(user) {
-      res.redirect('/');
+      res.send('success');
+      return;
     }, function(error) {
       // Show the error message and let the user try again
-      res.render('signup', { flash: error.message });
+      res.send(error.message+", please give it another shot");
+      return;
     });
   });
 
