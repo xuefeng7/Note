@@ -24,11 +24,13 @@ module.exports = function (){
     //user.set('profile',profile_pic);
     
     user.signUp().then(function(user) {
+      console.log('a user just signed up')
       res.send('success');
       return;
     }, function(error) {
       // Show the error message and let the user try again
-      res.send(error.message+", please give it another shot");
+      console.log('failed sign up a user with error',error)
+      res.send(error.message);
       return;
     });
   });
