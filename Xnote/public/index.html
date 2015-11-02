@@ -94,8 +94,7 @@
                                 <div class="form-group">
                                     <div class="col-md-2 col-md-offset-5">
                                         <!-- <input type="submit" class="btn btn-success" value="submit",id="loginUser"> -->
-                                       <button type="submit" class="btn btn-success" id="loginUser">Log In</button> 
-                                       
+                                       <button type="submit" class="btn btn-success" id="loginUser">Log In</button>  
                                     </div>
                                 </div>
 
@@ -167,7 +166,7 @@
 
         // user logging in handler
       $("#loginUser").click(function() {
-        
+
         $.ajax({
 
             url: "/log_in/",
@@ -183,7 +182,7 @@
             success: function(data) {
                 
                 if (data == 'succeed') {
-                    console.log('successfully log in !');
+                    console.log('successfully log in!');
                 }else{
                     alert(data);
                     console.log(data);
