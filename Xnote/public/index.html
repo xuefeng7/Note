@@ -93,8 +93,9 @@
 
                                 <div class="form-group">
                                     <div class="col-md-2 col-md-offset-5">
-                                       <!-- <input type="submit" class="btn btn-success" value="submit">  -->
-                                       <button type="submit" class="btn btn-primary js-submit" id="loginUser">Log In</button>
+                                        <!-- <input type="submit" class="btn btn-success" value="submit",id="loginUser"> -->
+                                       <button type="submit" class="btn btn-success" id="loginUser">Log In</button> 
+                                       
                                     </div>
                                 </div>
 
@@ -152,24 +153,21 @@
 
     <script type="text/javascript" src='js/fyll.js'></script>
     <script type="text/javascript" src='js/index.js'></script>
-    <!-- log in -->
-     <script type = "text/javascript">
+
+       <!-- log in -->
+    <script type = "text/javascript">
 
     $(document).ready(function() {
 
       // define a generic Ajax error handler:
       // http://api.jquery.com/ajaxerror/
       $(document).ajaxError(function() {
-         alert("something went wrong");
+         alert("damn, something went wrong");
         });
 
         // user logging in handler
       $("#loginUser").click(function() {
-
-        console.log('works!');
-         console.log($("#loginEmail").val());
-          console.log($("#loginPassword").val());
-
+        
         $.ajax({
 
             url: "/log_in/",
@@ -177,10 +175,9 @@
             dataType: "text",
             //encapuslate user sign up information
             data : {
+
                 email: $("#loginEmail").val(),
                 password: $("#loginPassword").val()
-                //first_name: $("#first_name").val(),
-               // last_name: $("#last_name").val()
             },
 
             success: function(data) {
@@ -198,6 +195,7 @@
 
     });
     </script>
+
 
 </body>
 

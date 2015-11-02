@@ -37,18 +37,30 @@ module.exports = function (){
 
   // Logs in the user endpoint
   app.post('/log_in/', function(req, res) {
+    
     var username = req.body.email;
     var password = req.body.password;
-    Parse.User.logIn(req.body.username, req.body.password).then(function(user) {
-      console.log('a user just logged in');
+
+    Parse.User.logIn(username, password, {
+      success: function(user) {
       res.send('succeed');
       return;
-    }, function(error) {
-      console.log('log in failed with error',error);
+     },
+      error: function(user, error) {
       res.send(error.message);
       return;
-    });
+    }
   });
+  //   Parse.User.logIn(username, password).then(function(user) {
+  //     console.log('a user just logged in');
+  //     res.send('succeed');
+  //     return;
+  //   }, function(error) {
+  //     console.log('log in failed with error',error);
+  //     res.send(error.message);
+  //     return;
+  //   });
+   });
 
     // Logs out the user
   app.post('/logout', function(req, res) {
