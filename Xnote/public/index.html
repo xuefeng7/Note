@@ -80,20 +80,21 @@
                                 <div class="form-group">
                                     <label class="col-md-4 col-md-offset-1">Email:</label>
                                     <div class="col-md-5">
-                                        <input type="email" class="form-control input-sm">
+                                        <input type="email" class="form-control input-sm" id="loginEmail" value="" placeholder="fill in your email address" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-4 col-md-offset-1">Password:</label>
                                     <div class="col-md-5">
-                                        <input type="password" class="form-control input-sm">
+                                        <input type="password" class="form-control input-sm" value="" id="loginPassword" placeholder="password here" >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-2 col-md-offset-5">
-                                        <input type="submit" class="btn btn-success" value="submit">
+                                       <!-- <input type="submit" class="btn btn-success" value="submit">  -->
+                                       <button type="submit" class="btn btn-primary js-submit" id="loginUser">Log In</button>
                                     </div>
                                 </div>
 
@@ -146,6 +147,45 @@
             }
         });
     });
+
+
+    // user logging in handler
+      $("#loginUser").click(function() {
+
+        console.log('works!');
+         console.log($("#loginEmail").val());
+          console.log($("#loginPassword").val());
+
+        $.ajax({
+
+            url: "/log_in/",
+            type: "POST",
+            dataType: "text",
+            //encapuslate user sign up information
+            data : {
+                email: $("#loginEmail").val(),
+                password: $("#loginPassword").val(),
+                //first_name: $("#first_name").val(),
+               // last_name: $("#last_name").val()
+            },
+
+            success: function(data) {
+                
+                if (data == 'succeed') {
+                    console.log('successfully log in !');
+                }else{
+                    alert(data);
+                    console.log(data);
+                }
+            },
+        });
+
+      });
+
+    });
+
+
+
     </script>
 
     <script type="text/javascript" src='js/fyll.js'></script>
