@@ -148,8 +148,22 @@
         });
     });
 
+    </script>
 
-    // user logging in handler
+    <script type="text/javascript" src='js/fyll.js'></script>
+    <script type="text/javascript" src='js/index.js'></script>
+    <!-- log in -->
+     <script type = "text/Log in">
+
+    $(document).ready(function() {
+
+      // define a generic Ajax error handler:
+      // http://api.jquery.com/ajaxerror/
+      $(document).ajaxError(function() {
+         alert("something went wrong");
+        });
+
+        // user logging in handler
       $("#loginUser").click(function() {
 
         console.log('works!');
@@ -183,14 +197,7 @@
       });
 
     });
-
-
-
     </script>
-
-    <script type="text/javascript" src='js/fyll.js'></script>
-    <script type="text/javascript" src='js/index.js'></script>
-
 
 </body>
 

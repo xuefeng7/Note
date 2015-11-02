@@ -35,13 +35,13 @@ module.exports = function (){
     });
   });
 
-  // Logs in the user
-  app.post('/login/', function(req, res) {
+  // Logs in the user endpoint
+  app.post('/log_in/', function(req, res) {
     var username = req.body.email;
-    var password = req.body
+    var password = req.body.password;
     Parse.User.logIn(req.body.username, req.body.password).then(function(user) {
       console.log('a user just logged in');
-      res.send('success');
+      res.send('succeed');
       return;
     }, function(error) {
       console.log('log in failed with error',error);
