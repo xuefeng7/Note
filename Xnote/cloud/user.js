@@ -36,12 +36,17 @@ module.exports = function (){
   });
 
   // Logs in the user
-  app.post('/login', function(req, res) {
+  app.post('/login/', function(req, res) {
+    var username = req.body.email;
+    var password = req.body
     Parse.User.logIn(req.body.username, req.body.password).then(function(user) {
-      res.redirect('/');
+      console.log('a user just logged in');
+      res.send('success');
+      return;
     }, function(error) {
-      // Show the error message and let the user try again
-      res.render('login', { flash: error.message });
+      console.log('log in failed with error',error);
+      res.send(error.message);
+      return;
     });
   });
 
