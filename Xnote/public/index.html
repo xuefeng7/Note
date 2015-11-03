@@ -56,6 +56,7 @@
             <!-- 登陆后应该有不同的menu -->
 
 
+
         </ul>
     </nav>
 
@@ -75,7 +76,7 @@
                             <h4 class="modal-title">Log in<h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal">
+                   
 
                                 <div class="form-group">
                                     <label class="col-md-4 col-md-offset-1">Email:</label>
@@ -93,12 +94,11 @@
 
                                 <div class="form-group">
                                     <div class="col-md-2 col-md-offset-5">
-                                        <!-- <input type="submit" class="btn btn-success" value="submit",id="loginUser"> -->
                                        <button type="submit" class="btn btn-success" id="loginUser">Log In</button>  
                                     </div>
                                 </div>
 
-                            </form>
+                          
                         </div>
                         <div class="modal-footer"></div>
                     </div>
@@ -149,7 +149,7 @@
     });
 
     </script>
-
+    
     <script type="text/javascript" src='js/fyll.js'></script>
     <script type="text/javascript" src='js/index.js'></script>
 
@@ -160,9 +160,9 @@
 
       // define a generic Ajax error handler:
       // http://api.jquery.com/ajaxerror/
-      $(document).ajaxError(function() {
-         alert("damn, something went wrong");
-        });
+      // $(document).ajaxError(function() {
+      //    alert("damn, something went wrong");
+      //   });
 
         // user logging in handler
       $("#loginUser").click(function() {
@@ -188,13 +188,31 @@
                     console.log(data);
                 }
             },
+            error: function (jqXHR, exception) {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+       alert(msg);
+    },
         });
 
       });
 
     });
     </script>
-
 
 </body>
 
