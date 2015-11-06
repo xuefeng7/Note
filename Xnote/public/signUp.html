@@ -93,8 +93,11 @@
 
             success: function(data) {
                 
-                if (data == 'succeed') {
+                if (data) {
                     console.log('succeed');
+                    var user = $.parseJSON(data);
+                    $("#userName").html(user['first_name']+" "+user['last_name']);
+                    window.location.replace("/");
                 }else{
                     alert(data);
                     console.log(data);
