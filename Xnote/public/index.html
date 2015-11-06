@@ -306,7 +306,7 @@
                 
                 if (data) {
                     console.log("userinfo: "+data);
-                    $("#userName").html(data["first_name"]+" "+data["last_name"]);
+                    $("#userName").html(data[0].first_name+" "+data[0].last_name);
                 }else{
                     alert(data);
                     console.log(data);
