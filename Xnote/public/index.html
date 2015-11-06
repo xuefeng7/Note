@@ -305,8 +305,8 @@
             success: function(data) {
                 
                 if (data) {
-                    console.log("userinfo: "+data);
-                    $("#userName").html(data[0].first_name+" "+data[0].last_name);
+                    console.log("userinfo: "+data.first_name+" ,"+data.get('first_name'));
+                    $("#userName").html(data.get('first_name')+" "+data.get('last_name'));
                 }else{
                     alert(data);
                     console.log(data);
