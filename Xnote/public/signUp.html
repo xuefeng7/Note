@@ -97,7 +97,7 @@
                     console.log('succeed');
                     var user = $.parseJSON(data);
                     $("#userName").html(user['first_name']+" "+user['last_name']);
-                    window.location.replace("/");
+                    window.location.replace("http://xnote.parseapp.com");
                 }else{
                     alert(data);
                     console.log(data);
