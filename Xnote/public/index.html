@@ -305,7 +305,7 @@
             success: function(data) {
                 
                 if (data) {
-                    console.log('successfully log in!');
+                    console.log("userinfo: "+data);
                     $("#userName").html(data.first_name+" "+data.last_name);
                 }else{
                     alert(data);
