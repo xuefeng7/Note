@@ -43,7 +43,7 @@ module.exports = function (){
 
       Parse.User.logIn(username, password, {
         success: function(user) {
-          res.send('succeed');
+          res.send(user);
           return;
         },
         error: function(user, error) {
