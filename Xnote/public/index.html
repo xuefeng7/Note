@@ -115,7 +115,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label=""><span>&times;</span></button>
-                            <h4 class="modal-title">Log in<h4>
+                            <h4 class="modal-title">Log in</h4>
                         </div>
                         <div class="modal-body">
                              <form class="form-horizontal" action="">
@@ -306,7 +306,7 @@
                 
                 if (data) {
                     console.log("userinfo: "+data);
-                    $("#userName").html(data.first_name+" "+data.last_name);
+                    $("#userName").html(data["first_name"]+" "+data["last_name"]);
                 }else{
                     alert(data);
                     console.log(data);
