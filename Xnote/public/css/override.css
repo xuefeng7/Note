@@ -10,4 +10,16 @@
 	width: 70%;
 	margin-left: auto;
     margin-right: auto;
+    padding: 30px;
+    border-radius: 20px;
+    background: url('white-bg.jpg');
+}
+
+.signup-form{
+	background-color: rgba(255, 255, 255, 0.74);
+}
+
+.form-group label {
+	color: black;
+	font-weight: 900;
 }
