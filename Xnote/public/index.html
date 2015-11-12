@@ -19,7 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"> 
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"> 
 
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
@@ -193,7 +193,7 @@
                                 <h4>
                                     <strong>Create Notes</strong>
                                 </h4>
-                                <p>Upload notes and share with each others</p>
+                                <p>Upload notes and share with each other</p>
                                 <a href="#" class="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -277,16 +277,33 @@
 
        <!-- log in -->
     <script type = "text/javascript">
+    
+    //force non-https request to https
+    if (window.location.protocol != "https:"){
+
+    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    
+    }
 
     $(document).ready(function() {
+      
+      $.ajax({
 
-      // define a generic Ajax error handler:
-      // http://api.jquery.com/ajaxerror/
-      // $(document).ajaxError(function() {
-      //    alert("damn, something went wrong");
-      //   });
+        url: "/user?",
+        type: "GET",
 
-        // user logging in handler
+        success: function(data) {
+                
+                if (data === 'failed') {
+                   console.log("fetch cached user failed");
+
+                }else{
+                   //has cached user 
+                    $("#userName").html(data['first_name']+" "+data['last_name']);
+                }
+            }
+      });      
+      // user logging in handler
       $("#loginUser").click(function(event) {
         //prevent the default redirect event
         event.preventDefault(); 
@@ -306,8 +323,9 @@
                 
                 if (data) {
                     var user = $.parseJSON(data);
-                    console.log("userinfo: "+user.first_name+" ,"+user['first_name']);
                     $("#userName").html(user['first_name']+" "+user['last_name']);
+                    $("#LoginForm").hide();
+
                 }else{
                     alert(data);
                     console.log(data);
