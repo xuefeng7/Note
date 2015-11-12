@@ -327,7 +327,7 @@
                 if (data) {
                     var user = $.parseJSON(data);
                     $("#userName").html(user['first_name']+" "+user['last_name']);
-                    window.location.herf = '/'; //redirect
+                    window.location = '/'; //redirect
 
                 }else{
                     alert(data);
