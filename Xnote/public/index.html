@@ -108,7 +108,7 @@
             <h1>Xnote</h1>
             <h3>Excellent Notes for You</h3>
             <br>
-            <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#LoginForm">Log In</button>
+            <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#LoginForm" id="loginButton">Log In</button>
 
             <div class="modal fade" id="LoginForm">
                 <div class="modal-dialog">
@@ -145,7 +145,7 @@
                 </div>
             </div>
             <!-- //<a href="loginPage.html" class="btn btn-dark btn-lg">Log in</a> -->
-            <a href="signUp.html" class="btn btn-dark btn-lg">Register</a> 
+            <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton">Register</a> 
         </div>
     </header>
 <!-- About -->
@@ -295,11 +295,14 @@
         success: function(data) {
                 
                 if (data === 'failed') {
-                   console.log("fetch cached user failed");
+                   console.log("fetch cached user failed.");
 
                 }else{
-                   //has cached user 
+                    //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
+                    //hide log in and register buttons
+                    $("#loginButton").hide();
+                    $("#registerButton").hide();
                 }
             }
       });      
@@ -324,7 +327,7 @@
                 if (data) {
                     var user = $.parseJSON(data);
                     $("#userName").html(user['first_name']+" "+user['last_name']);
-                    $("#LoginForm").hide();
+                    window.location.herf = '/'; //redirect
 
                 }else{
                     alert(data);
