@@ -25,7 +25,7 @@ module.exports = function (){
     
     user.signUp().then(function(user) {
       console.log('a user just signed up')
-      res.send('success');
+      res.redirect('/');
       return;
     }, function(error) {
       // Show the error message and let the user try again

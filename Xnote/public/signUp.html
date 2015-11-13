@@ -90,10 +90,7 @@
             success: function(data) {
                 
                 if (data) {
-                    console.log('succeed');
-                    var user = $.parseJSON(data);
-                    $("#userName").html(user['first_name']+" "+user['last_name']);
-                    window.location.replace("http://xnote.parseapp.com");
+                    //will just redirect to homepage in backend
                 }else{
                     alert(data);
                     console.log(data);
