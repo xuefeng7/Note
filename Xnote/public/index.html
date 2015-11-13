@@ -308,7 +308,8 @@
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
-                    $('.profileImgDiv').html('<img class = "img-circle" src = '+data['profile']['url']+' id = "profileImg">');
+                    // $('.profileImgDiv').html('<img class = "img-circle" src = "'+data['profile']['url']+'" id = "profileImg">');
+                    $("#profileImg").attr('src',data['profile']['url']);
                     $("#loginButton").hide();
                     $("#registerButton").hide();
                     //data['profile']['url']
