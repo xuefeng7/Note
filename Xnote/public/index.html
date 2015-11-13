@@ -75,8 +75,8 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <div class = "smallImg">
-                            <img class = "img-circle" src = "">
+                        <div class = "smallImg" id = "smallImgDiv">
+                            <img class = "img-circle" src = "" id = "profileImg">
                         </div>
                     </li>
                     <li class="page-scroll">
@@ -308,8 +308,10 @@
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
+                    $('.profileImgDiv').html('<img class = "img-circle" src = '+data['profile']['url']+' id = "profileImg">');
                     $("#loginButton").hide();
                     $("#registerButton").hide();
+                    //data['profile']['url']
                 }
             }
       });      
@@ -332,8 +334,10 @@
             success: function(data) {
                 
                 if (data) {
-                    var user = $.parseJSON(data);
-                    $("#userName").html(user['first_name']+" "+user['last_name']);
+                    // var user = $.parseJSON(data);
+                    // $("#userName").html(user['first_name']+" "+user['last_name']);
+
+                    // $("#profileImg").html("<img")
                     window.location = '/'; //redirect
 
                 }else{
