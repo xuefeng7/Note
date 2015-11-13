@@ -34,22 +34,30 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-     <script>
+    <script>
+      // Initialize Parse and Facebook
+      Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
+
           window.fbAsyncInit = function() {
-            FB.init({
-              appId      : '1026993120692786',
-              xfbml      : true,
-              version    : 'v2.5'
+            Parse.FacebookUtils.init({ // this line replaces FB.init({
+              appId      : '{1026993120692786}', // Facebook App ID
+              status     : true,  // check Facebook Login status
+              cookie     : true,  // enable cookies to allow Parse to access the session
+              xfbml      : true,  // initialize Facebook social plugins on the page
+              version    : 'v2.3' // point to the latest Facebook Graph API version
             });
+
+                // Run code after the Facebook SDK is loaded.
           };
 
           (function(d, s, id){
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/sdk.js";
-             fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    
     </script>
 
 </head>
