@@ -9,6 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- shortcut icon -->
+    <link rel="shortcut icon" href="https://maxcdn.icons8.com/Color/PNG/24/Messaging/note-24.png">
+
     <title>Xnote</title>
 
     <!-- Bootstrap Core CSS -->
@@ -70,12 +73,6 @@
 
     $(document).ready(function() {
 
-      // define a generic Ajax error handler:
-      // http://api.jquery.com/ajaxerror/
-      $(document).ajaxError(function() {
-         alert("incomplete sign up information.");
-        });
-
       //sign up user handler
       $("#signUpUser").click(function() {
         $.ajax({
@@ -93,12 +90,13 @@
 
             success: function(data) {
                 
-                if (data) {
-                    //if received data, it must be an error message
-                    swal("Sign Up Failed", data);
-                    console.log(data);
+                if (data == 'succeed') {
+                    //redirect
+                    window.location = '/';
                 }else{
                     //will just redirect to homepage in backend
+                    swal("Sign Up Failed", data);
+                    console.log(data);
                 }
             }
         });

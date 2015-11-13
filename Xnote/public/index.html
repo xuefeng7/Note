@@ -288,7 +288,7 @@
     //force non-https request to https
     if (window.location.protocol != "https:"){
 
-    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     
     }
 
@@ -302,7 +302,9 @@
         success: function(data) {
                 
                 if (data === 'failed') {
+                   
                    console.log("fetch cached user failed.");
+                
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
