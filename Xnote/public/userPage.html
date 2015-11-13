@@ -1,1 +1,52 @@
-userpage.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head></head>
+
+<body>
+
+
+<script> // the user want to change his or her name
+
+$("#modifyUserName").click(function() {
+        $.ajax({
+
+            url: "//", // not sure the name of the url yet
+            type: "POST",
+            dataType: "text",
+            //encapuslate user sign up information
+            data : {
+                first_name: $("#first_name").val(),
+                last_name: $("#last_name").val()
+            },
+
+            success: function(data) {
+                
+                if (data) {
+                    //if received data, it must be an error message
+                    swal("Modify UserNmae failed", data);
+                    console.log(data);
+                }else{
+                    //not quite sure what to do
+                }
+            }
+        });
+
+      });
+ </script>
+
+
+
+ <script> //  user change his 
+ 
+ </script>
+    
+    <script type="text/javascript" src='js/fyll.js'></script>
+    <script type="text/javascript" src='js/index.js'></script>
+
+       <!-- log in -->
+    <script type = "text/javascript"></script>
+
+</body>
+
+</html>
