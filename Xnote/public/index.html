@@ -144,7 +144,7 @@
 
                                 <div class="form-group">
                                     <div class="col-md-2 col-md-offset-5">
-                                        <button type="submit" class="btn btn-success" id="loginUser">Log In</button>  
+                                        <button type="submit" class="btn btn-success" id="loginUser" style="font-family:sans-serif">Sign In</button>  
                                     </div>
                                 </div>
                             </form> 
@@ -154,7 +154,7 @@
                 </div>
             </div>
             <!-- //<a href="loginPage.html" class="btn btn-dark btn-lg">Log in</a> -->
-            <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton">Sign Up</a>
+            <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton" style="font-family:sans-serif">Sign Up</a>
             <h3>
                 <a class="btn btn-social-icon btn-facebook">
                     <span class="fa fa-facebook"></span>
@@ -162,14 +162,14 @@
                 <a class="btn btn-social-icon btn-twitter">
                     <span class="fa fa-twitter"></span>
                 </a>
-                <a class="btn btn-social-icon btn-google">
-                    <span class="fa fa-google"></span>
-                </a>
                 <a class="btn btn-social-icon btn-linkedin">
                     <span class="fa fa-linkedin"></span>
                 </a>
-                 <a class="btn btn-social-icon btn-yahoo">
-                    <span class="fa fa-yahoo"></span>
+                <a class="btn btn-social-icon btn-google">
+                    <span class="fa fa-google"></span>
+                </a>
+                <a class="btn btn-social-icon btn-github">
+                    <span class="fa fa-github"></span>
                 </a>
             </h3>
         </div>
@@ -308,11 +308,11 @@
     <script type = "text/javascript">
     
     //force non-https request to https
-    //if (window.location.protocol != "https:"){
+    if (window.location.protocol != "https:"){
 
-    //    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+       window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     
-    //}
+    }
 
     $(document).ready(function() {
       
