@@ -28,6 +28,7 @@
 
     width: 45px; 
     height: 45px;
+    border-color: transparent;
     border-radius: 50%;
-    overflow: hidden;
+
 }

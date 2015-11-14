@@ -312,7 +312,8 @@
                    
                    console.log("fetch cached user failed.");
                    $("#userName").hide();
-                   
+                   $("#profileImg").hide();
+
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
