@@ -24,40 +24,21 @@
     <!-- custom alert box -->
     <script src="sweetalert/dist/sweetalert.min.js"></script> 
     <link rel="stylesheet" type="text/css" href="sweetalert/dist/sweetalert.css">
-    <!-- Parse SDK -->
-    <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
 
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
-    <link href="css/override.css" rel="stylesheet">
+    <link href="css/profileStyle.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 <body>
-    <script>
-        // Initialize Parse Facebook
-        Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
-        window.fbAsyncInit = function() {
-            Parse.FacebookUtils.init({
-              appId      : '1026993120692786',
-              cookie     : true,  // enable cookies to allow Parse to access the session
-              xfbml      : true,
-              version    : 'v2.5'
-            });
-          };
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -94,18 +75,12 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <div class = "smallImg" id = "smallImgDiv">
-                            <img class = "img-circle" src = "" id = "profileImg">
+                        <div class = "smallImg">
+                            <img class = "img-circle" src = "">
                         </div>
                     </li>
                     <li class="page-scroll">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown">YOOOO <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Log out</a></li>
-                            </ul>
-                        </li>   
+                        <a id = "userName" href="#"></a>
                     </li>
                 </ul>
             </div>
@@ -138,48 +113,57 @@
     <header id="top" class="header">
         <div class="text-vertical-center">
 
-            <h1 style="color:white" style="font-family:sans-serif" style="font-size:80">Xnote</h1>
-            <h3 style="color:white" style="font-family:sans-serif" style="font-size:40">Excellent notes right in your palm</h3>
-            <br>
-            <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#LoginForm" id="loginButton">Sign In</button>
-
-            <div class="modal fade" id="LoginForm">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label=""><span>&times;</span></button>
-                            <h4 class="modal-title">Log in</h4>
-                        </div>
-                        <div class="modal-body">
-                             <form class="form-horizontal" action="">
-                                <div class="form-group">
-                                    <label class="col-md-4 col-md-offset-1">Email:</label>
-                                    <div class="col-md-5">
-                                        <input type="email" class="form-control input-sm" id="loginEmail" value="" placeholder="fill in your email address" >
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-4 col-md-offset-1">Password:</label>
-                                    <div class="col-md-5">
-                                        <input type="password" class="form-control input-sm" value="" id="loginPassword" placeholder="password here" >
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-2 col-md-offset-5">
-                                        <button type="submit" class="btn btn-success" id="loginUser">Log In</button>  
-                                    </div>
-                                </div>
-                            </form> 
-                        </div>
-                        <div class="modal-footer"></div>
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                                       
+                    <div class="user-wrapper">
+                        <img src="assets/img/1.jpg" class="img-responsive" /> 
+                    <div class="description">
+                       <h4> Ramolin Leomarid</h4>
+                        <h5> <strong> Website Designer </strong></h5>
+                        <p>
+                            Pellentesque elementum dapibus convallis. 
+                        </p>
+                        <hr />
+                        <a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-user-plus" ></i> &nbsp;Profile + </a> 
                     </div>
+                     </div>
+                </div>
+                
+                <div class="col-md-9 col-sm-9  user-wrapper">
+                    <div class="description">
+                         <h3> Ramolin's Biography : </h3>
+                    <hr />
+                     <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          Aliquam suscipit egestas eros, ut maximus magna blandit ut. 
+                         Suspendisse vel molestie sapien.
+                          Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                         Fusce sit amet egestas dui, vitae tincidunt justo. 
+                         </p>
+                    <p>
+                         Etiam eleifend massa congue magna pretium, id blandit dui pulvinar. 
+                         Nam et pulvinar risus, vel blandit risus.
+                          Maecenas tristique volutpat ante, aliquet hendrerit felis aliquet nec.
+                          Curabitur rutrum tincidunt erat, ac feugiat libero gravida ac. 
+                         Suspendisse ut varius quam, vitae rutrum metus. 
+                        </p>   
+                    <h3> Social Links: </h3>
+                    <hr />                
+                   <a href="#" class="btn btn-social btn-facebook">
+                            <i class="fa fa-facebook"></i>&nbsp; Facebook </a>
+
+                        <a href="#" class="btn btn-social btn-google">
+                            <i class="fa fa-google-plus"></i>&nbsp; Google</a>
+                        <a href="#" class="btn btn-social btn-twitter">
+                            <i class="fa fa-twitter"></i>&nbsp; Twitter </a>
+                        <a href="#" class="btn btn-social btn-linkedin">
+                            <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
+                    </div>
+                 
                 </div>
             </div>
-            <!-- //<a href="loginPage.html" class="btn btn-dark btn-lg">Log in</a> -->
-            <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton">Sign Up</a> 
-        </div>
+            
     </header>
 <!-- About -->
     <section id="about" class="about bg-info">
@@ -266,17 +250,11 @@
         <!-- /.container -->
     </section>
 
-    <!-- jQuery 
+    <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
-    Bootstrap Core JavaScript 
+    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="/downloads/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script> -->
-
-    <script src="//code.jquery.com/jquery-latest.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="/downloads/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
-
 
     <!-- Custom Theme JavaScript -->
     <script>
@@ -320,7 +298,7 @@
     //force non-https request to https
     //if (window.location.protocol != "https:"){
 
-    //    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    //window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     
     //}
 
@@ -334,16 +312,12 @@
         success: function(data) {
                 
                 if (data === 'failed') {
-                   
                    console.log("fetch cached user failed.");
-                
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
-                    $("#profileImg").attr('src',data['profile']['url']);
                     $("#loginButton").hide();
                     $("#registerButton").hide();
-                    //data['profile']['url']
                 }
             }
       });      
@@ -366,10 +340,8 @@
             success: function(data) {
                 
                 if (data) {
-                    // var user = $.parseJSON(data);
-                    // $("#userName").html(user['first_name']+" "+user['last_name']);
-
-                    // $("#profileImg").html("<img")
+                    var user = $.parseJSON(data);
+                    $("#userName").html(user['first_name']+" "+user['last_name']);
                     window.location = '/'; //redirect
 
                 }else{

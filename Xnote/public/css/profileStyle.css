@@ -1,0 +1,23 @@
+.panel-default > .panel-heading {
+  background-color: #1C86EE;
+}
+
+.panel-default > .panel-body {
+  background-color: #CAE1FF;
+}
+
+.form-group label {
+	color: black;
+	font-weight: 900;
+}
+
+.smallImg img{
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%;
+    padding: 0px;
+}
+
+.header{
+    background-color: white;
+}
