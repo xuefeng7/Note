@@ -60,9 +60,27 @@ module.exports = function (){
  
   });
   //facebook Log in
-  app.post('facebook_login', function(req, res){
+  app.get('/facebook_login/', function(req, res){
 
+    Parse.FacebookUtils.logIn("public_profile, email", {
+        
+        success: function(user) {
+            if (!user.existed()) {
+              
+              //collect user data
+              FB.api('/me', function(response) {
+                  alert(response);
+              });
 
+            } else {
+              alert("User logged in through Facebook!");
+            }
+        },
+        
+        error: function(user, error) {
+          
+        }
+    });
 
   });
   // Logs out the user
@@ -72,6 +90,5 @@ module.exports = function (){
   });
 
   return app;
-
 
 }();

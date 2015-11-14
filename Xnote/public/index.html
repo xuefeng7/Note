@@ -155,8 +155,9 @@
             </div>
             <!-- //<a href="loginPage.html" class="btn btn-dark btn-lg">Log in</a> -->
             <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton">Sign Up</a>
+            <!-- social plug in -->
             <h3>
-                <a class="btn btn-social-icon btn-facebook">
+                <a class="btn btn-social-icon btn-facebook" id="facebookLogin">
                     <span class="fa fa-facebook"></span>
                 </a>
                 <a class="btn btn-social-icon btn-twitter">
@@ -347,6 +348,7 @@
             url: "/log_in/",
             type: "POST",
             dataType: "text",
+
             //encapuslate user sign up information
             data : {
 
@@ -356,41 +358,83 @@
 
             success: function(data) {
                 
-                if (data) {
-                    // var user = $.parseJSON(data);
-                    // $("#userName").html(user['first_name']+" "+user['last_name']);
+                if ((typeof data) == 'string') {
+                    //log in failed
+                    swal("Sign In Failed", data);
+                    console.log(data);
 
-                    // $("#profileImg").html("<img")
+                }else{
+                     window.location = '/'; //redirect
+                }
+            },
+
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+               swal("Something went wrong", msg);
+            }
+       
+        });
+
+      });       
+        
+       //facebook log in
+      $("#facebookLogin").on('click', function() {
+     
+        $.ajax({
+
+            url: "/facebook_login/",
+            type: "GET",
+
+            success: function(data) {
+                
+                if (data) {
+                   
                     window.location = '/'; //redirect
 
                 }else{
-                    alert(data);
+
+                    swal("Something went wrong", data);
                     console.log(data);
                 }
             },
             error: function (jqXHR, exception) {
-        var msg = '';
-        if (jqXHR.status === 0) {
-            msg = 'Not connect.\n Verify Network.';
-        } else if (jqXHR.status == 404) {
-            msg = 'Requested page not found. [404]';
-        } else if (jqXHR.status == 500) {
-            msg = 'Internal Server Error [500].';
-        } else if (exception === 'parsererror') {
-            msg = 'Requested JSON parse failed.';
-        } else if (exception === 'timeout') {
-            msg = 'Time out error.';
-        } else if (exception === 'abort') {
-            msg = 'Ajax request aborted.';
-        } else {
-            msg = 'Uncaught Error.\n' + jqXHR.responseText;
-        }
-       alert(msg);
-    },
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+               swal("Something went wrong", msg);
+            }
        
-    });
+        });
 
-      });
+      });       
 
     });
 
