@@ -117,12 +117,16 @@
                 <div class="col-md-3 col-sm-3">
                                        
                     <div class="user-wrapper">
-                        <img src="assets/img/1.jpg" class="img-responsive" /> 
+                        <img src="img/cat.jpg" class="img-responsive" /> <!-- 这里！！response profile photo -->
+
                     <div class="description">
-                       <h4> Ramolin Leomarid</h4>
-                        <h5> <strong> Website Designer </strong></h5>
+                        <h6>Upload a different photo...</h6>
+                        <input type="file" class="text-center center-block well well-sm">
+
+                       <h4 class = "userName"> Ramolin Leomarid</h4>  <!-- 这里！！user name -->
+                        <h5> <strong> Email Address </strong></h5>  <!-- 这里！！email -->
                         <p>
-                            Pellentesque elementum dapibus convallis. 
+                            Course info
                         </p>
                         <hr />
                         <a href="#" class="btn btn-danger btn-sm"> <i class="fa fa-user-plus" ></i> &nbsp;Profile + </a> 
@@ -132,22 +136,63 @@
                 
                 <div class="col-md-9 col-sm-9  user-wrapper">
                     <div class="description">
-                         <h3> Ramolin's Biography : </h3>
+                         <h3> Account Info </h3>
                     <hr />
-                     <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          Aliquam suscipit egestas eros, ut maximus magna blandit ut. 
-                         Suspendisse vel molestie sapien.
-                          Interdum et malesuada fames ac ante ipsum primis in faucibus. 
-                         Fusce sit amet egestas dui, vitae tincidunt justo. 
-                         </p>
-                    <p>
-                         Etiam eleifend massa congue magna pretium, id blandit dui pulvinar. 
-                         Nam et pulvinar risus, vel blandit risus.
-                          Maecenas tristique volutpat ante, aliquet hendrerit felis aliquet nec.
-                          Curabitur rutrum tincidunt erat, ac feugiat libero gravida ac. 
-                         Suspendisse ut varius quam, vitae rutrum metus. 
-                        </p>   
+                     <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="Jane" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="Bishop" type="text">
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="janesemail@gmail.com" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Acadamic Years</label>
+          <div class="col-lg-8">
+            <div class="ui-select">
+              <select id="userYear" class="form-control">
+                <option value="Freshmen">Freshmen</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Change Password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="11111122333" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Confirm password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="11111122333" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="button">
+            <span></span>
+            
+          </div>
+        </div>
+      </form>
                     <h3> Social Links: </h3>
                     <hr />                
                    <a href="#" class="btn btn-social btn-facebook">
@@ -165,90 +210,6 @@
             </div>
             
     </header>
-<!-- About -->
-    <section id="about" class="about bg-info">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 style="font-family:sans-serif">Share and enjoy the perfect notes in our Xnote community</h2>
-                    <p style="font-family:sans-serif" style="font-size:30">10,000+ notes from around 100 subjects</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
-
-    <!-- Services -->
-    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-    <section id="services" class="services bg-primary">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-10 col-lg-offset-1">
-                    <h2>Our Services</h2>
-                    <hr class="small">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
-                            </span>
-                                <h4>
-                                    <strong>Read Notes</strong>
-                                </h4>
-                                <p>Find the most helpful notes from your classmate</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-compass fa-stack-1x text-primary"></i>
-                            </span>
-                                <h4>
-                                    <strong>Create Notes</strong>
-                                </h4>
-                                <p>Upload notes and share with each other</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
-                            </span>
-                                <h4>
-                                    <strong>Earn Credits</strong>
-                                </h4>
-                                <p>Each time your notes get downloaded, you earn credits</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                            </span>
-                                <h4>
-                                    <strong>Haven't figure out yet...</strong>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row (nested) -->
-                </div>
-                <!-- /.col-lg-10 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
