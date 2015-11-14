@@ -24,6 +24,7 @@
 	font-weight: 900;
 }
 
+
 .img-circle img{
 
     width: 45px; 
@@ -31,4 +32,3 @@
     border-radius: 50%;
     overflow: hidden;
 }
-
