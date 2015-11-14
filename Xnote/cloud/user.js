@@ -47,6 +47,7 @@ module.exports = function (){
       var password = req.body.password;
 
       Parse.User.logIn(username, password, {
+        
         success: function(user) {
           res.send(user);
           return;
