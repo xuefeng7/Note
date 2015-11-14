@@ -397,7 +397,7 @@
       });       
         
 
-    //  user log out
+    //  user log out    *********************************
     $(logout).click(function() {
       
       $.ajax({
@@ -418,8 +418,26 @@
       });  
 
 
+      // redirect botton to the user's profile page and need to check user? first before redirection
 
+      $(userFile).click(function() {
+      
+      $.ajax({
 
+        url: "/user?",
+        type: "GET",
+
+        success: function(data) {
+                
+                if (data === 'failed') {
+                   console.log("fetch cached user failed. Not allow to go to userPage");
+                }else{
+                    //move the browser to the userPage.html
+                  console.log("User's session is valid, redirect");
+                  window.location.replace("userPage.html");
+                }
+            }
+      });  
 
 
 
