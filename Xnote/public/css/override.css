@@ -24,11 +24,10 @@
 	font-weight: 900;
 }
 
-.mg-circle img{
-    
+.img-circle img{
+
     width: 45px; 
     height: 45px;
-    padding: 0px;
-
+    border-radius: 50%;
+    overflow: hidden;
 }
-
