@@ -75,7 +75,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                            <img class = "img-circle" src = "" id = "profileImg">
+                        <img class = "img-circle" src = "" id = "profileImg" />
                     </li>
                     <li class="page-scroll">
                         <li class="dropdown">
@@ -311,14 +311,14 @@
                 if (data === 'failed') {
                    
                    console.log("fetch cached user failed.");
-                
+                   $("#userName").hide();
+                   
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
                     $("#profileImg").attr('src',data['profile']['url']);
                     $("#loginButton").hide();
                     $("#registerButton").hide();
-                    //data['profile']['url']
                 }
             }
       });      
