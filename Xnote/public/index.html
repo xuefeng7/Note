@@ -81,7 +81,7 @@
                     </li>
                     <li class="page-scroll">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown">YOOOO <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown"></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Profile</a></li>
                                 <li><a href="#">Log out</a></li>
@@ -194,7 +194,7 @@
                                 <h4>
                                     <strong>Read Notes</strong>
                                 </h4>
-                                <p>Find the most helpful notes from your classmate</p>
+                                <p>Find the most helpful notes from your classmates</p>
                                 <a href="#" class="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -295,11 +295,11 @@
     <script type = "text/javascript">
     
     //force non-https request to https
-    //if (window.location.protocol != "https:"){
+    if (window.location.protocol != "https:"){
 
-    //    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+       window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     
-    //}
+    }
 
     $(document).ready(function() {
       
@@ -313,14 +313,17 @@
                 if (data === 'failed') {
                    
                    console.log("fetch cached user failed.");
+                   
+                    $("#userName").hide();
                 
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
                     $("#profileImg").attr('src',data['profile']['url']);
+                    $("#userName").show();
                     $("#loginButton").hide();
                     $("#registerButton").hide();
-                    //data['profile']['url']
+                
                 }
             }
       });      
