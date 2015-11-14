@@ -24,11 +24,16 @@
 	font-weight: 900;
 }
 
+
 .img-circle {
 
     width: 45px; 
     height: 45px;
     border-color: transparent;
     border-radius: 50%;
+    overflow: hidden;
 
+}
+.text-vertical-center{
+    height: 300px;
 }
