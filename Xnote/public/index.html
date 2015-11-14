@@ -75,12 +75,8 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-<<<<<<< HEAD
                             <img class = "img-circle" src = "" id = "profileImg">
                         
-=======
-                        <img class = "img-circle" src = "" id = "profileImg"/>
->>>>>>> origin/master
                     </li>
                     <li class="page-scroll">
                         <li class="dropdown">
@@ -197,7 +193,7 @@
                                 <h4>
                                     <strong>Read Notes</strong>
                                 </h4>
-                                <p>Find the most helpful notes from your classmates</p>
+                                <p>Find the most helpful notes from your classmate</p>
                                 <a href="#" class="btn btn-light">Learn More</a>
                             </div>
                         </div>
@@ -298,11 +294,11 @@
     <script type = "text/javascript">
     
     //force non-https request to https
-    if (window.location.protocol != "https:"){
+    //if (window.location.protocol != "https:"){
 
-       window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    //    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     
-    }
+    //}
 
     $(document).ready(function() {
       
@@ -316,17 +312,14 @@
                 if (data === 'failed') {
                    
                    console.log("fetch cached user failed.");
-                   
-                    $("#userName").hide();
                 
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
                     $("#profileImg").attr('src',data['profile']['url']);
-                    $("#userName").show();
                     $("#loginButton").hide();
                     $("#registerButton").hide();
-                
+                    //data['profile']['url']
                 }
             }
       });      
