@@ -35,9 +35,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+     <!-- load Parse JS SDK  -->
+    <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script> 
+
 </head>
 
 <body>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -358,13 +362,14 @@
 
             success: function(data) {
                 
-                if ((typeof data) == 'string') {
+                //JSON string
+                if (data[0] == '{') {
+                    window.location = '/'; //redirect
+                
+                }else{
                     //log in failed
                     swal("Sign In Failed", data);
                     console.log(data);
-
-                }else{
-                     window.location = '/'; //redirect
                 }
             },
 
@@ -390,52 +395,59 @@
        
         });
 
-      });       
-        
-       //facebook log in
+      });
+
+         //facebook log in
       $("#facebookLogin").click(function() {
-     
-        $.ajax({
 
-            url: "/facebook_login/",
-            type: "GET",
 
-            success: function(data) {
-                
-                if (data) {
-                   
-                    window.location = '/'; //redirect
+        Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
+        
+        window.fbAsyncInit = function() {
+            
+            Parse.FacebookUtils.init({ // this line replaces FB.init({
+              appId      : '1026993120692786', // Facebook App ID
+              cookie     : true,  // enable cookies to allow Parse to access the session
+              xfbml      : true,  // initialize Facebook social plugins on the page
+              version    : 'v2.5' // point to the latest Facebook Graph API version
+            
+            });
 
-                }else{
 
-                    swal("Something went wrong", data);
-                    console.log(data);
+            Parse.FacebookUtils.logIn("public_profile, email", {
+            
+              success: function(user) {
+                if (!user.existed()) {
+                  
+                  //collect user data
+                  FB.api('/me', function(response) {
+                      console.log(response);
+                  });
+
+                } else {
+                  console.log("User logged in through Facebook!");
                 }
             },
-            error: function (jqXHR, exception) {
-                var msg = '';
-                if (jqXHR.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXHR.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXHR.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+               error: function(user, error) {
+                  console.log('facebook log in failed with error: '+error);
                 }
-               swal("Something went wrong", msg);
-            }
-       
-        });
+            });
 
-      });       
+        };
 
+        (function(d, s, id){
+        
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        
+        }(document, 'script', 'facebook-jssdk'));
+
+      }); 
+
+        
     });
 
     </script>
