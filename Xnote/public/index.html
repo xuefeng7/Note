@@ -342,7 +342,10 @@
                     $("#registerButton").hide();
                 }
             }
-      });      
+      }); 
+
+      });
+           
       // user logging in handler
       $("#loginUser").click(function(event) {
         //prevent the default redirect event
@@ -416,11 +419,11 @@
                 }
             }
       });  
-
+    });
 
       // redirect botton to the user's profile page and need to check user? first before redirection
 
-      $(userFile).click(function() {
+      $(profileButton).click(function() {
       
       $.ajax({
 
@@ -434,18 +437,12 @@
                 }else{
                     //move the browser to the userPage.html
                   console.log("User's session is valid, redirect");
-                  window.location.replace("userPage.html");
+                  window.location.replace("profile.html");
                 }
             }
+      });
+
       });  
-
-
-
-
-
-
-
-
 
        //facebook log in  *******************************************
       $("#facebookLogin").click(function() {
@@ -491,7 +488,7 @@
 
       });       
 
-    });
+    
 
     </script>
 
