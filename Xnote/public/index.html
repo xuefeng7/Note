@@ -406,7 +406,8 @@
         window.fbAsyncInit = function() {
             
             Parse.FacebookUtils.init({ // this line replaces FB.init({
-              appId      : '1026993120692786', // Facebook App ID
+              1026993120692786
+              appId      : '{1026993120692786}', // Facebook App ID
               cookie     : true,  // enable cookies to allow Parse to access the session
               xfbml      : true,  // initialize Facebook social plugins on the page
               version    : 'v2.5' // point to the latest Facebook Graph API version
@@ -418,7 +419,7 @@
             
               success: function(user) {
                 if (!user.existed()) {
-                  
+                  //TODO: save user info
                   //collect user data
                   FB.api('/me', function(response) {
                       console.log(response);
@@ -446,6 +447,43 @@
         }(document, 'script', 'facebook-jssdk'));
 
       }); 
+
+        //  user log out  
+        $(logout).click(function() {
+          
+          $.ajax({
+            url: "/log_out/",
+            type: "GET",
+            success: function(data) {
+                    
+                    if (data === 'succeed') {
+                          //move the browser to the userPage.html
+                      console.log("successfully log out");
+                      window.location.replace("index.html");
+                    }else{
+                      console.log("fetch cached user failed. Not allow to go to userPage");
+                    }
+                }
+          });  
+        });
+          // redirect botton to the user's profile page and need to check user? first before redirection
+          $(profileButton).click(function() {
+          
+          $.ajax({
+            url: "/user?",
+            type: "GET",
+            success: function(data) {
+                    
+                    if (data === 'failed') {
+                       console.log("fetch cached user failed. Not allow to go to userPage");
+                    }else{
+                        //move the browser to the userPage.html
+                      console.log("User's session is valid, redirect");
+                      window.location.replace("profile.html");
+                    }
+                }
+          });
+          });  
 
         
     });
