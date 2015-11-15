@@ -37,6 +37,8 @@
     <![endif]-->
      <!-- load Parse JS SDK  -->
     <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script> 
+    <script>Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
+    </script> 
 
 </head>
 
@@ -160,7 +162,7 @@
             <!-- //<a href="loginPage.html" class="btn btn-dark btn-lg">Log in</a> -->
             <a href="signUp.html" class="btn btn-dark btn-lg" id="registerButton">Sign Up</a>
             <!-- social plug in -->
-            <h3>
+            <h3 id="socials">
                 <a class="btn btn-social-icon btn-facebook" id="facebookLogin">
                     <span class="fa fa-facebook"></span>
                 </a>
@@ -313,10 +315,8 @@
     <script type = "text/javascript">
     
     //force non-https request to https
-    if (window.location.protocol != "https:"){
-
+    if (window.location.protocol != "https:") {
        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
-    
     }
 
     $(document).ready(function() {
@@ -327,22 +327,26 @@
         type: "GET",
 
         success: function(data) {
-                
+                //check facebook user first
                 if (data === 'failed') {
                    
                    console.log("fetch cached user failed.");
                    $("#userName").hide();
                    $("#profileImg").hide();
 
-                }else{
-                    //has cached user 
-                    $("#userName").html(data['first_name']+" "+data['last_name']);
-                    $("#profileImg").attr('src',data['profile']['url']);
-                    $("#loginButton").hide();
-                    $("#registerButton").hide();
+                }
+                else{
+
+                   //has cached user 
+                   $("#userName").html(data['first_name']+" "+data['last_name']);
+                   $("#profileImg").attr('src',data['profile']['url']);
+                   $("#loginButton").hide();
+                   $("#registerButton").hide();
+                   $("#socials").hide();
                 }
             }
-      });      
+      }); 
+
       // user logging in handler
       $("#loginUser").click(function(event) {
         //prevent the default redirect event
@@ -399,42 +403,64 @@
 
          //facebook log in
       $("#facebookLogin").click(function() {
-
-
-        Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
         
         window.fbAsyncInit = function() {
             
             Parse.FacebookUtils.init({ // this line replaces FB.init({
-              1026993120692786
-              appId      : '{1026993120692786}', // Facebook App ID
+              
+              appId      : '1026993120692786', // Facebook App ID
               cookie     : true,  // enable cookies to allow Parse to access the session
               xfbml      : true,  // initialize Facebook social plugins on the page
               version    : 'v2.5' // point to the latest Facebook Graph API version
             
             });
 
+            FB.getLoginStatus(function(response) {
+                          console.log(response);
+                          
+                          if (response.status === 'connected') {
+                            var accessToken = response.authResponse.accessToken;
+                            console.log(accessToken);
+                          } 
+                      });
 
             Parse.FacebookUtils.logIn("public_profile, email", {
             
               success: function(user) {
-                if (!user.existed()) {
-                  //TODO: save user info
-                  //collect user data
-                  FB.api('/me', function(response) {
-                      console.log(response);
-                  });
+                    
+                    if (!user.existed()) {
 
-                } else {
-                  console.log("User logged in through Facebook!");
-                }
-            },
+                      FB.api('/me', function(response) {
+                          
+                          user.set('first_name',response.first_name);
+                          user.set('last_name',response.last_name);
+                          user.set('email',response.email);
+                          user.set('profile',response.picture);
+                          //save user info
+                          user.save(null, {
+                            success: function(user) {
+                                //facebook user info saved
+                                //now redirect
+                                window.location = '/';
+
+                            }
+                          });
+
+                      });
+
+                    } else {
+                      
+                      console.log("User logged in through Facebook!");
+                      window.location = '/'; //redirect
+                    }
+                },
+               
                error: function(user, error) {
-                  console.log('facebook log in failed with error: '+error);
+                  console.log('facebook log in failed with error: '+ error.message);
                 }
             });
 
-        };
+         };
 
         (function(d, s, id){
         

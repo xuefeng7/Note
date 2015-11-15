@@ -63,9 +63,10 @@ module.exports = function (){
 
   // Logs out the user
   app.post('/log_out', function(req, res) {
+    
     Parse.User.logOut();
-    //res.redirect('/');
-    res.send('succeed')
+    res.send('succeed');
+
   });
 
   return app;
