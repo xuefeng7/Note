@@ -449,7 +449,7 @@
       }); 
 
         //  user log out  
-        $(logout).click(function() {
+        $("#logout").click(function() {
           
           $.ajax({
             url: "/log_out/",
@@ -467,7 +467,7 @@
           });  
         });
           // redirect botton to the user's profile page and need to check user? first before redirection
-          $(profileButton).click(function() {
+          $("#profileButton").click(function() {
           
           $.ajax({
             url: "/user?",
