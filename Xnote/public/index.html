@@ -85,8 +85,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown"></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="#">Log out</a></li>
+                                <li> <!-- <a href="profile.html">Profile</a> -->
+                                <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button>
+                                </li>
+                                <li>  <!--<a href="#">Log out</a> -->
+                                    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="logoutButton">Log out</button>
+                                </li>
                             </ul>
                         </li>   
                     </li>
@@ -401,6 +405,7 @@
 
       });
 
+
          //facebook log in
       $("#facebookLogin").click(function() {
         
@@ -414,15 +419,6 @@
               version    : 'v2.5' // point to the latest Facebook Graph API version
             
             });
-
-            FB.getLoginStatus(function(response) {
-                          console.log(response);
-                          
-                          if (response.status === 'connected') {
-                            var accessToken = response.authResponse.accessToken;
-                            console.log(accessToken);
-                          } 
-                      });
 
             Parse.FacebookUtils.logIn("public_profile, email", {
             
@@ -475,7 +471,7 @@
       }); 
 
         //  user log out  
-        $("#logout").click(function() {
+        $("#logoutButton").click(function() {
           
           $.ajax({
             url: "/log_out/",
