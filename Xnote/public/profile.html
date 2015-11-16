@@ -117,14 +117,14 @@
                 <div class="col-md-3 col-sm-3">
                                        
                     <div class="user-wrapper">
-                        <img src="img/cat.jpg" class="img-responsive" /> <!-- 这里！！response profile photo -->
+                        <img src="" class="img-responsive" id="bigImg"/> <!-- 这里！！response profile photo -->
 
                     <div class="description">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" class="text-center center-block well well-sm">
-
-                       <h4 class = "userName"> Ramolin Leomarid</h4>  <!-- 这里！！user name -->
-                        <h5> <strong> Email Address </strong></h5>  <!-- 这里！！email -->
+                        <input type="file" class="text-center center-block well well-sm">  <!-- choose file part, UI still need inprovement-->
+                                                                                           <!-- what kind of data does it return to browser? -->
+                       <h4 class = "userName" id="leftUserName"></h4>  <!-- 这里！！user name -->
+                        <h5 id = "leftAddress"> <strong></strong></h5>  <!-- 这里！！email -->
                         <p>
                             Course info
                         </p>
@@ -351,13 +351,16 @@
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
+                    $("#leftUserName").html(data['first_name']+" "+data['last_name']);
+                    $("#leftAddress").html(data['email']);
                     
                     $("#profileImg").attr('src',data['profile']['url']);
+                    $("#bigImg").attr('src',data['profile']['url']);
 
                     // basic info shown
                     $("#fname").attr("value",data['first_name']);
                     $("#lname").attr("value",data['last_name']);
-                    $("#eaddress").attr("value",data['first_name']);  // need to know the data corresponding name
+                    $("#eaddress").attr("value",data['email']);  // need to know the data corresponding name
                     $("#userYear").attr("value",data['year']);
 
 
@@ -376,7 +379,7 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/log_in/",     // what's the corresponding url ?
+            url: "/infoChange/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
@@ -385,7 +388,7 @@
                 useryear: $("#userYear").val(),
 
                 first_name: $("#fname").val(),
-                last_name: $("#lname").val()
+                last_name: $("#lname").val(),
 
                 email: $("#eaddress").val()
                 //password: $("#loginPassword").val()
@@ -431,7 +434,7 @@
       });
 
 
-
+    //   update the profile Image by browsing local sourse 
 
 
 
