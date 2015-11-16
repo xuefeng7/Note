@@ -140,26 +140,26 @@
                     <hr />
                      <form class="form-horizontal" role="form">
         <div class="form-group">
-          <label class="col-lg-3 control-label">First name:</label>
+          <label class="col-lg-3 control-label">First name:</label> <!-- first name input -->
           <div class="col-lg-8">
-            <input class="form-control" value="Jane" type="text">
+            <input class="form-control" value="" type="text" id="fname">   
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Last name:</label>
+          <label class="col-lg-3 control-label">Last name:</label>  <!-- last name input -->
           <div class="col-lg-8">
-            <input class="form-control" value="Bishop" type="text">
+            <input class="form-control" value="" type="text" id="lname">
           </div>
         </div>
     
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email:</label>
+          <label class="col-lg-3 control-label">Email:</label>  <!-- email input -->
           <div class="col-lg-8">
-            <input class="form-control" value="janesemail@gmail.com" type="text">
+            <input class="form-control" value="" type="text" id="eaddress">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Acadamic Years</label>
+          <label class="col-lg-3 control-label">Acadamic Years</label>   <!-- aradamic year -->
           <div class="col-lg-8">
             <div class="ui-select">
               <select id="userYear" class="form-control">
@@ -187,7 +187,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Save Changes" type="button">
+            <input class="btn btn-primary" value="Save Changes" type="button" id="saveButton">
             <span></span>
             
           </div>
@@ -353,31 +353,53 @@
                     $("#userName").html(data['first_name']+" "+data['last_name']);
                     
                     $("#profileImg").attr('src',data['profile']['url']);
+
+                    // basic info shown
+                    $("#fname").attr("value",data['first_name']);
+                    $("#lname").attr("value",data['last_name']);
+                    $("#eaddress").attr("value",data['first_name']);  // need to know the data corresponding name
+                    $("#userYear").attr("value",data['year']);
+
+
                 }
             }
       });      
-      // user logging in handler
-      $("#loginUser").click(function(event) {
+      
+
+    });
+
+
+    // user info change handler
+
+      $("#saveButton").click(function(event) {
         //prevent the default redirect event
         event.preventDefault(); 
         $.ajax({
 
-            url: "/log_in/",
+            url: "/log_in/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
-                email: $("#loginEmail").val(),
-                password: $("#loginPassword").val()
+                useryear: $("#userYear").val(),
+
+                first_name: $("#fname").val(),
+                last_name: $("#lname").val()
+
+                email: $("#eaddress").val()
+                //password: $("#loginPassword").val()
             },
 
             success: function(data) {
                 
                 if (data) {
                     var user = $.parseJSON(data);
-                    $("#userName").html(user['first_name']+" "+user['last_name']);
-                    window.location = '/'; //redirect
+                    $("#userYear").attr("value", user['useryear']);
+                    $("#fname").attr("value", user['first_name']);
+                    $("#lname").attr("value", user['last_name']);
+                    $("#eaddress").attr("value", user['email']);
+                    //window.location = '/'; //redirect
 
                 }else{
                     alert(data);
@@ -408,7 +430,14 @@
 
       });
 
-    });
+
+
+
+
+
+
+
+
 
     </script>
 
