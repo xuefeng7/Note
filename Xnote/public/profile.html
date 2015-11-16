@@ -124,6 +124,7 @@
                         <input type="file" class="text-center center-block well well-sm" id="imgUploaded" > 
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
+                         <button type="submit" class="btn btn-primary js-submit" id="uploadImg">Upload</button>
                        <h4 class = "userName" id="leftUserName"></h4>  <!-- 这里！！user name -->
                         <h5 id = "leftAddress"> <strong></strong></h5>  <!-- 这里！！email -->
                         <p>
@@ -437,7 +438,47 @@
 
     //   update the profile Image by browsing local sourse 
 
+    $("#UploadImg").click(function() {
 
+
+        var fileUploadControl = $("#imgUploaded")[0];
+        if (fileUploadControl.files.length > 0) {
+            var file = fileUploadControl.files[0];
+            var name = "profile.jpg";
+
+            //var parseFile = new Parse.File(name, file);      
+              $.ajax({
+
+                url: "/uploadImg/",
+                type: "POST",
+                dataType: "text",
+
+                    //encapuslate user sign up information
+                    data : {
+                        profile: file
+                    },
+
+                success: function(data) {
+                        
+                        if (data === 'failed') {
+                           console.log("updating failed");
+                        }else{
+                            //has cached user                                      
+                            $("#profileImg").attr('src',data['profile']['url']);
+                            $("#bigImg").attr('src',data['profile']['url']);
+
+                        }
+                    }
+              });      
+              
+              } else {
+
+                swal("Before uploading, please choose a file", data);
+              }    // for the case that the user didn't browse file locally but did click the upload button
+
+
+
+    });
 
 
 
