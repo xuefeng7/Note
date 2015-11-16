@@ -475,13 +475,13 @@
           
           $.ajax({
             url: "/log_out/",
-            type: "GET",
+            type: "POST",
             success: function(data) {
                     
                     if (data === 'succeed') {
                           //move the browser to the userPage.html
                       console.log("successfully log out");
-                      window.location.replace("index.html");
+                       window.location = '/'; //redirect
                     }else{
                       console.log("fetch cached user failed. Not allow to go to userPage");
                     }

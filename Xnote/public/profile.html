@@ -76,7 +76,7 @@
                     </li>
                     <li>
                         <div class = "smallImg">
-                            <img class = "img-circle" src = "">
+                            <img class = "img-circle" src = "" id = "profileImg">
                         </div>
                     </li>
                     <li class="page-scroll">
@@ -351,8 +351,8 @@
                 }else{
                     //has cached user 
                     $("#userName").html(data['first_name']+" "+data['last_name']);
-                    $("#loginButton").hide();
-                    $("#registerButton").hide();
+                    
+                    $("#profileImg").attr('src',data['profile']['url']);
                 }
             }
       });      
