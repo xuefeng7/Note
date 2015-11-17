@@ -1,5 +1,5 @@
 .panel-default > .panel-heading {
-  background-color: #1C86EE;
+  background-color: #000000;
 }
 
 .panel-default > .panel-body {
@@ -34,6 +34,12 @@
     overflow: hidden;
 
 }
+#particles-js{
+    position: relative;
+}
+
 .text-vertical-center{
+    position: absolute;
     height: 300px;
 }
+
