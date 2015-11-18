@@ -39,9 +39,14 @@
 }
 
 .text-vertical-center{
+<<<<<<< HEAD
     position: absolute;
     top:30%;
     left: 33%;
+=======
+    position: center;
+    display: center;
+>>>>>>> origin/master
     height: 300px;
 }
 
