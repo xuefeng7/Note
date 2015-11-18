@@ -80,7 +80,17 @@
                         </div>
                     </li>
                     <li class="page-scroll">
-                        <a id = "userName" href="#"></a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown"></a>
+                            <ul class="dropdown-menu">
+                                <li> <!-- <a href="profile.html">Profile</a> -->
+                                <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button>
+                                </li>
+                                <li>  <!--<a href="#">Log out</a> -->
+                                    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="logoutButton">Log out</button>
+                                </li>
+                            </ul>
+                        </li>
                     </li>
                 </ul>
             </div>
@@ -371,10 +381,10 @@
       });      
       
 
-    });
 
 
-    // user info change handler
+
+      // user info change handler
 
       $("#saveButton").click(function(event) {
         //prevent the default redirect event
@@ -482,7 +492,51 @@
 
 
 
+     $("#profileButton").click(function() {
+          
+          $.ajax({
+            url: "/user?",
+            type: "GET",
+            success: function(data) {
+                    
+                    if (data === 'failed') {
+                       console.log("fetch cached user failed. Not allow to go to userPage");
+                    }else{
+                        //move the browser to the userPage.html
+                      console.log("User's session is valid, redirect");
+                      window.location.replace("profile.html");
+                    }
+                }
+          });
+          });
 
+    
+        //  user log out  
+        $("#logoutButton").click(function() {
+          
+          $.ajax({
+            url: "/log_out/",
+            type: "POST",
+            success: function(data) {
+                    
+                    if (data === 'succeed') {
+                          //move the browser to the userPage.html
+                      console.log("successfully log out");
+                       window.location = '/'; //redirect
+                    }else{
+                      console.log("fetch cached user failed. Not allow to go to userPage");
+                    }
+                }
+          });  
+        });
+
+
+
+
+    }); // end of the document.ready
+
+
+    
 
     </script>
 
