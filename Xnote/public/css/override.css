@@ -40,16 +40,15 @@
 
 .text-vertical-center{
 
-    position: center;
-    display: center;
-    height: 300px;
-    display: table-cell;
+    display: center center;
     text-align: center;
     vertical-align: middle;
 
     position: absolute;
     top:30%;
     left: 33%;
+
+    width:100px;height:80px;position:absolute;top:30%;left:33%;margin-left:50px;margin-top:40px
 
 }
 
