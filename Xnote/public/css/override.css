@@ -39,7 +39,7 @@
 }
 
 .text-vertical-center{
-    position: fixed;
+    position: absolute;
     top:30%;
     left: 33%;
     height: 300px;
