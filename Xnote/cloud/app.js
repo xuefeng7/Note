@@ -16,7 +16,6 @@ app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
-
 app.get('/user?', function(req, res){
 
 	var currentUser = Parse.User.current();
