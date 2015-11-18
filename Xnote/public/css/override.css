@@ -41,6 +41,7 @@
 .text-vertical-center{
     position: fixed;
     top:30%;
+    left: 33%;
     height: 300px;
 }
 
