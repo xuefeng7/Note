@@ -39,7 +39,8 @@
 }
 
 .text-vertical-center{
-    position: absolute;
+    position: fixed;
+    top:30%;
     height: 300px;
 }
 
