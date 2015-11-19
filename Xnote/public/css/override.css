@@ -40,7 +40,15 @@
     width:100%;
 }
 
+
 .dropdown-menu {
     background-color: #080808; 
+}
+
+.dropdown-menu input{
+
+height:20px;
+width:100px;
+
 }
 
