@@ -207,7 +207,8 @@
                     <span class="fa fa-github"></span>
                 </a>
             </h3>
-        </div>
+            </div>
+        
     <script src="js/particles.js"></script>
     <script src="js/particles-app.js"></script>
     </header>
@@ -304,9 +305,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-hover-dropdown.js"></script>
 
-    <script src="js/particles.js"></script>
-    <script src="js/particles-app.js"></script>
-
 
     <!-- Custom Theme JavaScript -->
     <script>
@@ -315,18 +313,15 @@
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
-
     // Opens the sidebar menu
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
-
     // Scrolls to the selected menu item on the page
     $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
                 if (target.length) {
@@ -338,7 +333,6 @@
             }
         });
     });
-
     </script>
     
     <script type="text/javascript" src='js/fyll.js'></script>
@@ -351,14 +345,11 @@
     if (window.location.protocol != "https:") {
        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     }
-
     $(document).ready(function() {
       
       $.ajax({
-
         url: "/user?",
         type: "GET",
-
         success: function(data) {
                 //check facebook user first
                 if (data === 'failed') {
@@ -366,10 +357,8 @@
                    console.log("fetch cached user failed.");
                    $("#userName").hide();
                    $("#profileImg").hide();
-
                 }
                 else{
-
                    //has cached user 
                    $("#userName").html(data['first_name']+" "+data['last_name']);
                    $("#profileImg").attr('src',data['profile']['url']);
@@ -379,24 +368,19 @@
                 }
             }
       }); 
-
       // user logging in handler
       $("#loginUser").click(function(event) {
         //prevent the default redirect event
         event.preventDefault(); 
         $.ajax({
-
             url: "/log_in/",
             type: "POST",
             dataType: "text",
-
             //encapuslate user sign up information
             data : {
-
                 email: $("#loginEmail").val(),
                 password: $("#loginPassword").val()
             },
-
             success: function(data) {
                 
                 //JSON string
@@ -409,7 +393,6 @@
                     console.log(data);
                 }
             },
-
             error: function (jqXHR, exception) {
                 var msg = '';
                 if (jqXHR.status === 0) {
@@ -431,12 +414,7 @@
             }
        
         });
-
       });
-
-
-
-
          //facebook log in
       $("#facebookLogin").click(function() {
         
@@ -450,13 +428,11 @@
               version    : 'v2.5' // point to the latest Facebook Graph API version
             
             });
-
             Parse.FacebookUtils.logIn("public_profile, email", {
             
               success: function(user) {
                     
                     if (!user.existed()) {
-
                       FB.api('/me', function(response) {
                           
                           user.set('first_name',response.first_name);
@@ -469,12 +445,9 @@
                                 //facebook user info saved
                                 //now redirect
                                 window.location = '/';
-
                             }
                           });
-
                       });
-
                     } else {
                       
                       console.log("User logged in through Facebook!");
@@ -486,9 +459,7 @@
                   console.log('facebook log in failed with error: '+ error.message);
                 }
             });
-
          };
-
         (function(d, s, id){
         
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -498,15 +469,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         
         }(document, 'script', 'facebook-jssdk'));
-
       }); 
-
-
-
-
-
-
-
         //  user log out  
         $("#logoutButton").click(function() {
           
@@ -525,15 +488,6 @@
                 }
           });  
         });
-
-
-
-
-
-
-
-
-
           // redirect botton to the user's profile page and need to check user? first before redirection
           $("#profileButton").click(function() {
           
@@ -552,10 +506,8 @@
                 }
           });
           });  
-
         
     });
-
     </script>
 
 </body>
