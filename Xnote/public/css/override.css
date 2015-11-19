@@ -34,25 +34,14 @@
     overflow: hidden;
 
 }
-/*#particles-js{
-
-    position: relative;
-}*/
 
 .text-vertical-center{
 
-    text-align: center;
-    vertical-align: middle;
-
     position: absolute;
-    top:30%;
-<<<<<<< Updated upstream
-    /*left: 38%;*/
-    width:100%;
-=======
-    left:33%;
+    width: 100%;
+}
 
->>>>>>> Stashed changes
-
+.dropdown-menu {
+    background-color: #080808; 
 }
 
