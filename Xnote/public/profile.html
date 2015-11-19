@@ -84,13 +84,17 @@
                             <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown"></a>
                             <ul class="dropdown-menu">
                                 <li> <!-- <a href="profile.html">Profile</a> -->
-                                <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button>
+                                <input type="button" value = "Profile" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton"/>
+                                <!-- <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button> -->
+                                   
                                 </li>
                                 <li>  <!--<a href="#">Log out</a> -->
-                                    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="logoutButton">Log out</button>
+                                    <input type="button" value = "Log out"class="btn btn-dark btn-lg" data-toggle="modal" style="height=20px;width=1000px;"id="logoutButton"/>
                                 </li>
                             </ul>
-                        </li>
+
+
+                        </li>  
                     </li>
                 </ul>
             </div>
@@ -380,10 +384,6 @@
             }
       });      
       
-
-
-
-
       // user info change handler
 
       $("#saveButton").click(function(event) {
@@ -391,17 +391,15 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/infoChange/",     // what's the corresponding url ?
+            url: "/profile_change/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
                 useryear: $("#userYear").val(),
-
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
-
                 email: $("#eaddress").val()
                 //password: $("#loginPassword").val()
             },
@@ -453,13 +451,12 @@
 
         var fileUploadControl = $("#imgUploaded")[0];
         if (fileUploadControl.files.length > 0) {
-            var file = fileUploadControl.files[0];
-            var name = "profile.jpg";
 
-            //var parseFile = new Parse.File(name, file);      
+            var file = fileUploadControl.files[0];
+    
               $.ajax({
 
-                url: "/uploadImg/",
+                url: "/upload_Img/",
                 type: "POST",
                 dataType: "text",
 
@@ -470,13 +467,13 @@
 
                 success: function(data) {
                         
-                        if (data === 'failed') {
-                           console.log("updating failed");
+                        if (data[0] == '{') {
+                           console.log("updating profile failed");
+                            swal("Upload Profile Failed", data);
                         }else{
                             //has cached user                                      
                             $("#profileImg").attr('src',data['profile']['url']);
                             $("#bigImg").attr('src',data['profile']['url']);
-
                         }
                     }
               });      

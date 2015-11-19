@@ -34,20 +34,21 @@
     overflow: hidden;
 
 }
-#particles-js{
-    position: relative;
-}
 
 .text-vertical-center{
-
-    display: center center;
-    text-align: center;
-    vertical-align: middle;
-
-    position: absolute;
-    top:30%;
-    /*left: 38%;*/
+    
     width:100%;
+}
+
+
+.dropdown-menu {
+    background-color: #080808; 
+}
+
+.dropdown-menu input{
+
+height:20px;
+width:100px;
 
 }
 
