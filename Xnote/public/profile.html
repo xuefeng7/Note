@@ -380,10 +380,6 @@
             }
       });      
       
-
-
-
-
       // user info change handler
 
       $("#saveButton").click(function(event) {
@@ -391,17 +387,15 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/infoChange/",     // what's the corresponding url ?
+            url: "/profile_change/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
                 useryear: $("#userYear").val(),
-
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
-
                 email: $("#eaddress").val()
                 //password: $("#loginPassword").val()
             },
@@ -453,13 +447,12 @@
 
         var fileUploadControl = $("#imgUploaded")[0];
         if (fileUploadControl.files.length > 0) {
-            var file = fileUploadControl.files[0];
-            var name = "profile.jpg";
 
-            //var parseFile = new Parse.File(name, file);      
+            var file = fileUploadControl.files[0];
+    
               $.ajax({
 
-                url: "/uploadImg/",
+                url: "/upload_Img/",
                 type: "POST",
                 dataType: "text",
 
@@ -470,13 +463,13 @@
 
                 success: function(data) {
                         
-                        if (data === 'failed') {
-                           console.log("updating failed");
+                        if (data[0] == '{') {
+                           console.log("updating profile failed");
+                            swal("Upload Profile Failed", data);
                         }else{
                             //has cached user                                      
                             $("#profileImg").attr('src',data['profile']['url']);
                             $("#bigImg").attr('src',data['profile']['url']);
-
                         }
                     }
               });      
