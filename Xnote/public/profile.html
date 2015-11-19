@@ -136,7 +136,7 @@
 
                     <div class="description">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" > 
+                        <input type="file" accept="" ".png,.jpeg,.jpg" class="text-center center-block well well-sm" id="imgUploaded" > 
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
                          <button type="submit" class="btn btn-primary js-submit" id="uploadImg">Upload</button>
@@ -172,7 +172,7 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>  <!-- email input -->
           <div class="col-lg-8">
-            <input class="form-control" value="" type="text" id="eaddress">
+            <input class="form-control" value="" type="email" id="eaddress">
           </div>
         </div>
         <div class="form-group">
@@ -280,7 +280,8 @@
         <input type="checkbox" name="checkbox2_2" class="checkbox2" id="checkbox2_2"> <label for="checkbox2_2">Choice 2</label><br>
         <input type="checkbox" name="checkbox2_3" class="checkbox2" id="checkbox2_3"> <label for="checkbox2_3">Choice 3</label><br>
         <input type="checkbox" name="checkbox2_4" class="checkbox2" id="checkbox2_4"> <label for="checkbox2_4">Choice 4</label><br>
-        <input value="destroy checkator" id="activate_checkator4" type="button"><br>
+        <input class="btn btn-primary" value="Save Changes" type="button" id="saveAcademic">
+        <!--<input value="destroy checkator" id="activate_checkator4" type="button"><br> -->
 
 
 
@@ -392,13 +393,13 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/profile_change/",     // what's the corresponding url ?
+            url: "/update_profile/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
-                useryear: $("#userYear").val(),
+                classyear: $("#userYear").val(),
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
                 email: $("#eaddress").val()
@@ -406,18 +407,17 @@
             },
 
             success: function(data) {
-                
-                if (data) {
+    
+                if (data[0] === '{') {
                     var user = $.parseJSON(data);
                     $("#userYear").attr("value", user['useryear']);
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
-                    //window.location = '/'; //redirect
-
+                    swal("Saved", "You Profile has been updated successfully", "success")
                 }else{
-                    alert(data);
-                    console.log(data);
+                    
+                    swal("Save Profile Failed", data);
                 }
             },
             error: function (jqXHR, exception) {
@@ -447,25 +447,18 @@
 
     //   update the profile Image by browsing local sourse 
 
-    $("#UploadImg").click(function() {
-
+    $("#uploadImg").click(function() {
 
         var fileUploadControl = $("#imgUploaded")[0];
         if (fileUploadControl.files.length > 0) {
 
             var file = fileUploadControl.files[0];
-    
-              $.ajax({
+            console.log(file);
+            $.ajax({
 
                 url: "/upload_Img/",
                 type: "POST",
-                dataType: "text",
-
-                    //encapuslate user sign up information
-                    data : {
-                        profile: file
-                    },
-
+                data: {profile: file},
                 success: function(data) {
                         
                         if (data[0] == '{') {
@@ -487,8 +480,6 @@
 
 
     });
-
-
 
      $("#profileButton").click(function() {
           
@@ -528,13 +519,7 @@
           });  
         });
 
-
-
-
     }); // end of the document.ready
-
-
-    
 
     </script>
 

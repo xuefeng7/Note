@@ -121,7 +121,6 @@ module.exports = function (){
 
   });
 
-
   // Logs out the user
   app.post('/log_out/', function(req, res) {
     
@@ -159,6 +158,53 @@ module.exports = function (){
     });
 
   });
+
+  app.post('/update_profile/', function(req, res) {
+
+      var first_name = req.body.first_name;
+      var last_name = req.body.last_name;
+      var email = req.body.email;
+      var classyear = req.body.classyear;
+
+      var currentUser = Parse.User.current();
+
+      currentUser.set('first_name',first_name);
+      currentUser.set('last_name', last_name);
+      currentUser.set('email', email);
+      currentUser.set('classyear', classyear);
+
+      currentUser.save(null, {
+        success: function(user) {
+          res.send(user);
+          return;
+        },
+        error: function(error) {
+          res.send(error.message);
+          return;
+        }
+    });
+
+  });
+
+  app.post('/update_courses/', function(req, res) {
+
+      var course_list = req.body.course_list;
+      var currentUser = Parse.User.current();
+      currentUser.set('courses',course_list);
+
+      currentUser.save(null, {
+        success: function(user) {
+          res.send(user);
+          return;
+        },
+        error: function(error) {
+          res.send(error.message);
+          return;
+        }
+    });
+
+  });
+
 
   return app;
 
