@@ -35,6 +35,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+   <!--  style for the upload img chosen -->
+    <style>
+      .thumb {
+        height: 100px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+      }
+    </style>
+
 </head>
 
 <body>
@@ -136,7 +146,8 @@
 
                     <div class="description">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" > 
+                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" name="files[]" /> 
+                        <output id="list"></output>
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
                          <button type="submit" class="btn btn-primary js-submit" id="uploadImg">Upload</button>
@@ -344,7 +355,97 @@
     <script type="text/javascript" src='js/fyll.js'></script>
     <script type="text/javascript" src='js/index.js'></script>
 
-       <!-- log in -->
+
+
+
+<!-- file choose handy functions -->
+<script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    //for (var i = 0, f; f = files[i]; i++) {
+       var f = files[0]; 
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        return;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').innerHTML = '';
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    //}
+  }
+
+// here is the helping method for checking the chosen file's type *******
+    function CheckFileName() {
+        var fileName = document.getElementById("imgUploaded").value
+        if (fileName == "") {
+            swal("Browse to upload a valid File with png ot jpg extension");
+            return false;
+        }
+        else if (fileName.split(".")[1].toUpperCase() == "PNG")
+            return true;
+        else if(fileName.split(".")[1].toUpperCase() == "JPG")
+            return true;
+        else{
+            swal("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png extensions");
+            return false;
+        }
+        return true;
+    }
+
+
+
+    document.getElementById('imgUploaded').addEventListener('change', handleFileSelect, false);
+    document.getElementById('imgUploaded').addEventListener('change', CheckFileName, false);
+
+    // helping method to convert image file to 64base string
+    function getBase64Image(img) {
+        // Create an empty canvas element
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Copy the image contents to the canvas
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        // Get the data-URL formatted image
+        // Firefox supports PNG and JPEG. You could check img.src to
+        // guess the original format, but be aware the using "image/jpg"
+        // will re-encode the image.
+        var dataURL = canvas.toDataURL("image/png");
+
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    }
+
+
+
+</script>
+
+
+
+
+
+
+
+
+       <!-- main part -->
     <script type = "text/javascript">
     
     //force non-https request to https
@@ -447,14 +548,16 @@
 
     //   update the profile Image by browsing local sourse 
 
-    $("#UploadImg").click(function() {
+    $("#uploadImg").click(function() {
 
-
+        //console.log($("#imgUploaded")[0]);
         var fileUploadControl = $("#imgUploaded")[0];
         if (fileUploadControl.files.length > 0) {
 
             var file = fileUploadControl.files[0];
-    
+            //console.log(file.name);
+            var file64 = getBase64Image(file.name);
+
               $.ajax({
 
                 url: "/upload_Img/",
@@ -463,7 +566,7 @@
 
                     //encapuslate user sign up information
                     data : {
-                        profile: file
+                        profile: file64
                     },
 
                 success: function(data) {
