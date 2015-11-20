@@ -149,6 +149,7 @@
 
                         <input type="file" class="text-center center-block well well-sm" id="imgUploaded" name="files[]" accept="" ".png,.jpeg,.jpg"/> 
                         <output id="list"></output>
+                        <!-- <img id="savedImg"src="" width="200" style="display:none;" /> -->
 
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
@@ -363,9 +364,16 @@
 
 <!-- file choose handy functions -->
     <script>
+
+    // global variable for storing the 64base info information for uploaded photo
+
+    var global64 = "";
+
       function handleFileSelect(evt) {
         var files = evt.target.files; // FileList object
 
+
+        
         // Loop through the FileList and render image files as thumbnails.
         //for (var i = 0, f; f = files[i]; i++) {
            var f = files[0]; 
@@ -382,6 +390,8 @@
             return function(e) {
               // Render thumbnail.
               var span = document.createElement('span');
+              console.log(e.target.result);
+              global64 = e.target.result.replace(/^data:image\/(png|jpg|jpeg);base64,/g, "");
               span.innerHTML = ['<img class="thumb" src="', e.target.result,
                                 '" title="', escape(theFile.name), '"/>'].join('');
               document.getElementById('list').innerHTML = '';
@@ -558,16 +568,25 @@
     $("#uploadImg").click(function() {
 
         //console.log($("#imgUploaded")[0]);
-        var f = $("#imgUploaded").name;
-        var fileUploadControl = f[0];
-        console.log(fileUploadControl);
-        if (fileUploadControl.files.length > 0) {
 
-            var file = fileUploadControl.files[0];
+
+        // $('#imgUploaded').change( function(event) {
+        // var tmppath = URL.createObjectURL(event.target.files[0]);
+        // console.log(URL.createObjectURL(event.target.files[0]));
+        // $("savedImg").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+        // });
+        //var f = $("#imgUploaded").name;
+        //var fileUploadControl = f[0];
+        //console.log(fileUploadControl);
+        console.log(global64);
+
+        if ($("#imgUploaded")[0].files.length > 0) {
+
+            //var file = fileUploadControl.files[0];
 
             //console.log(file.name);
-            var file64 = getBase64Image(file.name);
-
+            var file64 = global64;
+            console.log(file64);
               $.ajax({
 
                 url: "/upload_Img/",
@@ -580,14 +599,16 @@
                     },
 
                 success: function(data) {
-                        
+                        console.log(data);
                         if (data[0] == '{') {
-                           console.log("updating profile failed");
-                            swal("Upload Profile Failed", data);
-                        }else{
-                            //has cached user                                      
+
+                             //has cached user                                      
                             $("#profileImg").attr('src',data['profile']['url']);
                             $("#bigImg").attr('src',data['profile']['url']);
+                           
+                        }else{
+                            console.log("updating profile failed");
+                            swal("Upload Profile Failed", data);
                         }
                     }
               });      

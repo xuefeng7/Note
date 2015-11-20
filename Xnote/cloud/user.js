@@ -60,17 +60,18 @@ module.exports = function (){
       });
  
   });  
-  
+
+
   app.post('/upload_Img/', function(req, res) {
 
     var profile = req.body.profile;
     var imgFile = new Parse.File("profile", { base64: profile});
     var currentUser = Parse.User.current();
 
-    imgFile.save().then(function() {
+    //imgFile.save().then(function() {
       // The file has been saved 
       //refresh the stored user
-      currentUser.set(profile, imgFile);
+      currentUser.set('profile', imgFile);
       //save user
       currentUser.save(null, {
       success: function(user) {
@@ -83,41 +84,11 @@ module.exports = function (){
       }
     });
     
-    }, function(error) {
-      // The file either could not be read, or could not be saved.
-      res.send(error.message);
-      return;
-    });
-
-  });
-
-  app.post('/upload_Img/', function(req, res) {
-
-    var profile = req.body.profile;
-    var imgFile = new Parse.File("profile", { base64: profile});
-    var currentUser = Parse.User.current();
-
-    imgFile.save().then(function() {
-      // The file has been saved 
-      //refresh the stored user
-      currentUser.set(profile, imgFile);
-      //save user
-      currentUser.save(null, {
-      success: function(user) {
-        res.send(user);
-        return;
-      },
-      error: function(error) {
-        res.send(error.message);
-        return;
-      }
-    });
-    
-    }, function(error) {
-      // The file either could not be read, or could not be saved.
-      res.send(error.message);
-      return;
-    });
+    // }, function(error) {
+    //   // The file either could not be read, or could not be saved.
+    //   res.send(error.message);
+    //   return;
+    // });
 
   });
 
@@ -126,36 +97,6 @@ module.exports = function (){
     
     Parse.User.logOut();
     res.send('succeed');
-
-  });
-
-  app.post('/upload_Img/', function(req, res) {
-
-    var profile = req.body.profile;
-    var imgFile = new Parse.File("profile", { base64: profile});
-    var currentUser = Parse.User.current();
-
-    imgFile.save().then(function() {
-      // The file has been saved 
-      //refresh the stored user
-      currentUser.set(profile, imgFile);
-      //save user
-      currentUser.save(null, {
-      success: function(user) {
-        res.send(user);
-        return;
-      },
-      error: function(error) {
-        res.send(error.message);
-        return;
-      }
-    });
-    
-    }, function(error) {
-      // The file either could not be read, or could not be saved.
-      res.send(error.message);
-      return;
-    });
 
   });
 
