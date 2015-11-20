@@ -146,8 +146,10 @@
 
                     <div class="description">
                         <h6>Upload a different photo...</h6>
-                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" name="files[]" /> 
+
+                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" name="files[]" accept="" ".png,.jpeg,.jpg"/> 
                         <output id="list"></output>
+
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
                          <button type="submit" class="btn btn-primary js-submit" id="uploadImg">Upload</button>
@@ -183,7 +185,7 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>  <!-- email input -->
           <div class="col-lg-8">
-            <input class="form-control" value="" type="text" id="eaddress">
+            <input class="form-control" value="" type="email" id="eaddress">
           </div>
         </div>
         <div class="form-group">
@@ -291,7 +293,8 @@
         <input type="checkbox" name="checkbox2_2" class="checkbox2" id="checkbox2_2"> <label for="checkbox2_2">Choice 2</label><br>
         <input type="checkbox" name="checkbox2_3" class="checkbox2" id="checkbox2_3"> <label for="checkbox2_3">Choice 3</label><br>
         <input type="checkbox" name="checkbox2_4" class="checkbox2" id="checkbox2_4"> <label for="checkbox2_4">Choice 4</label><br>
-        <input value="destroy checkator" id="activate_checkator4" type="button"><br>
+        <input class="btn btn-primary" value="Save Changes" type="button" id="saveAcademic">
+        <!--<input value="destroy checkator" id="activate_checkator4" type="button"><br> -->
 
 
 
@@ -359,55 +362,55 @@
 
 
 <!-- file choose handy functions -->
-<script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+    <script>
+      function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
 
-    // Loop through the FileList and render image files as thumbnails.
-    //for (var i = 0, f; f = files[i]; i++) {
-       var f = files[0]; 
+        // Loop through the FileList and render image files as thumbnails.
+        //for (var i = 0, f; f = files[i]; i++) {
+           var f = files[0]; 
 
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        return;
+          // Only process image files.
+          if (!f.type.match('image.*')) {
+            return;
+          }
+
+          var reader = new FileReader();
+
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+              // Render thumbnail.
+              var span = document.createElement('span');
+              span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                                '" title="', escape(theFile.name), '"/>'].join('');
+              document.getElementById('list').innerHTML = '';
+              document.getElementById('list').insertBefore(span, null);
+            };
+          })(f);
+
+          // Read in the image file as a data URL.
+          reader.readAsDataURL(f);
+        //}
       }
 
-      var reader = new FileReader();
-
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').innerHTML = '';
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
-
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    //}
-  }
-
-// here is the helping method for checking the chosen file's type *******
-    function CheckFileName() {
-        var fileName = document.getElementById("imgUploaded").value
-        if (fileName == "") {
-            swal("Browse to upload a valid File with png ot jpg extension");
-            return false;
-        }
-        else if (fileName.split(".")[1].toUpperCase() == "PNG")
+    // here is the helping method for checking the chosen file's type *******
+        function CheckFileName() {
+            var fileName = document.getElementById("imgUploaded").value
+            if (fileName == "") {
+                swal("Browse to upload a valid File with png ot jpg extension");
+                return false;
+            }
+            else if (fileName.split(".")[1].toUpperCase() == "PNG")
+                return true;
+            else if(fileName.split(".")[1].toUpperCase() == "JPG")
+                return true;
+            else{
+                swal("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png extensions");
+                return false;
+            }
             return true;
-        else if(fileName.split(".")[1].toUpperCase() == "JPG")
-            return true;
-        else{
-            swal("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png extensions");
-            return false;
         }
-        return true;
-    }
 
 
 
@@ -493,13 +496,13 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/profile_change/",     // what's the corresponding url ?
+            url: "/update_profile/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
-                useryear: $("#userYear").val(),
+                classyear: $("#userYear").val(),
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
                 email: $("#eaddress").val()
@@ -507,18 +510,17 @@
             },
 
             success: function(data) {
-                
-                if (data) {
+    
+                if (data[0] === '{') {
                     var user = $.parseJSON(data);
                     $("#userYear").attr("value", user['useryear']);
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
-                    //window.location = '/'; //redirect
-
+                    swal("Saved", "You Profile has been updated successfully", "success")
                 }else{
-                    alert(data);
-                    console.log(data);
+                    
+                    swal("Save Profile Failed", data);
                 }
             },
             error: function (jqXHR, exception) {
@@ -555,6 +557,7 @@
         if (fileUploadControl.files.length > 0) {
 
             var file = fileUploadControl.files[0];
+
             //console.log(file.name);
             var file64 = getBase64Image(file.name);
 
@@ -590,8 +593,6 @@
 
 
     });
-
-
 
      $("#profileButton").click(function() {
           
@@ -631,13 +632,7 @@
           });  
         });
 
-
-
-
     }); // end of the document.ready
-
-
-    
 
     </script>
 
