@@ -34,17 +34,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="css/override.css" rel="stylesheet">
-
-
-   <!--  style for the upload img chosen -->
-    <style>
-      .thumb {
-        height: 240px;
-        border: 1px solid #000;
-        margin: 10px 5px 0 0;
-      }
-    </style>
 
 </head>
 
@@ -72,7 +61,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Home</a>
+                        <a href="#portfolio">Portfolio</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about">About</a>
@@ -95,18 +84,13 @@
                             <a href="#" class="dropdown-toggle js-activated" id = "userName" data-hover="dropdown" data-toggle="dropdown"></a>
                             <ul class="dropdown-menu">
                                 <li> <!-- <a href="profile.html">Profile</a> -->
-                                <!-- <input type="button" value = "Profile" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton"/> -->
-                                <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button>
-                                   
+                                    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="profileButton">Profile</button>
                                 </li>
                                 <li>  <!--<a href="#">Log out</a> -->
-                                    <!-- <input type="button" value = "Log out"class="btn btn-dark btn-lg" data-toggle="modal" style="height=20px;width=1000px;"id="logoutButton"/> -->
                                     <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" id="logoutButton">Log out</button>
                                 </li>
                             </ul>
-
-
-                        </li>  
+                        </li>
                     </li>
                 </ul>
             </div>
@@ -147,11 +131,7 @@
 
                     <div class="description">
                         <h6>Upload a different photo...</h6>
-
-                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" name="files[]" accept="" ".png,.jpeg,.jpg"/> 
-                        <output id="list"></output>
-                        <!-- <img id="savedImg"src="" width="200" style="display:none;" /> -->
-
+                        <input type="file" class="text-center center-block well well-sm" id="imgUploaded" > 
                          <!-- choose file part, UI still need inprovement-->
                          <!-- what kind of data does it return to browser? -->
                          <button type="submit" class="btn btn-primary js-submit" id="uploadImg">Upload</button>
@@ -187,7 +167,7 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>  <!-- email input -->
           <div class="col-lg-8">
-            <input class="form-control" value="" type="email" id="eaddress">
+            <input class="form-control" value="" type="text" id="eaddress">
           </div>
         </div>
         <div class="form-group">
@@ -196,7 +176,7 @@
             <div class="ui-select">
               <select id="userYear" class="form-control">
                 <option value="Freshmen">Freshmen</option>
-                <option value="Sophomore" selected = "selected">Sophomore</option>
+                <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
                 <option value="Senior">Senior</option>
               </select>
@@ -295,8 +275,7 @@
         <input type="checkbox" name="checkbox2_2" class="checkbox2" id="checkbox2_2"> <label for="checkbox2_2">Choice 2</label><br>
         <input type="checkbox" name="checkbox2_3" class="checkbox2" id="checkbox2_3"> <label for="checkbox2_3">Choice 3</label><br>
         <input type="checkbox" name="checkbox2_4" class="checkbox2" id="checkbox2_4"> <label for="checkbox2_4">Choice 4</label><br>
-        <input class="btn btn-primary" value="Save Changes" type="button" id="saveAcademic">
-        <!--<input value="destroy checkator" id="activate_checkator4" type="button"><br> -->
+        <input value="destroy checkator" id="activate_checkator4" type="button"><br>
 
 
 
@@ -360,106 +339,7 @@
     <script type="text/javascript" src='js/fyll.js'></script>
     <script type="text/javascript" src='js/index.js'></script>
 
-
-
-
-<!-- file choose handy functions -->
-    <script>
-
-    // global variable for storing the 64base info information for uploaded photo
-
-    var global64 = "";
-
-      function handleFileSelect(evt) {
-        var files = evt.target.files; // FileList object
-
-
-        
-        // Loop through the FileList and render image files as thumbnails.
-        //for (var i = 0, f; f = files[i]; i++) {
-           var f = files[0]; 
-
-          // Only process image files.
-          if (!f.type.match('image.*')) {
-            return;
-          }
-
-          var reader = new FileReader();
-
-          // Closure to capture the file information.
-          reader.onload = (function(theFile) {
-            return function(e) {
-              // Render thumbnail.
-              var span = document.createElement('span');
-              console.log(e.target.result);
-              global64 = e.target.result.replace(/^data:image\/(png|jpg|jpeg);base64,/g, "");
-              span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                                '" title="', escape(theFile.name), '"/>'].join('');
-              document.getElementById('list').innerHTML = '';
-              document.getElementById('list').insertBefore(span, null);
-            };
-          })(f);
-
-          // Read in the image file as a data URL.
-          reader.readAsDataURL(f);
-        //}
-      }
-
-    // here is the helping method for checking the chosen file's type *******
-        function CheckFileName() {
-            var fileName = document.getElementById("imgUploaded").value
-            if (fileName == "") {
-                swal("Browse to upload a valid File with png ot jpg extension");
-                return false;
-            }
-            else if (fileName.split(".")[1].toUpperCase() == "PNG")
-                return true;
-            else if(fileName.split(".")[1].toUpperCase() == "JPG")
-                return true;
-            else{
-                swal("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with png extensions");
-                return false;
-            }
-            return true;
-        }
-
-
-
-    document.getElementById('imgUploaded').addEventListener('change', handleFileSelect, false);
-    document.getElementById('imgUploaded').addEventListener('change', CheckFileName, false);
-
-    // helping method to convert image file to 64base string
-    function getBase64Image(img) {
-        // Create an empty canvas element
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        // Copy the image contents to the canvas
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-
-        // Get the data-URL formatted image
-        // Firefox supports PNG and JPEG. You could check img.src to
-        // guess the original format, but be aware the using "image/jpg"
-        // will re-encode the image.
-        var dataURL = canvas.toDataURL("image/png");
-
-        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-    }
-
-
-
-</script>
-
-
-
-
-
-
-
-
-       <!-- main part -->
+       <!-- log in -->
     <script type = "text/javascript">
     
     //force non-https request to https
@@ -493,20 +373,8 @@
                     $("#fname").attr("value",data['first_name']);
                     $("#lname").attr("value",data['last_name']);
                     $("#eaddress").attr("value",data['email']);  // need to know the data corresponding name
-                   // $("#userYear").attr("value",data['year']);
-                    //$("#userYear").value = data['year'];
-                    // userYear need to be set by for loop
-                    var temp = data['classyear'];
-                    var mySelect = document.getElementById('userYear');
+                    $("#userYear").attr("value",data['year']);
 
-                    for(var i, j = 0; i = mySelect.options[j]; j++) {
-                        console.log(temp);
-                        if(i.value === temp) {
-                            console.log("in!");
-                            mySelect.selectedIndex = j;
-                    break;
-                        }
-                    }
 
                 }
             }
@@ -519,13 +387,13 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/update_profile/",     // what's the corresponding url ?
+            url: "/profile_change/",     // what's the corresponding url ?
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
 
-                classyear: $("#userYear").val(),
+                useryear: $("#userYear").val(),
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
                 email: $("#eaddress").val()
@@ -533,33 +401,18 @@
             },
 
             success: function(data) {
-    
-                if (data[0] === '{') {
+                
+                if (data) {
                     var user = $.parseJSON(data);
-                    //$("#userYear").attr("value", user['useryear']);
-
-                    var temp = user['classyear'];
-                    var mySelect = document.getElementById('userYear');
-
-                    for(var i, j = 0; i = mySelect.options[j]; j++) {
-                        if(i.value === temp) {
-                            mySelect.selectedIndex = j;
-                    break;
-                        }
-                    }
-
+                    $("#userYear").attr("value", user['useryear']);
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
+                    //window.location = '/'; //redirect
 
-                    $("#userName").html(user['first_name']+" "+user['last_name']);
-                    $("#leftUserName").html(user['first_name']+" "+user['last_name']);
-                    $("#leftAddress").html(user['email']);
-
-                    swal("Saved", "You Profile has been updated successfully", "success")
                 }else{
-                    
-                    swal("Save Profile Failed", data);
+                    alert(data);
+                    console.log(data);
                 }
             },
             error: function (jqXHR, exception) {
@@ -585,32 +438,18 @@
     });
 
       });
-        
+
 
     //   update the profile Image by browsing local sourse 
 
-    $("#uploadImg").click(function() {
-
-        //console.log($("#imgUploaded")[0]);
+    $("#UploadImg").click(function() {
 
 
-        // $('#imgUploaded').change( function(event) {
-        // var tmppath = URL.createObjectURL(event.target.files[0]);
-        // console.log(URL.createObjectURL(event.target.files[0]));
-        // $("savedImg").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-        // });
-        //var f = $("#imgUploaded").name;
-        //var fileUploadControl = f[0];
-        //console.log(fileUploadControl);
-        console.log(global64);
+        var fileUploadControl = $("#imgUploaded")[0];
+        if (fileUploadControl.files.length > 0) {
 
-        if ($("#imgUploaded")[0].files.length > 0) {
-
-            //var file = fileUploadControl.files[0];
-
-            //console.log(file.name);
-            var file64 = global64;
-            console.log(file64);
+            var file = fileUploadControl.files[0];
+    
               $.ajax({
 
                 url: "/upload_Img/",
@@ -619,27 +458,18 @@
 
                     //encapuslate user sign up information
                     data : {
-                        profile: file64
+                        profile: file
                     },
 
                 success: function(data) {
-                        //console.log(data);
+                        
                         if (data[0] == '{') {
-                            var user = $.parseJSON(data);
-
-                             //has cached user    
-                             //console.log(user['sessionToken']);                                  
-                            $("#profileImg").attr('src',user['profile']['url']);
-                            $("#bigImg").attr('src',user['profile']['url']);
-
-                            document.getElementById('list').innerHTML = '';
-
-
-
-                           
-                        }else{
-                            console.log("updating profile failed");
+                           console.log("updating profile failed");
                             swal("Upload Profile Failed", data);
+                        }else{
+                            //has cached user                                      
+                            $("#profileImg").attr('src',data['profile']['url']);
+                            $("#bigImg").attr('src',data['profile']['url']);
                         }
                     }
               });      
@@ -652,6 +482,8 @@
 
 
     });
+
+
 
      $("#profileButton").click(function() {
           
@@ -691,7 +523,13 @@
           });  
         });
 
+
+
+
     }); // end of the document.ready
+
+
+    
 
     </script>
 

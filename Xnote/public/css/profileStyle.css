@@ -18,6 +18,10 @@
     padding: 0px;
 }
 
+.dropdown-menu {
+    background-color: #080808; 
+}
+
 /* GENERAL STYLES */
 body {
     font-family: Verdana;
