@@ -39,7 +39,7 @@
    <!--  style for the upload img chosen -->
     <style>
       .thumb {
-        height: 100px;
+        height: 120px;
         border: 1px solid #000;
         margin: 10px 5px 0 0;
       }
@@ -517,6 +517,11 @@
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
+
+                    $("#userName").html(user['first_name']+" "+user['last_name']);
+                    $("#leftUserName").html(user['first_name']+" "+user['last_name']);
+                    $("#leftAddress").html(user['email']);
+
                     swal("Saved", "You Profile has been updated successfully", "success")
                 }else{
                     
@@ -546,14 +551,16 @@
     });
 
       });
-
+        
 
     //   update the profile Image by browsing local sourse 
 
     $("#uploadImg").click(function() {
 
         //console.log($("#imgUploaded")[0]);
-        var fileUploadControl = $("#imgUploaded")[0];
+        var f = $("#imgUploaded").name;
+        var fileUploadControl = f[0];
+        console.log(fileUploadControl);
         if (fileUploadControl.files.length > 0) {
 
             var file = fileUploadControl.files[0];
