@@ -472,22 +472,34 @@
       }); 
         //  user log out  
         $("#logoutButton").click(function() {
-          
-          $.ajax({
-            url: "/log_out/",
-            type: "POST",
-            success: function(data) {
-                    
-                    if (data === 'succeed') {
-                          //move the browser to the userPage.html
-                      console.log("successfully log out");
-                       window.location = '/'; //redirect
-                    }else{
-                      console.log("fetch cached user failed. Not allow to go to userPage");
-                    }
-                }
-          });  
-        });
+
+            swal(
+                {   
+                    title: "Log out",   
+                    text: "Are you sure to log out?",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Confirm",   
+                    closeOnConfirm: false }, 
+                    function(){   
+
+                    $.ajax({
+                        url: "/log_out/",
+                        type: "POST",
+                        success: function(data) {
+                                
+                                if (data === 'succeed') {
+                                swal("Succeed", "Logged out successfully.", "success");
+                                window.location = '/'; //redirect
+                                }else{
+                                console.log("user logged out");
+                                }
+                            }
+                      });  
+                    });
+                         
+            });
           // redirect botton to the user's profile page and need to check user? first before redirection
           $("#profileButton").click(function() {
           
