@@ -39,7 +39,7 @@
    <!--  style for the upload img chosen -->
     <style>
       .thumb {
-        height: 120px;
+        height: 240px;
         border: 1px solid #000;
         margin: 10px 5px 0 0;
       }
@@ -195,7 +195,7 @@
             <div class="ui-select">
               <select id="userYear" class="form-control">
                 <option value="Freshmen">Freshmen</option>
-                <option value="Sophomore">Sophomore</option>
+                <option value="Sophomore" selected = "selected">Sophomore</option>
                 <option value="Junior">Junior</option>
                 <option value="Senior">Senior</option>
               </select>
@@ -492,8 +492,20 @@
                     $("#fname").attr("value",data['first_name']);
                     $("#lname").attr("value",data['last_name']);
                     $("#eaddress").attr("value",data['email']);  // need to know the data corresponding name
-                    $("#userYear").attr("value",data['year']);
+                   // $("#userYear").attr("value",data['year']);
+                    //$("#userYear").value = data['year'];
+                    // userYear need to be set by for loop
+                    var temp = data['classyear'];
+                    var mySelect = document.getElementById('userYear');
 
+                    for(var i, j = 0; i = mySelect.options[j]; j++) {
+                        console.log(temp);
+                        if(i.value === temp) {
+                            console.log("in!");
+                            mySelect.selectedIndex = j;
+                    break;
+                        }
+                    }
 
                 }
             }
@@ -523,7 +535,18 @@
     
                 if (data[0] === '{') {
                     var user = $.parseJSON(data);
-                    $("#userYear").attr("value", user['useryear']);
+                    //$("#userYear").attr("value", user['useryear']);
+
+                    var temp = user['classyear'];
+                    var mySelect = document.getElementById('userYear');
+
+                    for(var i, j = 0; i = mySelect.options[j]; j++) {
+                        if(i.value === temp) {
+                            mySelect.selectedIndex = j;
+                    break;
+                        }
+                    }
+
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
@@ -599,12 +622,19 @@
                     },
 
                 success: function(data) {
-                        console.log(data);
+                        //console.log(data);
                         if (data[0] == '{') {
+                            var user = $.parseJSON(data);
 
-                             //has cached user                                      
-                            $("#profileImg").attr('src',data['profile']['url']);
-                            $("#bigImg").attr('src',data['profile']['url']);
+                             //has cached user    
+                             //console.log(user['sessionToken']);                                  
+                            $("#profileImg").attr('src',user['profile']['url']);
+                            $("#bigImg").attr('src',user['profile']['url']);
+
+                            document.getElementById('list').innerHTML = '';
+
+
+
                            
                         }else{
                             console.log("updating profile failed");
