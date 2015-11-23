@@ -41,5 +41,7 @@ app.get('/user?', function(req, res){
 
 //User endpoints
 app.use('/', require('cloud/user'));
+//Note endpoints
+app.use('/', require('cloud/note'));
 // Attach the Express app to Cloud Code.
 app.listen();
