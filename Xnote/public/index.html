@@ -38,6 +38,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/spinner.js"></script>
      <!-- load Parse JS SDK  -->
     <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script> 
     <script>Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
@@ -443,8 +444,19 @@
     if (window.location.protocol != "https:") {
        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     }
+
+    //spinner sample usage
+    // var opts = {
+
+    //     lines: 10,
+    //     length: 0, // The length of each line
+    //     color: '#fed136' // #rgb or #rrggbb
+    // };
+    // spinner_div = $('#top').get(0);
+    // spinner = new Spinner(opts).spin(spinner_div);
+
     $(document).ready(function() {
-      
+
       $.ajax({
         url: "/user?",
         type: "GET",
