@@ -57,7 +57,7 @@ module.exports = function (){
   });
 
   //user uploaded note query endpoints
-  app.get('/uploaded_note'), function(req, res){
+  app.get('/uploaded_note', function(req, res){
 
     var currentUser = Parse.User.current();
 
