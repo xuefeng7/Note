@@ -68,6 +68,12 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    <li class="page-scroll" id="shopNote">
+                        <a href="#allnote">Shop Notes</a>
+                    </li>
+                    <li class="page-scroll" id="myNote">
+                        <a href="notes.html">My Notes</a>
+                    </li>
                     <li class="page-scroll">
                         <a href="#about">About</a>
                     </li>
@@ -122,26 +128,6 @@
         </ul>
     </nav>  -->
     <!-- scripts -->
-
-    <script>
-    //   var count_particles, stats, update;
-    //   stats = new Stats;
-    //   stats.setMode(0);
-    //   stats.domElement.style.position = 'absolute';
-    //   stats.domElement.style.left = '0px';
-    //   stats.domElement.style.top = '0px';
-    //   document.body.appendChild(stats.domElement);
-    //   count_particles = document.querySelector('.js-count-particles');
-    //   update = function() {
-    //     stats.begin();
-    //     stats.end();
-    //     if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-    //       count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-    //     }
-    //     requestAnimationFrame(update);
-    //   };
-    //   requestAnimationFrame(update);
-    </script>
 
     <!-- Header -->
     
@@ -467,6 +453,8 @@
                    console.log("fetch cached user failed.");
                    $("#userName").hide();
                    $("#profileImg").hide();
+                   $("#shopNote").hide();
+                   $("#myNote").hide();
                 }
                 else{
                    //has cached user 
