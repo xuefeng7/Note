@@ -375,8 +375,6 @@
                     $("#lname").attr("value",data['last_name']);
                     $("#eaddress").attr("value",data['email']);  // need to know the data corresponding name
                     $("#userYear").attr("value",data['year']);
-
-
                 }
             }
       });      
@@ -388,12 +386,11 @@
         event.preventDefault(); 
         $.ajax({
 
-            url: "/update_profile/",     // what's the corresponding url ?
+            url: "/update_profile/",   
             type: "POST",
             dataType: "text",
             //encapuslate user sign up information
             data : {
-
                 useryear: $("#userYear").val(),
                 first_name: $("#fname").val(),
                 last_name: $("#lname").val(),
@@ -409,10 +406,11 @@
                     $("#fname").attr("value", user['first_name']);
                     $("#lname").attr("value", user['last_name']);
                     $("#eaddress").attr("value", user['email']);
-                    //window.location = '/'; //redirect
+                    swal("Saved","success");
 
                 }else{
-                    alert(data);
+
+                    swal("Save Failed",data);
                     console.log(data);
                 }
             },
@@ -433,7 +431,7 @@
         } else {
             msg = 'Uncaught Error.\n' + jqXHR.responseText;
         }
-       alert(msg);
+       swal("Save Failed",msg);
     },
        
     });
@@ -465,12 +463,14 @@
                 success: function(data) {
                         
                         if (data[0] == '{') {
-                           console.log("updating profile failed");
-                            swal("Upload Profile Failed", data);
-                        }else{
-                            //has cached user                                      
+                            
                             $("#profileImg").attr('src',data['profile']['url']);
                             $("#bigImg").attr('src',data['profile']['url']);
+                        
+                        }else{
+                            //has cached user                                      
+                            console.log("updating profile failed");
+                            swal("Upload Profile Failed", data);
                         }
                     }
               });      
@@ -502,7 +502,7 @@
                     }
                 }
           });
-          });
+        });
 
     
         //  user log out  
