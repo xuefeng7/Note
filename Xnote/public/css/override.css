@@ -329,6 +329,8 @@ fieldset[disabled] .btn-primary.active {
     background: #222;
 }
 
+/* Navigation bar */
+
 .no-padding {
     padding: 0;
 }
@@ -427,4 +429,31 @@ fieldset[disabled] .btn-primary.active {
     .navbar-default.affix .nav>li>a:focus:hover {
         color: #f05f40;
     }
+}
+
+/* viewNote */
+/*!
+ * Start Bootstrap - Shop Item HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
 }
