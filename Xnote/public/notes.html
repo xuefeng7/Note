@@ -80,7 +80,7 @@
                 </div>
             </div>
             
-    <div class="col-lg-12">
+    <div class="col-lg-12" id = "noteContent">
                     
                     <ul class="nav nav-tabs" id="myTab">
                         <li class="active"><a href="notes.html#skills">Skills</a></li>
@@ -88,7 +88,7 @@
                         <li><a href="notes.html#photos">Photos</a></li>
                     </ul>
 
-                    <div class="tab-content">
+                    <div class="tab-content" id = "tab_content">
 
                         <div class="tab-pane active" id="skills">    
                             <section class="no-padding" id="portfolio">
@@ -286,10 +286,10 @@
 
 
 
-                    <div class="tab-pane" id="friends">
-                        <p>lalalalalalala</p>   
-                    
-                    </div>
+                        <div class="tab-pane" id="friends">
+                            <p>lalalalalalala</p>   
+                        
+                        </div>
 
 
 
@@ -326,7 +326,47 @@
 
 
     <script type = "text/javascript">
+
+
+    // modify the background img of each note link
+    function thumbnail(pdfURL,elementID){
+
+    PDFJS.workerSrc=your_path+"pdf.worker.js";
+
+    PDFJS.getDocument(pdfURL).then(function(pdf){
+        pdf.getPage(1).then(function(page) {  //1 is the page number we want to retrieve
+        var viewport = page.getViewport(0.5);
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        )}
+
+        var renderContext = {
+              canvasContext: ctx,
+              viewport: viewport
+        };
+
+        page.render(renderContext).then(function(){
+        //set to draw behind current content
+        ctx.globalCompositeOperation = "destination-over";
+
+        //set background color
+        ctx.fillStyle = "#ffffff";
+
+        //draw background / rect on entire canvas
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        var img = canvas.toDataURL();
+        $("#"+elementID).html('<img src="'+img+'" class="img-responsive" alt=""/>');
+        });
     
+    });
+    }
+
+
+
+
+    // get the allnotes dictionary which is handy
     function sortNote(data) {
         var sorted = []; //dictionary
         var subjects = [];
@@ -381,12 +421,11 @@
                                         //             </div>
                                         //     </a>
                                         // </div>
-
                     // here is the subject tab sample : *****************************
                                         // <div class="tab-pane active" id="skills">    
-                                        //         <section class="no-padding" id="portfolio">
-                                        //             <div class="container-fluid">
-                                        //                 <div class="row no-gutter">
+                                        //         <section class="no-padding" id="portfolio_skills">
+                                        //             <div class="container-fluid" id="container_skills">
+                                        //                 <div class="row no-gutter" id = "noteslist_skills">
 
                                         //                 </div>
                                         //             </div>
@@ -401,7 +440,96 @@
                                         // </ul>
 
 
-                    data.length
+
+                    var allnotes = sortNote(data);
+
+
+                    for(var i in allnotes){ // i is the key , key is the subject name
+
+                        // add current subject to te subject tab list
+                        var subtab = document.createElement("li");
+                        subtab.className = "active";
+
+                        var tablink = document.createElement("a");
+                        tablink.href = "notes.html#"+ i ;
+                        tablink.title = i ;
+
+                        subtab.appendChild(tablink);
+
+                        var ul = document.getElementById("myTab");
+                        ul.appendChild(subtab);
+
+
+                        //then create the subject tab content : ********
+
+                        var subject = document.createElement("div");
+                        subject.className = "tab-pane" ;
+                        subject.id = i ;
+                        var section = document.createElement("section");
+                        section.className = "no-padding";
+                        section.id = "portfolio_" + i ;
+                        var container = document.createElement("div");
+                        container.className = "container-fluid";
+                        container.id = "container_" + i ;
+                        var notelist = document.createElement("div");
+                        notelist.className = "row no-gutter";
+                        notelist.id = "notelist_" + i ;
+
+                        container.appendChild(notelist);
+                        section.appendChild(container);
+                        subject.appendChild(section);
+
+                        var dadada = document.getElementById("tab_content");
+                        dadada.appendChild(subject);
+
+
+                        // then add the each note to their subject tab (append them to the notelist_subject div)
+                        // than we do staff for each note in current subject
+                        for(var j in allnotes[i]){
+                            var lvl1 = document.createElement("div");
+                            lvl1.className = "col-lg-4 col-sm-6";
+
+                            var lvl2 = document.createElement("a");
+                            lvl2.href = allnotes[i][j]['content']['url']+"#" ;
+                            lvl2.className = "portfolio-box" ;
+
+                            var lvl3 = document.createElement("img");
+                            lvl3.src = "" ;  lvl3.className = "img-responsive"; 
+                            lvl3.alt = ""; lvl3.id = "pdf_"+allnotes[i][j]['content']['url'];
+                            thumbnail(allnotes[i][j]['content']['url'], lvl3.id);
+
+                            var lvl4 = document.createElement("div");
+                            lvl4.className = "portfolio-box-caption";
+
+                            var lvl5 = document.createElement("div");
+                            lvl5.className = "portfolio-box-caption-content";
+
+                            var lvl6 = document.createElement("div");
+                            lvl6.className = "project-category text-faded";
+                            lvl6.title = allnotes[i][j]['subtitle'];
+
+                            var lvlsix = document.createElement("div");
+                            lvlsix.className = "project-name";
+                            lvlsix.title = allnotes[i][j]['title'];
+
+                            lvl5.appendChild(lvl6);
+                            lvl5.appendChild(lvlsix);
+                            lvl4.appendChild(lvl5);
+                            lvl3.appendChild(lvl4);
+                            lvl2.appendChild(lvl3);
+                            lvl1.appendChild(lvl2);
+
+                            notelist.appendChild(lvl1); 
+                        }
+
+
+                    }
+
+
+
+
+
+                    }// end of "else"
                 }
             }
       });          
