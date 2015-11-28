@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 app.use(parseExpressHttpsRedirect()); // Automatically redirect non-secure urls to secure ones
 app.use(express.cookieParser('SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy'));
-app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
+app.use(parseExpressCookieSession({ cookie: { maxAge: 360000000 } }));
 
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
