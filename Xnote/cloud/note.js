@@ -9,9 +9,9 @@ module.exports = function (){
   app.get('/note', function(req, res){
 
     var subject = req.body.subject;
-
     var note = Parse.Object.extend("Note");
     var query = new Parse.Query(note);
+    
     //if subject is not provided, send all notes back
     if(subject !== null){
       query.equalTo('subject',subject);
@@ -115,8 +115,7 @@ module.exports = function (){
     });
      
   });
-  
-  //purchase note endpoint
+  //purchase event endpoint
   app.get('/purchase', function(req, res){
 
     var currentUser = Parse.User.current();
@@ -142,8 +141,6 @@ module.exports = function (){
     });
   
   });
-
-
 
   return app;
 
