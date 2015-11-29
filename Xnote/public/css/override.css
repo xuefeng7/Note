@@ -438,22 +438,13 @@ fieldset[disabled] .btn-primary.active {
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-
-.thumbnail img {
-    width: 100%;
-}
-
-.ratings {
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #d17581;
-}
-
-.thumbnail {
-    padding: 0;
-}
-
-.thumbnail .caption-full {
-    padding: 9px;
-    color: #333;
-}
+/*
+body{ -webkit-filter: blur(3px);
+ 
+-moz-filter: blur(3px);
+ 
+-o-filter: blur(3px);
+ 
+-ms-filter: blur(3px);
+ 
+filter: blur(3px);}*/
