@@ -35,7 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
+    <script src="js/spinner.js"></script>
    <!--  style for the upload img chosen -->
     <style>
       .thumb {
@@ -419,6 +419,14 @@
     </script>
 
     <script>
+    
+    var opts = {
+
+        lines: 10,
+        length: 0, // The length of each line
+        color: '#fed136' // #rgb or #rrggbb
+    };
+    
     $(document).ready(function() {
       
       $.ajax({
@@ -533,16 +541,10 @@
 
    //   update the profile Image by browsing local sourse 
     $("#uploadImg").click(function() {
-        //console.log($("#imgUploaded")[0]);
-        // $('#imgUploaded').change( function(event) {
-        // var tmppath = URL.createObjectURL(event.target.files[0]);
-        // console.log(URL.createObjectURL(event.target.files[0]));
-        // $("savedImg").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-        // });
-        //var f = $("#imgUploaded").name;
-        //var fileUploadControl = f[0];
-        //console.log(fileUploadControl);
-        console.log(global64);
+
+        //spinner_div = $('#bigImg').get(0);
+        //spinner = new Spinner(opts).spin(spinner_div);
+
         if ($("#imgUploaded")[0].files.length > 0) {
             //var file = fileUploadControl.files[0];
             //console.log(file.name);
@@ -565,16 +567,18 @@
                             $("#profileImg").attr('src',user['profile']['url']);
                             $("#bigImg").attr('src',user['profile']['url']);
                             document.getElementById('list').innerHTML = '';
-                           
+                            //spinner.stop();
                         }else{
                             console.log("updating profile failed");
                             swal("Upload Profile Failed", data);
+                            //spinner.stop();
                         }
                     }
               });      
               
               } else {
                 swal("Before uploading, please choose a file", data);
+                //spinner.stop();
               }    // for the case that the user didn't browse file locally but did click the upload button
     });
 
