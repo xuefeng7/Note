@@ -20,7 +20,7 @@
     <link href="css/notestyle.css" rel="stylesheet">
     <link href="css/override.css" rel="stylesheet">
 
-
+    <script src="js/pdf.js"></script> 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -121,39 +121,41 @@
 
 
     // modify the background img of each note link
-    // function thumbnail(pdfURL,elementID){
+    function thumbnail(pdfURL,elementID){
 
-    // PDFJS.workerSrc=your_path+"pdf.worker.js";
+    pdfURL = pdfURL.replace("http","https");
+    PDFJS.workerSrc = "js/"+"pdf.worker.js";
 
-    // PDFJS.getDocument(pdfURL).then(function(pdf){
-    //     pdf.getPage(1).then(function(page) {  //1 is the page number we want to retrieve
-    //     var viewport = page.getViewport(0.5);
-    //     var canvas = document.createElement('canvas');
-    //     var ctx = canvas.getContext('2d');
-    //     canvas.height = viewport.height;
-    //     canvas.width = viewport.width;
-    //     )};
+    PDFJS.getDocument(pdfURL).then(function(pdf){
+        
+        pdf.getPage(1).then(function(page) {  //1 is the page number we want to retrieve
+        var viewport = page.getViewport(0.5);
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
 
-    //     var renderContext = {
-    //           canvasContext: ctx,
-    //           viewport: viewport
-    //     };
+        var renderContext = {
+              canvasContext: ctx,
+              viewport: viewport
+        };
 
-    //     page.render(renderContext).then(function(){
-    //     //set to draw behind current content
-    //     ctx.globalCompositeOperation = "destination-over";
+        page.render(renderContext).then(function(){
+        //set to draw behind current content
+        ctx.globalCompositeOperation = "destination-over";
 
-    //     //set background color
-    //     ctx.fillStyle = "#ffffff";
+        //set background color
+        ctx.fillStyle = "#ffffff";
 
-    //     //draw background / rect on entire canvas
-    //     ctx.fillRect(0,0,canvas.width,canvas.height);
-    //     var img = canvas.toDataURL();
-    //     $("#"+elementID).html('<img src="'+img+'" class="img-responsive" alt=""/>');
-    //     });
-    
-    // });
-    // }
+        //draw background / rect on entire canvas
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        var img = canvas.toDataURL();
+        $("#"+elementID).html('<img src="'+img+'" class="img-responsive" alt=""/>');
+        
+        });
+    });
+    });
+}
 
 
 
@@ -162,19 +164,32 @@
     function sortNote(data) {
         var sorted = []; //dictionary
         var subjects = [];
-        for( i=0; i<data.length; i++){
 
-            if($.inArray(data[i][subject],data) !== -1) //found
-            subjects.push(data[i][subject]);
+        for( i=0; i<data.length; i++){
+        
+            if($.inArray(data[i]['subject'],subjects) === -1){ // not found
+
+                subjects.push(data[i]['subject']);
+            }
         }
-        for( j=0; j<subjects; j++){
+
+        for( j=0; j<subjects.length; j++){
+            
             sorted[subjects[j]] = [];
+
             for( k=0; k<data.length; k++){
-                if(data[k][subjects] == subjects[j]){
+                
+                if(data[k]['subject'] === subjects[j]){
+                    //change pdf file url to https
+                    //var secure_url = data[k]['content']['url'];
+                    //data[k]['content']['url'] = secure_url;
+                    //console.log(data[k]['content']['url']);
                     sorted[subjects[j]].push(data[k]);
+
                 }
             }
         }
+       
         return sorted;
     }
 
@@ -237,6 +252,8 @@
 
                     var allnotes = sortNote(data);
 
+                    console.log(allnotes);
+
 
                     for(var i in allnotes){ // i is the key , key is the subject name
 
@@ -246,7 +263,9 @@
 
                         var tablink = document.createElement("a");
                         tablink.href = "notes.html#"+ i ;
-                        tablink.title = i ;
+                        var linkText = document.createTextNode(i);
+                        tablink.appendChild(linkText);
+                        //tablink.html(i);
 
                         subtab.appendChild(tablink);
 
@@ -257,7 +276,7 @@
                         //then create the subject tab content : ********
 
                         var subject = document.createElement("div");
-                        subject.className = "tab-pane" ;
+                        subject.className = "tab-pane active" ;
                         subject.id = i ;
                         var section = document.createElement("section");
                         section.className = "no-padding";
@@ -289,8 +308,12 @@
 
                             var lvl3 = document.createElement("img");
                             lvl3.src = "" ;  lvl3.className = "img-responsive"; 
-                            lvl3.alt = ""; lvl3.id = "pdf_"+allnotes[i][j]['content']['url'];
-                            //thumbnail(allnotes[i][j]['content']['url'], lvl3.id);
+                            lvl3.alt = ""; 
+                            var modifiedID = allnotes[i][j]['objectId'];
+                            
+                            console.log(modifiedID);
+                            lvl3.id = "pdf_"+modifiedID;
+                            thumbnail(allnotes[i][j]['content']['url'], lvl3.id);
 
                             var lvl4 = document.createElement("div");
                             lvl4.className = "portfolio-box-caption";
@@ -300,10 +323,14 @@
 
                             var lvl6 = document.createElement("div");
                             lvl6.className = "project-category text-faded";
+                            var innerText = document.createTextNode(allnotes[i][j]['subtitle']);
+                            lvl6.appendChild(innerText);
                             lvl6.title = allnotes[i][j]['subtitle'];
 
                             var lvlsix = document.createElement("div");
                             lvlsix.className = "project-name";
+                            var innerText2 = document.createTextNode(allnotes[i][j]['title']);
+                            lvlsix.appendChild(innerText2);
                             lvlsix.title = allnotes[i][j]['title'];
 
                             lvl5.appendChild(lvl6);
