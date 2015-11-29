@@ -15,8 +15,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <!-- Custom CSS 
+    <link rel="stylesheet" href="css/creative.css" type="text/css">-->
     <link href="css/notestyle.css" rel="stylesheet">
     <link href="css/override.css" rel="stylesheet">
 
@@ -121,39 +121,39 @@
 
 
     // modify the background img of each note link
-    function thumbnail(pdfURL,elementID){
+    // function thumbnail(pdfURL,elementID){
 
-    PDFJS.workerSrc=your_path+"pdf.worker.js";
+    // PDFJS.workerSrc=your_path+"pdf.worker.js";
 
-    PDFJS.getDocument(pdfURL).then(function(pdf){
-        pdf.getPage(1).then(function(page) {  //1 is the page number we want to retrieve
-        var viewport = page.getViewport(0.5);
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        )}
+    // PDFJS.getDocument(pdfURL).then(function(pdf){
+    //     pdf.getPage(1).then(function(page) {  //1 is the page number we want to retrieve
+    //     var viewport = page.getViewport(0.5);
+    //     var canvas = document.createElement('canvas');
+    //     var ctx = canvas.getContext('2d');
+    //     canvas.height = viewport.height;
+    //     canvas.width = viewport.width;
+    //     )};
 
-        var renderContext = {
-              canvasContext: ctx,
-              viewport: viewport
-        };
+    //     var renderContext = {
+    //           canvasContext: ctx,
+    //           viewport: viewport
+    //     };
 
-        page.render(renderContext).then(function(){
-        //set to draw behind current content
-        ctx.globalCompositeOperation = "destination-over";
+    //     page.render(renderContext).then(function(){
+    //     //set to draw behind current content
+    //     ctx.globalCompositeOperation = "destination-over";
 
-        //set background color
-        ctx.fillStyle = "#ffffff";
+    //     //set background color
+    //     ctx.fillStyle = "#ffffff";
 
-        //draw background / rect on entire canvas
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        var img = canvas.toDataURL();
-        $("#"+elementID).html('<img src="'+img+'" class="img-responsive" alt=""/>');
-        });
+    //     //draw background / rect on entire canvas
+    //     ctx.fillRect(0,0,canvas.width,canvas.height);
+    //     var img = canvas.toDataURL();
+    //     $("#"+elementID).html('<img src="'+img+'" class="img-responsive" alt=""/>');
+    //     });
     
-    });
-    }
+    // });
+    // }
 
 
 
@@ -162,14 +162,14 @@
     function sortNote(data) {
         var sorted = []; //dictionary
         var subjects = [];
-        for(int i=0; i<data.length; i++){
+        for( i=0; i<data.length; i++){
 
             if($.inArray(data[i][subject],data) !== -1) //found
             subjects.push(data[i][subject]);
         }
-        for(int j=0; j<subjects; j++){
+        for( j=0; j<subjects; j++){
             sorted[subjects[j]] = [];
-            for(int k=0; k<data.length; k++){
+            for( k=0; k<data.length; k++){
                 if(data[k][subjects] == subjects[j]){
                     sorted[subjects[j]].push(data[k]);
                 }
@@ -182,7 +182,7 @@
       
       $.ajax({
 
-        url: "/user?",
+        url: "/note",
         type: "GET",
 
         success: function(data) {
@@ -190,6 +190,8 @@
                 if (data === 'failed') {
                    console.log("fetch cached user failed.");
                 }else{
+
+                    console.log(data);
                     //has cached user 
                     //$("#userName").html(data['first_name']+" "+data['last_name']);
                     //$("#userYear").attr("value",data['year']);
@@ -288,7 +290,7 @@
                             var lvl3 = document.createElement("img");
                             lvl3.src = "" ;  lvl3.className = "img-responsive"; 
                             lvl3.alt = ""; lvl3.id = "pdf_"+allnotes[i][j]['content']['url'];
-                            thumbnail(allnotes[i][j]['content']['url'], lvl3.id);
+                            //thumbnail(allnotes[i][j]['content']['url'], lvl3.id);
 
                             var lvl4 = document.createElement("div");
                             lvl4.className = "portfolio-box-caption";
@@ -314,7 +316,7 @@
                             notelist.appendChild(lvl1); 
                         }
 
-
+                            console.log("done for one subject");
                     }
 
 
@@ -323,7 +325,7 @@
 
                     }// end of "else"
                 }
-            }
+            });
       });          
     
     </script>
