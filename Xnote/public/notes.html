@@ -187,6 +187,14 @@
 
     var p2i=new page2images();
 
+
+    // activeTab function
+    function activeTab(tab){
+
+        console.log("tab clicked");
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show'); 
+    };
+
     $(document).ready(function() {
       
       $.ajax({
@@ -249,19 +257,22 @@
 
                     console.log(allnotes);
 
+                    counter = 1;
 
                     for(var i in allnotes){ // i is the key , key is the subject name
 
                         // add current subject to te subject tab list
                         var subtab = document.createElement("li");
-                        subtab.className = ""; // later for chosen tab, the class Name should be set "active"
-
+                        // if(counter == 1)
+                        // subtab.className = "active"; // later for chosen tab, the class Name should be set "active"
+                        // else
+                        // subtab.className ="";
                         var tablink = document.createElement("a");
-                        tablink.href = "notes.html#"+ i ;
+                        tablink.href = "#"+ i ;
+                        tablink.setAttribute("data-toggle","tab");
                         var linkText = document.createTextNode(i);
                         tablink.appendChild(linkText);
                         //tablink.html(i);
-
                         subtab.appendChild(tablink);
 
                         var ul = document.getElementById("myTab");
@@ -271,7 +282,12 @@
                         //then create the subject tab content : ********
 
                         var subject = document.createElement("div");
-                        subject.className = "tab-pane active" ;
+
+                        //if(counter == 1){
+                        subject.className = "tab-pane " ; 
+                        // else{
+                        // subject.className = "tab-pane " ;} 
+                          
                         subject.id = i ;
                         var section = document.createElement("section");
                         section.className = "no-padding";
@@ -302,6 +318,7 @@
                             lvl2.className = "portfolio-box" ;
 
                             var lvl3 = document.createElement("img");
+                            //lvl3.src = "img/cat.jpg";
                             lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
                             lvl3.className = "img-responsive"; 
                             lvl3.alt = ""; 
@@ -338,22 +355,37 @@
                         }
 
                             console.log("done for one subject");
-                    }
 
+                            if(counter === 1){
+                                activeTab(i);
+                            }
+
+                            counter = counter + 1 ;
+
+                    }// end of for loop for subject
 
 
 
 
                     }// end of "else"
-                }
-            });
+                }// end of function(data)
+            }); // end of ajax
+
+
+            
+           // tab click movement setting
+             $("#").click(function() {
+             console.log("clicked");
+             $(this).tab('show');
+             });
+
+
       });          
     
+
+
+    
     </script>
-
-
-
-
 
 </body>
 
