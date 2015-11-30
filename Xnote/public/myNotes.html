@@ -196,190 +196,213 @@
     };
 
     $(document).ready(function() {
-      
-      $.ajax({
 
-        url: "/note",
+        $.ajax({
+
+        url: "/user?",
         type: "GET",
 
         success: function(data) {
                 
-                if (data[0] !== '{') {
-                  //  if(true){
+            if (data === 'failed') {
                    console.log("fetch cached user failed.");
-                   swal("Something went wrong",data);
-                }else{
-                    console.log(data);
-                    //has cached user 
-                    //$("#userName").html(data['first_name']+" "+data['last_name']);
-                    //$("#userYear").attr("value",data['year']);
+            }else{
 
-                    // get all the nodes for different subject ready
+      
+                $.ajax({
 
+                    url: "/purchased_note",
+                    type: "GET",
 
-                    //here is a note division sample : ******************************
-                                        // <div class="col-lg-4 col-sm-6">
-                                        //     <a href="#" class="portfolio-box">
-                                        //         <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
-                                        //             <div class="portfolio-box-caption">
-                                        //                 <div class="portfolio-box-caption-content">
-                                        //                     <div class="project-category text-faded">
-                                        //                         Note Info
-                                        //                     </div>
-                                        //                     <div class="project-name">
-                                        //                         Project Name
-                                        //                     </div>
-                                        //                 </div>
-                                        //             </div>
-                                        //     </a>
-                                        // </div>
-                    // here is the subject tab sample : *****************************
-                                        // <div class="tab-pane active" id="skills">    
-                                        //         <section class="no-padding" id="portfolio_skills">
-                                        //             <div class="container-fluid" id="container_skills">
-                                        //                 <div class="row no-gutter" id = "noteslist_skills">
-
-                                        //                 </div>
-                                        //             </div>
-                                        //         </section>
-                                        // </div>
-
-                    //list of the tab example : ****************************
-                                        // <ul class="nav nav-tabs" id="myTab">
-                                            // <li class="active"><a href="notes.html#skills">Skills</a></li>
-                                            // <li ><a href="notes.html#friends">Friends</a></li>
-                                            // <li><a href="notes.html#photos">Photos</a></li>
-                                        // </ul>
+                    success: function(data) {
+            
+                        if ((typeof data) != "object") {
+                          //  if(true){
+                           console.log("fetch cached user failed.");
+                           swal("Something went wrong",data);
+                        }else{
+                            console.log(data);
+                            if(data.length == 0){
+                                var noNotes = docment.createElement("p");
+                                var noNotesText = document.createTextNode("No Notes available");
+                                noNotes.appendChild(noNotesText);
+                                var noNotesdadada = document.getElementById("tab_content");
+                                noNotesdadada.appendChild(noNotes);
 
 
-
-                    var allnotes = sortNote(data);
-
-                    console.log(allnotes);
-
-                    counter = 1;
-
-                    for(var i in allnotes){ // i is the key , key is the subject name
-
-                        // add current subject to te subject tab list
-                        var subtab = document.createElement("li");
-                        // if(counter == 1)
-                        // subtab.className = "active"; // later for chosen tab, the class Name should be set "active"
-                        // else
-                        // subtab.className ="";
-                        var tablink = document.createElement("a");
-                        subjectname = i.replace(" ", "_")
-                        tablink.href = "#"+ subjectname ;
-                        tablink.setAttribute("data-toggle","tab");
-                        var linkText = document.createTextNode(i);
-                        tablink.appendChild(linkText);
-                        //tablink.html(i);
-                        subtab.appendChild(tablink);
-
-                        var ul = document.getElementById("myTab");
-                        ul.appendChild(subtab);
-
-
-                        //then create the subject tab content : ********
-
-                        var subject = document.createElement("div");
-
-                        //if(counter == 1){
-                        subject.className = "tab-pane" ; 
-                        // else{
-                        // subject.className = "tab-pane " ;} 
-                          
-                        subject.id = subjectname ;
-                        var section = document.createElement("section");
-                        section.className = "no-padding";
-                        section.id = "portfolio";
-                        var container = document.createElement("div");
-                        container.className = "container-fluid";
-                        container.id = "container_" + i ;
-                        var notelist = document.createElement("div");
-                        notelist.className = "row no-gutter";
-                        notelist.id = "notelist_" + i ;
-
-                        container.appendChild(notelist);
-                        section.appendChild(container);
-                        subject.appendChild(section);
-
-                        var dadada = document.getElementById("tab_content");
-                        dadada.appendChild(subject);
-
-
-                        // then add the each note to their subject tab (append them to the notelist_subject div)
-                        // than we do staff for each note in current subject
-                        // notecounter = 1;
-
-                        for(var j in allnotes[i]){
-                            
-                            var lvl1 = document.createElement("div");
-                            lvl1.className = "col-lg-4 col-sm-6";
-
-                            var lvl2 = document.createElement("a");
-                            lvl2.href = allnotes[i][j]['content']['url']+"#" ;
-                            lvl2.className = "portfolio-box" ;
-
-                            var lvl3 = document.createElement("img");
-                            //lvl3.src = "img/cat.jpg";
-                            lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
-                            lvl3.className = "img-responsive"; 
-                            lvl3.alt = ""; 
-                            var modifiedID = allnotes[i][j]['objectId'];
-                            lvl3.id = "pdf_"+modifiedID;
-                            p2i.thumbnail(lvl3.id);
-
-                            var lvl4 = document.createElement("div");
-                            lvl4.className = "portfolio-box-caption";
-
-                            var lvl5 = document.createElement("div");
-                            lvl5.className = "portfolio-box-caption-content";
-
-                            var lvl6 = document.createElement("div");
-                            lvl6.className = "project-category text-faded";
-                            var innerText = document.createTextNode(allnotes[i][j]['subtitle']);
-                            lvl6.appendChild(innerText);
-                            lvl6.title = allnotes[i][j]['subtitle'];
-
-                            var lvlsix = document.createElement("div");
-                            lvlsix.className = "project-name";
-                            var innerText2 = document.createTextNode(allnotes[i][j]['title']);
-                            lvlsix.appendChild(innerText2);
-                            lvlsix.title = allnotes[i][j]['title'];
-
-                            lvl5.appendChild(lvl6);
-                            lvl5.appendChild(lvlsix);
-                            lvl4.appendChild(lvl5);
-                            lvl2.appendChild(lvl4);
-                            lvl2.appendChild(lvl3);
-                            lvl1.appendChild(lvl2);
-
-                            notelist.appendChild(lvl1); 
-
-                           // console.log("done for one note!");
-                           //notecounter = noteContent + 1;
-                            
-                        }
-
-                            //console.log("done for one subject");
-
-                            if(counter === 1){
-                                activeTab(i);
                             }
+                            //has cached user 
+                            //$("#userName").html(data['first_name']+" "+data['last_name']);
+                            //$("#userYear").attr("value",data['year']);
 
-                            counter = counter + 1 ;
-
-                    }// end of for loop for subject
-
-
-
-
-                    }// end of "else"
-                }// end of function(data)
-            }); // end of ajax
+                            // get all the nodes for different subject ready
 
 
+                            //here is a note division sample : ******************************
+                                                // <div class="col-lg-4 col-sm-6">
+                                                //     <a href="#" class="portfolio-box">
+                                                //         <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
+                                                //             <div class="portfolio-box-caption">
+                                                //                 <div class="portfolio-box-caption-content">
+                                                //                     <div class="project-category text-faded">
+                                                //                         Note Info
+                                                //                     </div>
+                                                //                     <div class="project-name">
+                                                //                         Project Name
+                                                //                     </div>
+                                                //                 </div>
+                                                //             </div>
+                                                //     </a>
+                                                // </div>
+                            // here is the subject tab sample : *****************************
+                                                // <div class="tab-pane active" id="skills">    
+                                                //         <section class="no-padding" id="portfolio_skills">
+                                                //             <div class="container-fluid" id="container_skills">
+                                                //                 <div class="row no-gutter" id = "noteslist_skills">
+
+                                                //                 </div>
+                                                //             </div>
+                                                //         </section>
+                                                // </div>
+
+                            //list of the tab example : ****************************
+                                                // <ul class="nav nav-tabs" id="myTab">
+                                                    // <li class="active"><a href="notes.html#skills">Skills</a></li>
+                                                    // <li ><a href="notes.html#friends">Friends</a></li>
+                                                    // <li><a href="notes.html#photos">Photos</a></li>
+                                                // </ul>
+
+
+
+                            var allnotes = sortNote(data);
+
+                            console.log(allnotes);
+
+                            counter = 1;
+
+                            for(var i in allnotes){ // i is the key , key is the subject name
+
+                                // add current subject to te subject tab list
+                                var subtab = document.createElement("li");
+                                // if(counter == 1)
+                                // subtab.className = "active"; // later for chosen tab, the class Name should be set "active"
+                                // else
+                                // subtab.className ="";
+                                var tablink = document.createElement("a");
+                                subjectname = i.replace(" ", "_")
+                                tablink.href = "#"+ subjectname ;
+                                tablink.setAttribute("data-toggle","tab");
+                                var linkText = document.createTextNode(i);
+                                tablink.appendChild(linkText);
+                                //tablink.html(i);
+                                subtab.appendChild(tablink);
+
+                                var ul = document.getElementById("myTab");
+                                ul.appendChild(subtab);
+
+
+                                //then create the subject tab content : ********
+
+                                var subject = document.createElement("div");
+
+                                //if(counter == 1){
+                                subject.className = "tab-pane" ; 
+                                // else{
+                                // subject.className = "tab-pane " ;} 
+                                  
+                                subject.id = subjectname ;
+                                var section = document.createElement("section");
+                                section.className = "no-padding";
+                                section.id = "portfolio";
+                                var container = document.createElement("div");
+                                container.className = "container-fluid";
+                                container.id = "container_" + i ;
+                                var notelist = document.createElement("div");
+                                notelist.className = "row no-gutter";
+                                notelist.id = "notelist_" + i ;
+
+                                container.appendChild(notelist);
+                                section.appendChild(container);
+                                subject.appendChild(section);
+
+                                var dadada = document.getElementById("tab_content");
+                                dadada.appendChild(subject);
+
+
+                                // then add the each note to their subject tab (append them to the notelist_subject div)
+                                // than we do staff for each note in current subject
+                                // notecounter = 1;
+
+                                for(var j in allnotes[i]){
+                                    
+                                    var lvl1 = document.createElement("div");
+                                    lvl1.className = "col-lg-4 col-sm-6";
+
+                                    var lvl2 = document.createElement("a");
+                                    lvl2.href = allnotes[i][j]['content']['url']+"#" ;
+                                    lvl2.className = "portfolio-box" ;
+
+                                    var lvl3 = document.createElement("img");
+                                    //lvl3.src = "img/cat.jpg";
+                                    lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
+                                    lvl3.className = "img-responsive"; 
+                                    lvl3.alt = ""; 
+                                    var modifiedID = allnotes[i][j]['objectId'];
+                                    lvl3.id = "pdf_"+modifiedID;
+                                    p2i.thumbnail(lvl3.id);
+
+                                    var lvl4 = document.createElement("div");
+                                    lvl4.className = "portfolio-box-caption";
+
+                                    var lvl5 = document.createElement("div");
+                                    lvl5.className = "portfolio-box-caption-content";
+
+                                    var lvl6 = document.createElement("div");
+                                    lvl6.className = "project-category text-faded";
+                                    var innerText = document.createTextNode(allnotes[i][j]['subtitle']);
+                                    lvl6.appendChild(innerText);
+                                    lvl6.title = allnotes[i][j]['subtitle'];
+
+                                    var lvlsix = document.createElement("div");
+                                    lvlsix.className = "project-name";
+                                    var innerText2 = document.createTextNode(allnotes[i][j]['title']);
+                                    lvlsix.appendChild(innerText2);
+                                    lvlsix.title = allnotes[i][j]['title'];
+
+                                    lvl5.appendChild(lvl6);
+                                    lvl5.appendChild(lvlsix);
+                                    lvl4.appendChild(lvl5);
+                                    lvl2.appendChild(lvl4);
+                                    lvl2.appendChild(lvl3);
+                                    lvl1.appendChild(lvl2);
+
+                                    notelist.appendChild(lvl1); 
+
+                                   // console.log("done for one note!");
+                                   //notecounter = noteContent + 1;
+                                    
+                                }
+
+                                    //console.log("done for one subject");
+
+                                    if(counter === 1){
+                                        activeTab(i);
+                                    }
+
+                                    counter = counter + 1 ;
+
+                            }// end of for loop for subject
+
+
+
+
+                            }// end of "else"
+                        }// end of function(data)
+                    }); // end of ajax of "purchase_note"
+
+                }
+            }
+        }); //end of ajax of "/user?"
             
            // tab click movement setting
              // $("#").click(function() {

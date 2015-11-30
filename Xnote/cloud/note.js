@@ -7,7 +7,7 @@ module.exports = function (){
 
   //note query endpoint
   app.get('/note', function(req, res){
-
+    
     //var subject = req.body.subject;
     var note = Parse.Object.extend("Note");
     var query = new Parse.Query(note);
