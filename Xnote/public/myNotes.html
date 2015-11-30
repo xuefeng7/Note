@@ -284,7 +284,7 @@
                         var subject = document.createElement("div");
 
                         //if(counter == 1){
-                        subject.className = "tab-pane " ; 
+                        subject.className = "tab-pane" ; 
                         // else{
                         // subject.className = "tab-pane " ;} 
                           
@@ -309,7 +309,10 @@
 
                         // then add the each note to their subject tab (append them to the notelist_subject div)
                         // than we do staff for each note in current subject
+                        // notecounter = 1;
+
                         for(var j in allnotes[i]){
+                            
                             var lvl1 = document.createElement("div");
                             lvl1.className = "col-lg-4 col-sm-6";
 
@@ -352,9 +355,13 @@
                             lvl1.appendChild(lvl2);
 
                             notelist.appendChild(lvl1); 
+
+                           // console.log("done for one note!");
+                           //notecounter = noteContent + 1;
+                            
                         }
 
-                            console.log("done for one subject");
+                            //console.log("done for one subject");
 
                             if(counter === 1){
                                 activeTab(i);
@@ -374,10 +381,10 @@
 
             
            // tab click movement setting
-             $("#").click(function() {
-             console.log("clicked");
-             $(this).tab('show');
-             });
+             // $("#").click(function() {
+             // console.log("clicked");
+             // $(this).tab('show');
+             // });
 
 
       });          
