@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <link href="css/notestyle.css" rel="stylesheet">
+    <link href="css/override.css" rel="stylesheet">
+   
+    <script src="js/spinner.js"></script>
+    <script src="js/p2i.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="index.html">
+                        Xnote
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Shortcuts</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Simple Sidebar</h1>
+                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+            </div>
+            
+    <div class="col-lg-12" id = "noteContent">
+                    
+                    <ul class="nav nav-tabs" id="myTab">
+                         <!-- <li class="active"><a href="notes.html#skills">Skills</a></li>
+                                            <li ><a href="notes.html#friends">Friends</a></li>
+                                            <li><a href="notes.html#photos">Photos</a></li> -->
+                        
+                    </ul>
+
+                    <div class="tab-content" id = "tab_content">
+
+                            <!-- <div class="tab-pane active" id="skills">    
+                                                <section class="no-padding" id="portfolio_skills">
+                                                    <div class="container-fluid" id="container_skills">
+                                                        <div class="row no-gutter" id = "noteslist_skills">
+
+
+                                                                <div class="col-lg-4 col-sm-6">
+                                            <a href="#" class="portfolio-box">
+                                                <img src="img/cat.jpg" class="img-responsive" alt="">
+                                                    <div class="portfolio-box-caption">
+                                                        <div class="portfolio-box-caption-content">
+                                                            <div class="project-category text-faded">
+                                                                Note Info
+                                                            </div>
+                                                            <div class="project-name">
+                                                                Project Name
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </a>
+                                        </div>
+
+
+
+
+
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                        </div> -->
+
+                        
+
+                    </div>
+                    
+                </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+    <script type = "text/javascript">
+
+    // get the allnotes dictionary which is handy
+    function sortNote(data) {
+        var sorted = []; //dictionary
+        var subjects = [];
+
+        for( i=0; i<data.length; i++){
+        
+            if($.inArray(data[i]['subject'],subjects) === -1){ // not found
+
+                subjects.push(data[i]['subject']);
+            }
+        }
+
+        for( j=0; j<subjects.length; j++){
+            
+            sorted[subjects[j]] = [];
+
+            for( k=0; k<data.length; k++){
+                
+                if(data[k]['subject'] === subjects[j]){
+                    //change pdf file url to https
+                    //var secure_url = data[k]['content']['url'];
+                    //data[k]['content']['url'] = secure_url;
+                    //console.log(data[k]['content']['url']);
+                    sorted[subjects[j]].push(data[k]);
+
+                }
+            }
+        }
+       
+        return sorted;
+    }
+
+    var p2i=new page2images();
+
+
+    // activeTab function
+    function activeTab(tab){
+
+        console.log("tab clicked");
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show'); 
+    };
+
+    $(document).ready(function() {
+      
+      $.ajax({
+
+        url: "/note",
+        type: "GET",
+
+        success: function(data) {
+                
+                if (data === 'failed') {
+                  //  if(true){
+                   console.log("fetch cached user failed.");
+                }else{
+
+                    console.log(data);
+                    //has cached user 
+                    //$("#userName").html(data['first_name']+" "+data['last_name']);
+                    //$("#userYear").attr("value",data['year']);
+
+                    // get all the nodes for different subject ready
+
+
+                    //here is a note division sample : ******************************
+                                        // <div class="col-lg-4 col-sm-6">
+                                        //     <a href="#" class="portfolio-box">
+                                        //         <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
+                                        //             <div class="portfolio-box-caption">
+                                        //                 <div class="portfolio-box-caption-content">
+                                        //                     <div class="project-category text-faded">
+                                        //                         Note Info
+                                        //                     </div>
+                                        //                     <div class="project-name">
+                                        //                         Project Name
+                                        //                     </div>
+                                        //                 </div>
+                                        //             </div>
+                                        //     </a>
+                                        // </div>
+                    // here is the subject tab sample : *****************************
+                                        // <div class="tab-pane active" id="skills">    
+                                        //         <section class="no-padding" id="portfolio_skills">
+                                        //             <div class="container-fluid" id="container_skills">
+                                        //                 <div class="row no-gutter" id = "noteslist_skills">
+
+                                        //                 </div>
+                                        //             </div>
+                                        //         </section>
+                                        // </div>
+
+                    //list of the tab example : ****************************
+                                        // <ul class="nav nav-tabs" id="myTab">
+                                            // <li class="active"><a href="notes.html#skills">Skills</a></li>
+                                            // <li ><a href="notes.html#friends">Friends</a></li>
+                                            // <li><a href="notes.html#photos">Photos</a></li>
+                                        // </ul>
+
+
+
+                    var allnotes = sortNote(data);
+
+                    console.log(allnotes);
+
+                    counter = 1;
+
+                    for(var i in allnotes){ // i is the key , key is the subject name
+
+                        // add current subject to te subject tab list
+                        var subtab = document.createElement("li");
+                        // if(counter == 1)
+                        // subtab.className = "active"; // later for chosen tab, the class Name should be set "active"
+                        // else
+                        // subtab.className ="";
+                        var tablink = document.createElement("a");
+                        subjectname = i.replace(" ", "_")
+                        tablink.href = "#"+ subjectname ;
+                        tablink.setAttribute("data-toggle","tab");
+                        var linkText = document.createTextNode(i);
+                        tablink.appendChild(linkText);
+                        //tablink.html(i);
+                        subtab.appendChild(tablink);
+
+                        var ul = document.getElementById("myTab");
+                        ul.appendChild(subtab);
+
+
+                        //then create the subject tab content : ********
+
+                        var subject = document.createElement("div");
+
+                        //if(counter == 1){
+                        subject.className = "tab-pane" ; 
+                        // else{
+                        // subject.className = "tab-pane " ;} 
+                          
+                        subject.id = subjectname ;
+                        var section = document.createElement("section");
+                        section.className = "no-padding";
+                        section.id = "portfolio";
+                        var container = document.createElement("div");
+                        container.className = "container-fluid";
+                        container.id = "container_" + i ;
+                        var notelist = document.createElement("div");
+                        notelist.className = "row no-gutter";
+                        notelist.id = "notelist_" + i ;
+
+                        container.appendChild(notelist);
+                        section.appendChild(container);
+                        subject.appendChild(section);
+
+                        var dadada = document.getElementById("tab_content");
+                        dadada.appendChild(subject);
+
+
+                        // then add the each note to their subject tab (append them to the notelist_subject div)
+                        // than we do staff for each note in current subject
+                        // notecounter = 1;
+
+                        for(var j in allnotes[i]){
+                            
+                            var lvl1 = document.createElement("div");
+                            lvl1.className = "col-lg-4 col-sm-6";
+
+                            var lvl2 = document.createElement("a");
+                            lvl2.href = allnotes[i][j]['content']['url']+"#" ;
+                            lvl2.className = "portfolio-box" ;
+
+                            var lvl3 = document.createElement("img");
+                            //lvl3.src = "img/cat.jpg";
+                            lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
+                            lvl3.className = "img-responsive"; 
+                            lvl3.alt = ""; 
+                            var modifiedID = allnotes[i][j]['objectId'];
+                            lvl3.id = "pdf_"+modifiedID;
+                            p2i.thumbnail(lvl3.id);
+
+                            var lvl4 = document.createElement("div");
+                            lvl4.className = "portfolio-box-caption";
+
+                            var lvl5 = document.createElement("div");
+                            lvl5.className = "portfolio-box-caption-content";
+
+                            var lvl6 = document.createElement("div");
+                            lvl6.className = "project-category text-faded";
+                            var innerText = document.createTextNode(allnotes[i][j]['subtitle']);
+                            lvl6.appendChild(innerText);
+                            lvl6.title = allnotes[i][j]['subtitle'];
+
+                            var lvlsix = document.createElement("div");
+                            lvlsix.className = "project-name";
+                            var innerText2 = document.createTextNode(allnotes[i][j]['title']);
+                            lvlsix.appendChild(innerText2);
+                            lvlsix.title = allnotes[i][j]['title'];
+
+                            lvl5.appendChild(lvl6);
+                            lvl5.appendChild(lvlsix);
+                            lvl4.appendChild(lvl5);
+                            lvl2.appendChild(lvl4);
+                            lvl2.appendChild(lvl3);
+                            lvl1.appendChild(lvl2);
+
+                            notelist.appendChild(lvl1); 
+
+                           // console.log("done for one note!");
+                           //notecounter = noteContent + 1;
+                            
+                        }
+
+                            //console.log("done for one subject");
+
+                            if(counter === 1){
+                                activeTab(i);
+                            }
+
+                            counter = counter + 1 ;
+
+                    }// end of for loop for subject
+
+
+
+
+                    }// end of "else"
+                }// end of function(data)
+            }); // end of ajax
+
+
+            
+           // tab click movement setting
+             // $("#").click(function() {
+             // console.log("clicked");
+             // $(this).tab('show');
+             // });
+
+
+      });          
+    
+
+
+    
+    </script>
+
+</body>
+
+</html>
