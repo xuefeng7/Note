@@ -204,11 +204,11 @@
 
         success: function(data) {
                 
-                if (data === 'failed') {
+                if (data[0] !== '{') {
                   //  if(true){
                    console.log("fetch cached user failed.");
+                   swal("Something went wrong",data);
                 }else{
-
                     console.log(data);
                     //has cached user 
                     //$("#userName").html(data['first_name']+" "+data['last_name']);
@@ -268,7 +268,8 @@
                         // else
                         // subtab.className ="";
                         var tablink = document.createElement("a");
-                        tablink.href = "#"+ i ;
+                        subjectname = i.replace(" ", "_")
+                        tablink.href = "#"+ subjectname ;
                         tablink.setAttribute("data-toggle","tab");
                         var linkText = document.createTextNode(i);
                         tablink.appendChild(linkText);
@@ -288,7 +289,7 @@
                         // else{
                         // subject.className = "tab-pane " ;} 
                           
-                        subject.id = i ;
+                        subject.id = subjectname ;
                         var section = document.createElement("section");
                         section.className = "no-padding";
                         section.id = "portfolio";
