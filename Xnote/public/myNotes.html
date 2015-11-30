@@ -22,13 +22,7 @@
    
     <script src="js/spinner.js"></script>
     <script src="js/p2i.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+ 
 </head>
 
 <body>
@@ -73,10 +67,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <h1 id = "name"></h1>
+                        <p>Your private note repository</p>
+                       <!--  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">hide</a> -->
                     </div>
                 </div>
             </div>
@@ -84,47 +77,10 @@
     <div class="col-lg-12" id = "noteContent">
                     
                     <ul class="nav nav-tabs" id="myTab">
-                         <!-- <li class="active"><a href="notes.html#skills">Skills</a></li>
-                                            <li ><a href="notes.html#friends">Friends</a></li>
-                                            <li><a href="notes.html#photos">Photos</a></li> -->
-                        
+                    <!-- content will be appended into -->
                     </ul>
-
                     <div class="tab-content" id = "tab_content">
-
-                            <!-- <div class="tab-pane active" id="skills">    
-                                                <section class="no-padding" id="portfolio_skills">
-                                                    <div class="container-fluid" id="container_skills">
-                                                        <div class="row no-gutter" id = "noteslist_skills">
-
-
-                                                                <div class="col-lg-4 col-sm-6">
-                                            <a href="#" class="portfolio-box">
-                                                <img src="img/cat.jpg" class="img-responsive" alt="">
-                                                    <div class="portfolio-box-caption">
-                                                        <div class="portfolio-box-caption-content">
-                                                            <div class="project-category text-faded">
-                                                                Note Info
-                                                            </div>
-                                                            <div class="project-name">
-                                                                Project Name
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </a>
-                                        </div>
-
-
-
-
-
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                        </div> -->
-
-                        
-
+                    <!-- content will be appended into -->
                     </div>
                     
                 </div>
@@ -172,10 +128,7 @@
             for( k=0; k<data.length; k++){
                 
                 if(data[k]['subject'] === subjects[j]){
-                    //change pdf file url to https
-                    //var secure_url = data[k]['content']['url'];
-                    //data[k]['content']['url'] = secure_url;
-                    //console.log(data[k]['content']['url']);
+                    
                     sorted[subjects[j]].push(data[k]);
 
                 }
@@ -204,8 +157,9 @@
 
         success: function(data) {
                 
-            if (data === 'failed') {
+            if (data == 'failed') {
                    console.log("fetch cached user failed.");
+
             }else{
 
       
@@ -222,58 +176,18 @@
                            swal("Something went wrong",data);
                         }else{
                             console.log(data);
+                            
                             if(data.length == 0){
-                                var noNotes = docment.createElement("p");
+                                
+                                var noNotes = document.createElement("p");
                                 var noNotesText = document.createTextNode("No Notes available");
                                 noNotes.appendChild(noNotesText);
                                 var noNotesdadada = document.getElementById("tab_content");
                                 noNotesdadada.appendChild(noNotes);
-
-
-                            }
-                            //has cached user 
-                            //$("#userName").html(data['first_name']+" "+data['last_name']);
-                            //$("#userYear").attr("value",data['year']);
-
-                            // get all the nodes for different subject ready
-
-
-                            //here is a note division sample : ******************************
-                                                // <div class="col-lg-4 col-sm-6">
-                                                //     <a href="#" class="portfolio-box">
-                                                //         <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
-                                                //             <div class="portfolio-box-caption">
-                                                //                 <div class="portfolio-box-caption-content">
-                                                //                     <div class="project-category text-faded">
-                                                //                         Note Info
-                                                //                     </div>
-                                                //                     <div class="project-name">
-                                                //                         Project Name
-                                                //                     </div>
-                                                //                 </div>
-                                                //             </div>
-                                                //     </a>
-                                                // </div>
-                            // here is the subject tab sample : *****************************
-                                                // <div class="tab-pane active" id="skills">    
-                                                //         <section class="no-padding" id="portfolio_skills">
-                                                //             <div class="container-fluid" id="container_skills">
-                                                //                 <div class="row no-gutter" id = "noteslist_skills">
-
-                                                //                 </div>
-                                                //             </div>
-                                                //         </section>
-                                                // </div>
-
-                            //list of the tab example : ****************************
-                                                // <ul class="nav nav-tabs" id="myTab">
-                                                    // <li class="active"><a href="notes.html#skills">Skills</a></li>
-                                                    // <li ><a href="notes.html#friends">Friends</a></li>
-                                                    // <li><a href="notes.html#photos">Photos</a></li>
-                                                // </ul>
-
-
-
+            
+                            }else{
+   
+                           
                             var allnotes = sortNote(data);
 
                             console.log(allnotes);
@@ -300,7 +214,7 @@
                                 var ul = document.getElementById("myTab");
                                 ul.appendChild(subtab);
 
-
+                            
                                 //then create the subject tab content : ********
 
                                 var subject = document.createElement("div");
@@ -393,8 +307,7 @@
 
                             }// end of for loop for subject
 
-
-
+                            }// end of "else" for checking emptyness of the note liste
 
                             }// end of "else"
                         }// end of function(data)
@@ -403,18 +316,8 @@
                 }
             }
         }); //end of ajax of "/user?"
-            
-           // tab click movement setting
-             // $("#").click(function() {
-             // console.log("clicked");
-             // $(this).tab('show');
-             // });
-
 
       });          
-    
-
-
     
     </script>
 
