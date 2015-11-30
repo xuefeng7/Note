@@ -177,12 +177,21 @@
                             console.log(data);
                             
                             if(data.length == 0){
-                                
-                                var noNotes = document.createElement("p");
-                                var noNotesText = document.createTextNode("No Notes available");
-                                noNotes.appendChild(noNotesText);
+                                //parent
                                 var noNotesdadada = document.getElementById("tab_content");
+
+                                var noNotes = document.createElement("p");
+                                var noNotesText = document.createTextNode("No Notes Yet");
+                                noNotes.appendChild(noNotesText);
+
+                                var shopLink = document.createElement("a");
+                                shopLink.href = "allNotes.html";
+                                shopLink.className = "btn btn-primary";
+                                var shopText = document.createTextNode("Shop Notes");
+                                shopLink.appendChild(shopText);
+
                                 noNotesdadada.appendChild(noNotes);
+                                noNotesdadada.appendChild(shopLink);
             
                             }else{
    
