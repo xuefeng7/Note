@@ -109,7 +109,7 @@
         <!-- /.row -->
 
         <!-- Page Features -->
-        <div class="row text-center">
+        <div class="row text-center" id = "note-container">
 
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
@@ -162,9 +162,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="row text-center">
 
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
@@ -295,6 +292,10 @@
         return sorted;
     }
 
+
+    var p2i=new page2images();
+
+
     $(document).ready(function() {
         
         //catch user
@@ -305,7 +306,7 @@
 
         success: function(data) {
                 
-                if (data[0] !=== '{') {
+                if (data[0] !== '{') {
                    
                     window.location = '/'; //redirect to home
                 }
@@ -321,6 +322,7 @@
         }
         });
 
+        var currentUser = Parse.User.current(); // check whether currentUser is null to tell whether user can buy notes
         //query notes
         $.ajax({
 
@@ -329,7 +331,137 @@
 
         success: function(data) {
             if(data[0] === '{'){
+
                 //succeed
+
+                currentURL = window.location.href;
+
+
+                // here we have two cases , one is that I have to put all notes if there's # in the URL , otherwise I have to check the subject
+
+                if( currentURL.indexOf('#') === -1 ) // I have to put all notes
+                {
+                    var allnotes = sortNote(data);
+
+                            //console.log(allnotes);
+
+                            counter = 1;
+
+                            for(var i in allnotes){ // i is the key , key is the subject name
+                            
+                                //then create the subject tab content : ********
+
+                                // The note template
+
+                                // <div class="col-md-3 col-sm-6 hero-feature"> 1
+                                // <div class="thumbnail"> 2
+                                //     <img src="http://placehold.it/800x500" alt=""> 3
+                                //     <div class="caption"> 4 
+                                //         <h3>Feature Label</h3> 5 
+                                //         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> 6
+                                //         <p> price </p>7
+                                //         <p> 8
+                                //             <a href="#" class="btn btn-primary">Buy Now!</a> 9
+                                //         </p>
+                                //     </div>
+                                // </div>
+                                // </div>
+
+                                for(var j in allnotes[i]){
+                                    
+                                    var lvl1 = document.createElement("div");
+                                    lvl1.className = "col-md-3 col-sm-6 hero-feature";
+
+                                    var lvl2 = document.createElement("div");
+                                    lvl2.className = "thumbnail" ;
+
+                                    var lvl3 = document.createElement("img");
+                                    //lvl3.src = "img/cat.jpg";
+                                    lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
+                                    lvl3.className = "img-responsive"; 
+                                    lvl3.alt = ""; 
+                                    var modifiedID = allnotes[i][j]['objectId'];
+                                    lvl3.id = "pdf_"+modifiedID;
+                                    p2i.thumbnail(lvl3.id);
+
+                                    var lvl4 = document.createElement("div");
+                                    lvl4.className = "caption";
+
+                                    var lvl5 = document.createElement("h3");        
+                                    var innerText1 = document.createTextNode(allnotes[i][j]['subtitle']);
+                                    lvl6.appendChild(innerText1);
+                                    lvl6.title = allnotes[i][j]['subtitle'];
+
+                                    var lvl6 = document.createElement("p");
+                                    var innerText2 = document.createTextNode(allnotes[i][j]['title']);
+                                    lvl6.appendChild(innerText2);
+                                    lvl6.title = allnotes[i][j]['title'];
+
+                                    var lvl7 = document.createElement("p");
+                                    var innerText3 = document.createTextNode(allnotes[i][j]['price']);
+                                    lvl7.appendChild(innerText3);
+                                    lvl7.title = allnotes[i][j]['price'];
+
+                                    var lvl8 = document.createElement("p"); // this is for the format of "buynow" button
+
+                                    var buybutton = document.createElement("button");
+                                    buybutton.className = "btn btn-primary";
+                                    var innerText4 = document.createTextNode("Buy Now!");
+                                    buybutton.appendChild(innerText4);
+
+                                    lvl8.appendChild(buybutton);
+                                    lvl4.appendChild(lvl8);
+                                    lvl4.appendChild(lvl7);
+                                    lvl4.appendChild(lvl6);
+                                    lvl4.appendChild(lvl5);
+                                    lvl2.appendChild(lvl4);
+                                    lvl2.appendChild(lvl3);
+                                    lvl1.appendChild(lvl2);
+
+
+                                    var container1 = document.getElementById("note-container");
+                                    container1.appendChild(lvl1);
+                                    
+                                } // end of for loop for notes
+
+
+                            }// end of for loop for subject
+
+
+                } // end of " put all notes ""
+                else   // ***********************************************
+                {
+
+
+
+                currentURLlist = currentURL.split('#');
+                currentSubject = currentURLlist[(currentURLlist.length)-1];
+
+
+
+                // The note template
+
+                // <div class="col-md-3 col-sm-6 hero-feature">
+                // <div class="thumbnail">
+                //     <img src="http://placehold.it/800x500" alt="">
+                //     <div class="caption">
+                //         <h3>Feature Label</h3>
+                //         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                //         <p>
+                //             <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                //         </p>
+                //     </div>
+                // </div>
+                // </div>
+
+
+            }  // end of "put certain subject's note"
+
+            // ***********************************************
+
+
+
+
 
             }else{
                 console.log("got all notes");
