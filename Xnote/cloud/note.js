@@ -129,6 +129,7 @@ module.exports = function (){
 
     var User = Parse.Object.extend("_User");
     var user_query = new Parse.Query(User);
+    
     user_query.get(currentUser.objectId, {
       success: function(user) {
         user.set('balance',(user.get('balance') - parseFloat(price)));
