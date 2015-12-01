@@ -116,29 +116,41 @@ module.exports = function (){
   app.post('/purchase', function(req, res){
 
     var currentUser = Parse.User.current();
-
  
     var relation = currentUser.relation("purchased_note");
     var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
     var price = req.body.price;
-    var old_balance = currentUser.get('balance');
+   
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
-    currentUser.set('balance',(old_balance - parseFloat(price)));
+
+    var User = Parse.Object.extend("_User");
+    var user_query = new Parse.Query(User);
+    user_query.get(currentUser.objectId, {
+      success: function(user) {
+        user.set('balance',(user.get('balance') - parseFloat(price)));
         //save
-    currentUser.save(null, {
-        success: function(note) {
-          res.send('succeed');
+        user.save(null, {
+          success: function(note) {
+            res.send('succeed');
+            return;
+          },
+          error: function(error) {
+            res.send(error);
+            return;
+          }
+        });
+        
+      },
+      error: function(object, error) {
+        res.send(error);
           return;
-        },
-        error: function(error) {
-          res.send(error);
-          return;
-        }
-    });
+      }
+  });
+    
   
   });
 
