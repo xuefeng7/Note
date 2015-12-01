@@ -10,8 +10,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -67,8 +65,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 id = "name"></h1>
-                        <p>Your private note repository</p>
+                        <h2 id="name"></h2>
+                        <p id="balance"></p>
                        <!--  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">hide</a> -->
                     </div>
                 </div>
@@ -162,7 +160,9 @@
 
             }else{
 
-      
+                $("#name").html(data['first_name']+"'s private note repository");
+                $("#balance").html("current balance: $"+data['balance']+"");
+                
                 $.ajax({
 
                     url: "/purchased_note",
@@ -178,12 +178,21 @@
                             console.log(data);
                             
                             if(data.length == 0){
-                                
-                                var noNotes = document.createElement("p");
-                                var noNotesText = document.createTextNode("No Notes available");
-                                noNotes.appendChild(noNotesText);
+                                //parent
                                 var noNotesdadada = document.getElementById("tab_content");
+
+                                var noNotes = document.createElement("p");
+                                var noNotesText = document.createTextNode("No Notes Yet");
+                                noNotes.appendChild(noNotesText);
+
+                                var shopLink = document.createElement("a");
+                                shopLink.href = "allNotes.html";
+                                shopLink.className = "btn btn-primary";
+                                var shopText = document.createTextNode("Shop Notes");
+                                shopLink.appendChild(shopText);
+
                                 noNotesdadada.appendChild(noNotes);
+                                noNotesdadada.appendChild(shopLink);
             
                             }else{
    
