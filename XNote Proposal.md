@@ -6,7 +6,7 @@
 2. Yuntao Zhou
 3. Yiping Liang
 
-[Xnote] http://xnote.parseapp.com
+[Xnote](http://xnote.parseapp.com)
 
 **Target audience**
 
