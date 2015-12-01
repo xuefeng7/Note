@@ -414,14 +414,14 @@
                                     lvl4.className = "caption";
 
                                     var lvl5 = document.createElement("h3");        
-                                    var innerText1 = document.createTextNode(allnotes[i][j]['subtitle']);
+                                    var innerText1 = document.createTextNode(allnotes[i][j]['title']);
                                     lvl5.appendChild(innerText1);
-                                    lvl5.title = allnotes[i][j]['subtitle'];
+                                    lvl5.title = allnotes[i][j]['title'];
 
                                     var lvl6 = document.createElement("p");
-                                    var innerText2 = document.createTextNode(allnotes[i][j]['title']);
+                                    var innerText2 = document.createTextNode(allnotes[i][j]['subtitle']);
                                     lvl6.appendChild(innerText2);
-                                    lvl6.title = allnotes[i][j]['title'];
+                                    lvl6.title = allnotes[i][j]['subtitle'];
 
                                     var lvl7 = document.createElement("p");
                                     var innerText3 = document.createTextNode('$'+allnotes[i][j]['price']);
