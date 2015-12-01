@@ -61,7 +61,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#page-top">Welcome</a>
-            
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -82,6 +81,9 @@
                     </li>
                     <li>
                         <img class = "img-circle" src = "" id = "profileImg" />
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#" id="userName"></a>
                     </li>
                 </ul>
             </div>
@@ -305,7 +307,7 @@
 
         success: function(data) {
                 
-                if (data[0] !=== '{') {
+                if (data[0] == 'failed') {
                    
                     window.location = '/'; //redirect to home
                 }
