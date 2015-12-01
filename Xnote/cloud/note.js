@@ -8,17 +8,18 @@ module.exports = function (){
   //note query endpoint
   app.get('/note', function(req, res){
     
-    //var subject = req.body.subject;
+    var subject = req.body.subject;
     var note = Parse.Object.extend("Note");
     var query = new Parse.Query(note);
     
     //if subject is not provided, send all notes back
-    // if(subject !== null){
-    //   query.equalTo('subject',subject);
-    // }
+    if(subject !== ""){
+      query.equalTo('subject',subject);
+    }
 
     query.find({
       success: function(notes) {
+        console.log(notes);
         res.send(notes);
         return;
       },
@@ -35,13 +36,13 @@ module.exports = function (){
 
     var currentUser = Parse.User.current();
 
-    var subject = req.body.subject;
+    //var subject = req.body.subject;
     var relation = currentUser.relation("purchased_note");
     var note_query = relation.query();
     //if subject is not provided, send all notes back
-    if(subject !== null){
-      note_query.equalTo('subject',subject);
-    }
+    // if(subject !== null){
+    //   note_query.equalTo('subject',subject);
+    // }
 
     note_query.find({
       success: function(notes) {
@@ -125,9 +126,12 @@ module.exports = function (){
     var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
+    var price = req.body.price;
+    var old_balance = currentUser.get('balance');
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
+    currentUser.set('balance',(old_balance - price));
         //save
     currentUser.save(null, {
         success: function(note) {
