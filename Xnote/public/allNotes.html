@@ -103,122 +103,9 @@
 
         <hr>
 
-        <!-- Title -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Latest Features</h3>
-            </div>
-        </div>
-        <!-- /.row -->
+       
 
-        <!-- Page Features -->
-        <div class="row text-center" id = "note-container">
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt=img"">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    </div>
     
     </div>
     <footer>
@@ -430,10 +317,52 @@
 
                                     var lvl8 = document.createElement("p"); // this is for the format of "buynow" button
 
-                                    var buybutton = document.createElement("button");
+                                    var buybutton = document.createElement("input");
                                     buybutton.className = "btn btn-primary";
-                                    var innerText4 = document.createTextNode("Buy Now!");
-                                    buybutton.appendChild(innerText4);
+                                    //var innerText4 = document.createTextNode("Buy Now!");
+                                    //buybutton.appendChild(innerText4);
+                                    buybutton.type = 'button';
+                                    buybutton.value = 'Buy Now!';
+                                    //buybutton.id = allnotes[i][j]['objectId'];
+                                    //buybutton.name = allnotes[i][j]['price'];
+                                    buybutton.onclick = (function(e){  // directly set the functions in such button
+                                        return function(){
+                                        // console.log("in!!");
+
+                                        $.ajax({
+
+                                            url: "/purchase",
+                                            type: "POST",
+        
+                                            data: {
+                                                noteId: e['objectId'],
+                                                price: e['price']
+                                            },
+
+
+                                            success: function(data) {
+
+
+                                                if(data === 'succeed'){
+
+                                                    swal("Purchase Succeed!");
+                                                }else{
+
+                                                    swal("Purchase Fail!");
+                                                }
+
+                                            }, // end of success
+
+                                            error: function(error) {
+                                                console.log(error);
+                                                swal("Something went wrong, please give it another shot");
+                                            }
+
+
+                                        });
+                                        }; // end of return function()
+                                    }) (allnotes[i][j]) ;  // end of onclick function(e) definition, the allnotes[i][j] is the correspoding note
+
 
                                     lvl8.appendChild(buybutton);
                                     lvl4.appendChild(lvl5);

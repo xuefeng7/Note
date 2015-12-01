@@ -117,17 +117,21 @@ module.exports = function (){
      
   });
   //purchase event endpoint
-  app.get('/purchase', function(req, res){
+  app.post('/purchase', function(req, res){
 
     var currentUser = Parse.User.current();
 
-    var subject = req.body.subject;
+ 
     var relation = currentUser.relation("purchased_note");
     var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
+<<<<<<< Updated upstream
     var price = req.body.price;
     var old_balance = currentUser.get('balance');
+=======
+    console.log(objectId);
+>>>>>>> Stashed changes
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
