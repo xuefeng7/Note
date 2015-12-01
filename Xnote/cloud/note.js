@@ -126,16 +126,13 @@ module.exports = function (){
     var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
-<<<<<<< Updated upstream
     var price = req.body.price;
     var old_balance = currentUser.get('balance');
-=======
     console.log(objectId);
->>>>>>> Stashed changes
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
-    currentUser.set('balance',(old_balance - parseDouble(price)));
+    currentUser.set('balance',(old_balance - parseFloat(price)));
         //save
     currentUser.save(null, {
         success: function(note) {
