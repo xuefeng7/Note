@@ -156,6 +156,8 @@
         success: function(data) {
                 
             if (data == 'failed') {
+
+                   window.location = '/'; //redirect
                    console.log("fetch cached user failed.");
 
             }else{
@@ -174,6 +176,7 @@
                           //  if(true){
                            console.log("fetch cached user failed.");
                            swal("Something went wrong",data);
+                        
                         }else{
                             console.log(data);
                             
@@ -309,6 +312,7 @@
                                     //console.log("done for one subject");
 
                                     if(counter === 1){
+                                        console.log('in?');
                                         activeTab(i);
                                     }
 

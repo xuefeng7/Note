@@ -36,16 +36,12 @@ module.exports = function (){
 
     var currentUser = Parse.User.current();
 
-    //var subject = req.body.subject;
     var relation = currentUser.relation("purchased_note");
     var note_query = relation.query();
-    //if subject is not provided, send all notes back
-    // if(subject !== null){
-    //   note_query.equalTo('subject',subject);
-    // }
-
+    
     note_query.find({
       success: function(notes) {
+        //console.log(notes);
         res.send(notes);
         return;
       },
@@ -126,12 +122,9 @@ module.exports = function (){
     var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
-<<<<<<< Updated upstream
     var price = req.body.price;
     var old_balance = currentUser.get('balance');
-=======
-    console.log(objectId);
->>>>>>> Stashed changes
+
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
