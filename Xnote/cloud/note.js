@@ -117,22 +117,19 @@ module.exports = function (){
 
     var currentUser = Parse.User.current();
  
-    var relation = currentUser.relation("purchased_note");
-    var note_query = relation.query();
     //if subject is not provided, send all notes back
     var objectId = req.body.noteId;
     var price = req.body.price;
    
     var note = Parse.Object.extend("Note");
     note.id = objectId;
-    relation.add(note);
 
-    var User = Parse.Object.extend("_User");
-    var user_query = new Parse.Query(User);
-    
-    user_query.get(currentUser.objectId, {
-      success: function(user) {
+    Parse.User.become(currentUser.sessionToken).then(function (user) {
+        
         user.set('balance',(user.get('balance') - parseFloat(price)));
+        var relation = user.relation("purchased_note");
+        var note_query = relation.query();
+        relation.add(note);
         //save
         user.save(null, {
           success: function(note) {
@@ -144,14 +141,11 @@ module.exports = function (){
             return;
           }
         });
-        
-      },
-      error: function(object, error) {
-        res.send(error);
+    }, function (error) {
+          res.send(error);
           return;
-      }
-  });
-    
+    });
+
   
   });
 
