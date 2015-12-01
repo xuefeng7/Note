@@ -135,7 +135,7 @@ module.exports = function (){
     var note = Parse.Object.extend("Note");
     note.id = objectId;
     relation.add(note);
-    currentUser.set('balance',(old_balance - price));
+    currentUser.set('balance',(old_balance - parseDouble(price)));
         //save
     currentUser.save(null, {
         success: function(note) {
