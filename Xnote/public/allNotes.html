@@ -348,17 +348,15 @@
         $.ajax({
 
         url: "/note",
-        type: "GET",
-        dataType: "text",
+        type: "POST",
+        
         data: {
             subject: query_subject
         },
 
         success: function(data) {
-            
-            console.log(data);
 
-            if(data[0] === '['){
+            if((typeof data[0]) === "object"){
 
                 //succeed
                 // simply put all the notes returned from server
