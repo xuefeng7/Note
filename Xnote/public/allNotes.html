@@ -40,6 +40,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="js/spinner.js"></script>
+    <script src="js/p2i.js"></script>
      <!-- load Parse JS SDK  -->
     <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script> 
     <script>Parse.initialize("k1i3e6JBdkUgptmp2oqoiJkBOAobNTR6mCTe7NnU", "SqhJL7a5UPYhdNaRChWTGspWuapBjqYOlqX99wGy");
@@ -93,7 +94,7 @@
     </nav>
 
     <!-- Header -->
-    <div class="container">
+    <div class="container" id = "ct">
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
@@ -111,7 +112,7 @@
         <!-- /.row -->
 
         <!-- Page Features -->
-        <div class="row text-center">
+        <div class="row text-center" id = "note-container">
 
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
@@ -164,9 +165,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="row text-center">
 
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
@@ -297,6 +295,10 @@
         return sorted;
     }
 
+
+    var p2i=new page2images();
+
+
     $(document).ready(function() {
         
         //catch user
@@ -307,6 +309,7 @@
 
         success: function(data) {
                 
+
                 if (data[0] == 'failed') {
                    
                     window.location = '/'; //redirect to home
@@ -323,18 +326,137 @@
         }
         });
 
+        var currentUser = Parse.User.current(); // check whether currentUser is null to tell whether user can buy notes
+        var query_subject = "";
+
+        // check whether there are certain subject request
+
+        currentURL = window.location.href;
+
+        if( currentURL.indexOf('#') === -1 ) // I have need all notes
+                {} // do nothing and keep query_subject as ""
+        else { 
+
+            currentURLlist = currentURL.split('#');
+            currentSubject = currentURLlist[(currentURLlist.length)-1];
+
+            query_subject = currentSubject;
+            //console.log(query_subject);
+        }
+        console.log(query_subject);
         //query notes
         $.ajax({
 
         url: "/note",
-        type: "GET",
+        type: "POST",
+        
+        data: {
+            subject: query_subject
+        },
 
         success: function(data) {
-            if(data[0] === '{'){
+
+            if((typeof data[0]) === "object"){
+
                 //succeed
+                // simply put all the notes returned from server
+
+                    var allnotes = sortNote(data);
+
+                            //console.log(allnotes);
+
+                            //counter = 1;
+
+                            for(var i in allnotes) // i is the key , key is the subject name
+                            {
+                                // create the title
+                                var subjectrow = document.createElement("div");
+                                    subjectrow.className = "row";
+                                var subjectcol = document.createElement("div");
+                                    subjectcol.className = "col-lg-12";
+                                var subjectname = document.createElement("h3");
+                                    subjectrow.className = "row";
+                                var subname = document.createTextNode(i);
+                                    subjectname.appendChild(subname);
+
+                                subjectcol.appendChild(subjectname);
+                                subjectrow.appendChild(subjectcol);
+
+                                var container1 = document.getElementById("ct");
+                                    container1.appendChild(subjectrow);
+
+                                // create the container for
+                                var subNoteContainer = document.createElement("div");
+                                subNoteContainer.className = "row text-center";
+                                container1.appendChild(subNoteContainer);
+
+
+                            
+
+                                for(var j in allnotes[i]){
+                                    
+                                    var lvl1 = document.createElement("div");
+                                    lvl1.className = "col-md-3 col-sm-6 hero-feature";
+
+                                    var lvl2 = document.createElement("div");
+                                    lvl2.className = "thumbnail" ;
+
+                                    var lvl3 = document.createElement("img");
+                                    //lvl3.src = "img/cat.jpg";
+                                    lvl3.src = "https://api.page2images.com/directlink?p2i_url="+allnotes[i][j]['content']['url']+"&p2i_key=719751a160d9feb5";
+                                    lvl3.className = "img-responsive"; 
+                                    lvl3.alt = ""; 
+                                    var modifiedID = allnotes[i][j]['objectId'];
+                                    lvl3.id = "pdf_"+modifiedID;
+                                    p2i.thumbnail(lvl3.id);
+
+                                    var lvl4 = document.createElement("div");
+                                    lvl4.className = "caption";
+
+                                    var lvl5 = document.createElement("h3");        
+                                    var innerText1 = document.createTextNode(allnotes[i][j]['title']);
+                                    lvl5.appendChild(innerText1);
+                                    lvl5.title = allnotes[i][j]['title'];
+
+                                    var lvl6 = document.createElement("p");
+                                    var innerText2 = document.createTextNode(allnotes[i][j]['subtitle']);
+                                    lvl6.appendChild(innerText2);
+                                    lvl6.title = allnotes[i][j]['subtitle'];
+
+                                    var lvl7 = document.createElement("p");
+                                    var innerText3 = document.createTextNode('$'+allnotes[i][j]['price']);
+                                    lvl7.appendChild(innerText3);
+                                    lvl7.title = allnotes[i][j]['price'];
+
+                                    var lvl8 = document.createElement("p"); // this is for the format of "buynow" button
+
+                                    var buybutton = document.createElement("button");
+                                    buybutton.className = "btn btn-primary";
+                                    var innerText4 = document.createTextNode("Buy Now!");
+                                    buybutton.appendChild(innerText4);
+
+                                    lvl8.appendChild(buybutton);
+                                    lvl4.appendChild(lvl5);
+                                    lvl4.appendChild(lvl6);
+                                    lvl4.appendChild(lvl7);
+                                    lvl4.appendChild(lvl8);
+                                    lvl2.appendChild(lvl3);
+                                    lvl2.appendChild(lvl4);
+                                    lvl1.appendChild(lvl2);
+
+
+                                   
+                                    subNoteContainer.appendChild(lvl1);
+                                    
+                                } // end of for loop for notes
+
+
+                            }// end of for loop for subject
+
+            // ***********************************************
 
             }else{
-                console.log("got all notes");
+                
                 swal("Failed to load notes, please give it another shot");
             }
 
@@ -344,7 +466,7 @@
             swal("Something went wrong, please give it another shot");
         }
 
-        });
+        }); // end of ajax of "/notes"
 
 
     });
