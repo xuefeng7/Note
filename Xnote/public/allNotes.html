@@ -322,14 +322,28 @@
                                     //var innerText4 = document.createTextNode("Buy Now!");
                                     //buybutton.appendChild(innerText4);
                                     buybutton.type = 'button';
-                                    buybutton.value = 'Buy Now!';
+                                    buybutton.value = 'Buy Now';
                                     //buybutton.id = allnotes[i][j]['objectId'];
                                     //buybutton.name = allnotes[i][j]['price'];
                                     buybutton.onclick = (function(e){  // directly set the functions in such button
                                         return function(){
                                         // console.log("in!!");
-
-                                        $.ajax({
+                          			var note_info = "Product name: "+e['title']+"\n\nProduct detail: "
+                          							+e['subtitle']+"\n\nProduct price: $"+e['price'];
+                                    swal(
+                                    	{   
+                                    		title: "Purchase Confirm",   
+                                    		text: note_info,   
+                                    		type: "info",   
+                                    		confirmButtonColor: "#DD6B55",
+                                    		confirmButtonText:"Confirm",
+                                    		showCancelButton: true,   
+                                    		closeOnConfirm: false,   
+                                    		showLoaderOnConfirm: true, 
+                                    	
+                                    	}, function(){   
+                                    		//confimred handler
+                                    		$.ajax({
 
                                             url: "/purchase",
                                             type: "POST",
@@ -345,21 +359,33 @@
 
                                                 if(data === 'succeed'){
 
-                                                    swal("Purchase Succeed!");
+                                                    swal("Thanks!","Note No."+e['objectId']+"has been purchased successfully, $"+e['price']+" will be billed to your account. ","success");
                                                 }else{
-
-                                                    swal("Purchase Fail!");
+                                                	
+                                                	if(data == 'low balance'){
+                                                		
+                                                		swal(
+                                                		{   
+                                                			title: "Purchase Failed",   
+                                                			text: "Please add more balance into your account before purchase.",   
+                                                			imageUrl: "img/low-balance.png" 
+                                                		});
+                                                		
+                                                	}else{
+                                                   	 	swal("Purchase Fail!"," Please give it another shot","error");
+                                                	}
                                                 }
 
                                             }, // end of success
 
                                             error: function(error) {
                                                 console.log(error);
-                                                swal("Something went wrong, please give it another shot");
+                                                swal("Something went wrong","please give it another shot","error");
                                             }
 
 
                                         });
+                                    	});
                                         }; // end of return function()
                                     }) (allnotes[i][j]) ;  // end of onclick function(e) definition, the allnotes[i][j] is the correspoding note
 

@@ -126,27 +126,33 @@ module.exports = function (){
 
     Parse.User.become(currentUser.sessionToken).then(function (user) {
         
-        user.set('balance',(user.get('balance') - parseFloat(price)));
-        var relation = user.relation("purchased_note");
-        var note_query = relation.query();
-        relation.add(note);
-        //save
-        user.save(null, {
-          success: function(note) {
-            res.send('succeed');
-            return;
-          },
-          error: function(error) {
-            res.send(error);
-            return;
-          }
-        });
+        if(user.get('balance') < price){
+          //unable to purchase
+          res.send('low balance');
+          return;
+        
+        }else{
+          user.set('balance',(user.get('balance') - parseFloat(price)));
+          var relation = user.relation("purchased_note");
+          var note_query = relation.query();
+          relation.add(note);
+          //save
+          user.save(null, {
+            success: function(note) {
+              res.send('succeed');
+              return;
+            },
+            error: function(error) {
+              res.send(error);
+              return;
+            }
+          });
+      }
     }, function (error) {
           res.send(error);
           return;
     });
-
-  
+       
   });
 
   return app;
