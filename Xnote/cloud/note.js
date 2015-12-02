@@ -11,7 +11,7 @@ module.exports = function (){
     var subject = req.body.subject;
     var note = Parse.Object.extend("Note");
     var query = new Parse.Query(note);
-    
+    query.descending("createdAt");
     //if subject is not provided, send all notes back
     if(subject !== ""){
       query.equalTo('subject',subject);
@@ -38,7 +38,7 @@ module.exports = function (){
 
     var relation = currentUser.relation("purchased_note");
     var note_query = relation.query();
-    
+    note_query.descending("createdAt");
     note_query.find({
       success: function(notes) {
         //console.log(notes);
