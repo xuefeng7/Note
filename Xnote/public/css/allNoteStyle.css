@@ -27,6 +27,14 @@ footer {
     margin: 50px 0;
 }
 .jumbotron{
-	
     font-weight: 800;
+}
+.thumbnail{
+    height: 420px;
+}
+.thumbnail>img {
+    height: 200px;
+}
+p{
+    height: 30px;
 }
