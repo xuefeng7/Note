@@ -25,7 +25,7 @@ module.exports = function (){
     user.set('first_name',first_name);
     user.set('last_name', last_name);
     user.set('profile', imgFile);
-    user.set('balance',0);
+    user.set('balance',50);
     
     user.signUp().then(function(user) {
 
