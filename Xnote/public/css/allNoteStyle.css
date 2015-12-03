@@ -8,13 +8,13 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     /*background-image: url(bg3.jpg); */
     background-color:white;
-    background-repeat:no-repeat; 
+     
     background-attachment:fixed;
-    background-image:url(../img/white.png);
+    background-image:url(../img/grey.png);
 }
 
 .hero-spacer {
-	color:black;
+	color:white;
 	background-color: #FF7A51;  //*#FF7A51  fed136 */
     margin-top: 50px;
     font-weight: thin;

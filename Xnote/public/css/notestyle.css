@@ -123,3 +123,8 @@
         margin-right: 0;
     }
 }
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+    height: 260px;
+    width: 100%;
+}
