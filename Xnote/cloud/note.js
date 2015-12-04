@@ -132,21 +132,40 @@ module.exports = function (){
           return;
         
         }else{
-          user.set('balance',(user.get('balance') - parseFloat(price)));
+          //if the user already purchased the note
           var relation = user.relation("purchased_note");
           var note_query = relation.query();
-          relation.add(note);
-          //save
-          user.save(null, {
-            success: function(note) {
-              res.send('succeed');
-              return;
+          note_query.equalTo('objectId',objectId);
+          note_query.find({
+            success: function(note_list) {
+              if(note_list.length == 0){
+                //have not been purchased
+                relation.add(note);
+                //deduct the balance
+                user.set('balance',(user.get('balance') - parseFloat(price)));
+                //save
+                user.save(null, {
+                  success: function(note) {
+                    res.send('succeed');
+                    return;
+                  },
+                  error: function(error) {
+                    res.send(error);
+                    return;
+                  }
+                });
+              }else{
+                //already owned this note
+                res.send('owned');
+                return;
+              }
             },
             error: function(error) {
               res.send(error);
               return;
             }
           });
+
       }
     }, function (error) {
           res.send(error);

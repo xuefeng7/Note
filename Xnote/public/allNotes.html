@@ -183,17 +183,16 @@
     }
 
     var p2i=new page2images();
-    //enlarge
+    //animation enlarge
     function enlarge(x){
          x.style.transform = "scale(1.03,1.03)";
          x.style.transitionDuration = "0.3s";
     }
-    //shrink
+    //animation shrink
     function shrink(x){
          x.style.transform = "scale(1.0,1.0)";
          x.style.transitionDuration = "0.3s";
     }
-
 
     $(document).ready(function() {
         
@@ -206,12 +205,11 @@
         success: function(data) {
                 
 
-                if (data[0] == 'failed') {
+                if (data == 'failed') {
                    
                     window.location = '/'; //redirect to home
                 }
                 else{
-
                    //has cached user 
                    $("#userName").html(data['first_name']+" "+data['last_name']);
                    $("#profileImg").attr('src',data['profile']['url']);
@@ -377,7 +375,16 @@
                                                 			imageUrl: "img/low-balance.png" 
                                                 		});
                                                 		
-                                                	}else{
+                                                	}else if (data == 'owned'){
+
+                                                        swal(
+                                                        {   
+                                                            title: "Purchase Failed",   
+                                                            text: "You have already owned this note, please view it in your repository",   
+                                                            imageUrl: "img/owned.png" 
+                                                        });
+
+                                                    }else{
                                                    	 	swal("Purchase Fail!"," Please give it another shot","error");
                                                 	}
                                                 }
