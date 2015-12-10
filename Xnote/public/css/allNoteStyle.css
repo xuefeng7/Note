@@ -25,6 +25,10 @@ body {
     margin-bottom: 30px;
 }
 
+.container-fluid{
+    background-color: #f05f40;
+}
+
 footer {
     margin: 50px 0;
 }
