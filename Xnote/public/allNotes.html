@@ -195,6 +195,8 @@
     }
 
 
+    var CurrentUser = false;
+
     $(document).ready(function() {
         
         //catch user
@@ -206,12 +208,17 @@
         success: function(data) {
                 
 
-                if (data[0] == 'failed') {
+                if (data == 'failed') {
                    
-                    window.location = '/'; //redirect to home
+                   console.log("User not logged in.");
+                   $("#userName").hide();
+                   $("#profileImg").hide();
+                   $("#myNote").hide();
+
+                   // window.location = '/'; //redirect to home
                 }
                 else{
-
+                    CurrentUser = true;
                    //has cached user 
                    $("#userName").html(data['first_name']+" "+data['last_name']);
                    $("#profileImg").attr('src',data['profile']['url']);
@@ -222,7 +229,7 @@
         }
         });
 
-        var currentUser = Parse.User.current(); // check whether currentUser is null to tell whether user can buy notes
+        //var currentUser = Parse.User.current(); // check whether currentUser is null to tell whether user can buy notes
         var query_subject = "";
 
         // check whether there are certain subject request
@@ -335,63 +342,80 @@
                                     buybutton.onclick = (function(e){  // directly set the functions in such button
                                         return function(){
                                         // console.log("in!!");
-                          			var note_info = "Product price: $"+e['price'];
-                                    swal(
-                                    	{   
-                                    		title: "Purchase Confirm",   
-                                    		text: note_info,   
-                                    		type: "info",   
-                                    		confirmButtonColor: "#DD6B55",
-                                    		confirmButtonText:"Confirm",
-                                    		showCancelButton: true,   
-                                    		closeOnConfirm: false,   
-                                    		showLoaderOnConfirm: true, 
-                                    	
-                                    	}, function(){   
-                                    		//confimred handler
-                                    		$.ajax({
 
-                                            url: "/purchase",
-                                            type: "POST",
-        
-                                            data: {
-                                                noteId: e['objectId'],
-                                                price: e['price']
-                                            },
+                                    if(CurrentUser === true){
+                              			var note_info = "Product price: $"+e['price'];
+                                        swal(
+                                        	{   
+                                        		title: "Purchase Confirm",   
+                                        		text: note_info,   
+                                        		type: "info",   
+                                        		confirmButtonColor: "#DD6B55",
+                                        		confirmButtonText:"Confirm",
+                                        		showCancelButton: true,   
+                                        		closeOnConfirm: false,   
+                                        		showLoaderOnConfirm: true, 
+                                        	
+                                        	}, function(){   
+                                        		//confimred handler
+                                        		$.ajax({
+
+                                                url: "/purchase",
+                                                type: "POST",
+            
+                                                data: {
+                                                    noteId: e['objectId'],
+                                                    price: e['price']
+                                                },
 
 
-                                            success: function(data) {
+                                                success: function(data) {
 
 
-                                                if(data === 'succeed'){
+                                                    if(data === 'succeed'){
 
-                                                    swal("Thanks!","Note Id. "+e['objectId']+" has been purchased successfully, $"+e['price']+" will be billed to your account. ","success");
-                                                }else{
-                                                	
-                                                	if(data == 'low balance'){
-                                                		
-                                                		swal(
-                                                		{   
-                                                			title: "Purchase Failed",   
-                                                			text: "Please add more balance into your account before purchase.",   
-                                                			imageUrl: "img/low-balance.png" 
-                                                		});
-                                                		
-                                                	}else{
-                                                   	 	swal("Purchase Fail!"," Please give it another shot","error");
-                                                	}
+                                                        swal("Thanks!","Note Id. "+e['objectId']+" has been purchased successfully, $"+e['price']+" will be billed to your account. ","success");
+                                                    }else{
+                                                    	
+                                                    	if(data == 'low balance'){
+                                                    		
+                                                    		swal(
+                                                    		{   
+                                                    			title: "Purchase Failed",   
+                                                    			text: "Please add more balance into your account before purchase.",   
+                                                    			imageUrl: "img/low-balance.png" 
+                                                    		});
+                                                    		
+                                                    	}else{
+                                                       	 	swal("Purchase Fail!"," Please give it another shot","error");
+                                                    	}
+                                                    }
+
+                                                }, // end of success
+
+                                                error: function(error) {
+                                                    console.log(error);
+                                                    swal("Something went wrong","please give it another shot","error");
                                                 }
 
-                                            }, // end of success
 
-                                            error: function(error) {
-                                                console.log(error);
-                                                swal("Something went wrong","please give it another shot","error");
-                                            }
+                                            });
+                                        	}); // end of swal
+                                        }// end of if (CurrentUser === true)
+                                        else{
+
+                                            swal(
+                                            {   
+                                                title: "Purchase Failed",   
+                                                text: "Please log in before purchase.",   
+                                                imageUrl: "img/low-balance.png"
+                                            });
+
+                                        } // end of else
 
 
-                                        });
-                                    	});
+
+                                    
                                         }; // end of return function()
                                     }) (allnotes[i][j]) ;  // end of onclick function(e) definition, the allnotes[i][j] is the correspoding note
 
