@@ -183,20 +183,18 @@
     }
 
     var p2i=new page2images();
-    //enlarge
+    //animation enlarge
     function enlarge(x){
          x.style.transform = "scale(1.03,1.03)";
          x.style.transitionDuration = "0.3s";
     }
-    //shrink
+    //animation shrink
     function shrink(x){
          x.style.transform = "scale(1.0,1.0)";
          x.style.transitionDuration = "0.3s";
     }
 
-
     var CurrentUser = false;
-
     $(document).ready(function() {
         
         //catch user
@@ -342,6 +340,7 @@
                                     buybutton.onclick = (function(e){  // directly set the functions in such button
                                         return function(){
                                         // console.log("in!!");
+<<<<<<< HEAD
 
                                     if(CurrentUser === true){
                               			var note_info = "Product price: $"+e['price'];
@@ -396,6 +395,62 @@
                                                 error: function(error) {
                                                     console.log(error);
                                                     swal("Something went wrong","please give it another shot","error");
+=======
+                          			var note_info = "Product price: $"+e['price'];
+                                    swal(
+                                    	{   
+                                    		title: "Purchase Confirm",   
+                                    		text: note_info,   
+                                    		type: "info",   
+                                    		confirmButtonColor: "#DD6B55",
+                                    		confirmButtonText:"Confirm",
+                                    		showCancelButton: true,   
+                                    		closeOnConfirm: false,   
+                                    		showLoaderOnConfirm: true, 
+                                    	
+                                    	}, function(){   
+                                    		//confimred handler
+                                    		$.ajax({
+
+                                            url: "/purchase",
+                                            type: "POST",
+        
+                                            data: {
+                                                noteId: e['objectId'],
+                                                price: e['price']
+                                            },
+
+
+                                            success: function(data) {
+
+
+                                                if(data === 'succeed'){
+
+                                                    swal("Thanks!","Note Id. "+e['objectId']+" has been purchased successfully, $"+e['price']+" will be billed to your account. ","success");
+                                                }else{
+                                                	
+                                                	if(data == 'low balance'){
+                                                		
+                                                		swal(
+                                                		{   
+                                                			title: "Purchase Failed",   
+                                                			text: "Please add more balance into your account before purchase.",   
+                                                			imageUrl: "img/low-balance.png" 
+                                                		});
+                                                		
+                                                	}else if (data == 'owned'){
+
+                                                        swal(
+                                                        {   
+                                                            title: "Purchase Failed",   
+                                                            text: "You have already owned this note, please view it in your repository",   
+                                                            imageUrl: "img/owned.png" 
+                                                        });
+
+                                                    }else{
+                                                   	 	swal("Purchase Fail!"," Please give it another shot","error");
+                                                	}
+>>>>>>> origin/master
                                                 }
 
 

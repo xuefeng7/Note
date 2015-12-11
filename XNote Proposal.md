@@ -8,6 +8,8 @@
 
 [Xnote](http://xnote.parseapp.com)
 
+xnote.parseapp.com
+
 **Target audience**
 
 1. Students who wants to sale their high quality notes for pocket money and reputation. 
