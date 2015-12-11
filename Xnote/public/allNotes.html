@@ -384,7 +384,16 @@
                                                     			imageUrl: "img/low-balance.png" 
                                                     		});
                                                     		
-                                                    	}else{
+                                                    	}else if{
+
+                                                            swal(
+                                                            {   
+                                                                title: "Purchase Failed",   
+                                                                text: "Your already owned this node, please view it in your repository.",   
+                                                                imageUrl: "img/owned.png" 
+                                                            });
+
+                                                        }else{
                                                        	 	swal("Purchase Fail!"," Please give it another shot","error");
                                                     	}
                                                     }
