@@ -340,7 +340,6 @@
                                     buybutton.onclick = (function(e){  // directly set the functions in such button
                                         return function(){
                                         // console.log("in!!");
-<<<<<<< HEAD
 
                                     if(CurrentUser === true){
                               			var note_info = "Product price: $"+e['price'];
@@ -395,63 +394,6 @@
                                                 error: function(error) {
                                                     console.log(error);
                                                     swal("Something went wrong","please give it another shot","error");
-=======
-                          			var note_info = "Product price: $"+e['price'];
-                                    swal(
-                                    	{   
-                                    		title: "Purchase Confirm",   
-                                    		text: note_info,   
-                                    		type: "info",   
-                                    		confirmButtonColor: "#DD6B55",
-                                    		confirmButtonText:"Confirm",
-                                    		showCancelButton: true,   
-                                    		closeOnConfirm: false,   
-                                    		showLoaderOnConfirm: true, 
-                                    	
-                                    	}, function(){   
-                                    		//confimred handler
-                                    		$.ajax({
-
-                                            url: "/purchase",
-                                            type: "POST",
-        
-                                            data: {
-                                                noteId: e['objectId'],
-                                                price: e['price']
-                                            },
-
-
-                                            success: function(data) {
-
-
-                                                if(data === 'succeed'){
-
-                                                    swal("Thanks!","Note Id. "+e['objectId']+" has been purchased successfully, $"+e['price']+" will be billed to your account. ","success");
-                                                }else{
-                                                	
-                                                	if(data == 'low balance'){
-                                                		
-                                                		swal(
-                                                		{   
-                                                			title: "Purchase Failed",   
-                                                			text: "Please add more balance into your account before purchase.",   
-                                                			imageUrl: "img/low-balance.png" 
-                                                		});
-                                                		
-                                                	}else if (data == 'owned'){
-
-                                                        swal(
-                                                        {   
-                                                            title: "Purchase Failed",   
-                                                            text: "You have already owned this note, please view it in your repository",   
-                                                            imageUrl: "img/owned.png" 
-                                                        });
-
-                                                    }else{
-                                                   	 	swal("Purchase Fail!"," Please give it another shot","error");
-                                                	}
->>>>>>> origin/master
-                                                }
 
 
                                             });
@@ -467,9 +409,6 @@
                                             });
 
                                         } // end of else
-
-
-
                                     
                                         }; // end of return function()
                                     }) (allnotes[i][j]) ;  // end of onclick function(e) definition, the allnotes[i][j] is the correspoding note
