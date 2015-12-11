@@ -166,7 +166,7 @@
             }else{
 
                 $("#name").html(data['first_name']+"'s private note repository");
-                $("#balance").html("current balance: $"+data['balance']+"");
+                $("#balance").html("current balance: $"+data['balance'].toFixed(2)+"");
                 $("#profileImg").attr('src',data['profile']['url']);
                 
                 $.ajax({
